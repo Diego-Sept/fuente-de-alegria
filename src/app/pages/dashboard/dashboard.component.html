@@ -1,0 +1,30 @@
+<div class="content-wrapper container-xxl p-3 w-100">
+    <div class="content-body w-100">
+        <div class="row match-height" *ngIf="isAdmin || isClient">
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Clientes'" [alt]="'Clientes'" [src]="'assets/images/icons/data-management/user.svg'" [href]="'/clients'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Presupuestos'" [alt]="'Presupuestos'" [src]="'assets/images/icons/data-management/budget.svg'" [href]="'/budgets'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Inventarios'" [alt]="'Inventarios'" [src]="'assets/images/icons/data-management/stores.svg'" [href]="'/stores'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Cajas'" [alt]="'Cajas'" [src]="'assets/images/icons/data-management/paydesk.svg'" [href]="'/paydesks'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Crear Admin'" [alt]="'Crear Admin'" [src]="'assets/images/icons/data-management/user.svg'" [href]="'/adminCreation'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Planillas Diarias'" [alt]="'Planillas Diarias'" [src]="'assets/images/icons/data-management/schedule.svg'" [href]="'/schedules'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Calendario'" [alt]="'Calendario'" [src]="'assets/images/icons/data-management/calendar.svg'" [href]="'/calendar'"></app-dashboard-card>
+            </div>
+            <div class="col-xl-4 col-md-6 col-12">
+                <app-dashboard-card [title]="'Egresados'" [alt]="'Egresados'" [src]="'assets/images/icons/data-management/user.svg'" [href]="'/graduates'"></app-dashboard-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<a routerLink="{{href}}" (click)="logMessage()">
+    <div class="card card-styles mx-2">
+        <div class="card-body card-body-styles">
+            <img class="card-img-top" src="{{src}}" [attr.width]="250" [attr.height]="250" alt="{{alt}}" />
+        </div>
+        <span class="card-title card-titles text-primary align-items-center justify-content-center">
+            {{ title }}
+        </span>
+    </div>
+</a>

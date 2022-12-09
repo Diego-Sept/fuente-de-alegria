@@ -1,0 +1,18 @@
+<!-- Menu header -->
+<div class="navbar-header">
+  <div class="nav navbar-nav flex-row align-items-center justify-content-center">
+    <a class="navbar-brand" [routerLink]="['/']">
+        <img src="{{ coreConfig.app.appLogoImage }}" alt="brand-logo" />
+    </a>
+  </div>
+</div>
+<!--/ Menu header -->
+
+<!-- Navbar shadow -->
+<div class="shadow-bottom" [ngClass]="{ 'd-block': isScrolled }"></div>
+
+<!-- Main menu -->
+<div class="main-menu-content pt-4" [perfectScrollbar] (scroll)="onSidebarScroll()">
+  <ul class="navigation navigation-main" layout="vertical" core-menu></ul>
+</div>
+<!--/ Main menu -->
