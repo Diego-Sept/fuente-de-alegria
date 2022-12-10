@@ -19,7 +19,7 @@ import { CoreSidebarModule, CoreThemeCustomizerModule } from '@core/components';
 import { CardSnippetModule } from '@core/components/card-snippet/card-snippet.module';
 
 import { coreConfig } from 'app/app-config';
-import { fakeBackendProvider } from 'app/auth/helpers'; // used to create fake backend
+import { AuthGuard, fakeBackendProvider } from 'app/auth/helpers'; // used to create fake backend
 import { JwtInterceptor, ErrorInterceptor } from 'app/auth/helpers';
 import { AppComponent } from 'app/app.component';
 import { LayoutModule } from 'app/layout/layout.module';
@@ -33,47 +33,57 @@ import { SubMenuCustomContextMenuComponent } from './main/extensions/context-men
 const appRoutes: Routes = [
   {
     path: 'dashboard',
-    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule)
+    loadChildren: () => import('./pages/dashboard/dashboard.module').then(m => m.DashboardModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'clients',
     loadChildren: () => import('./pages/clients/clients.module').then(m => m.ClientsModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'notifications',
-    loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsModule)
+    loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'budgets',
     loadChildren: () => import('./pages/budgets/budgets.module').then(m => m.BudgetsModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'stores',
     loadChildren: () => import('./pages/stores/stores.module').then(m => m.StoresModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'paydesks',
     loadChildren: () => import('./pages/paydesks/paydesks.module').then(m => m.PaydesksModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'adminCreation',
-    loadChildren: () => import('./pages/admin-creation/admin-creation.module').then(m => m.AdminCreationModule)
+    loadChildren: () => import('./pages/admin-creation/admin-creation.module').then(m => m.AdminCreationModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'schedules',
     loadChildren: () => import('./pages/schedules/schedules.module').then(m => m.SchedulesModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'calendar',
     loadChildren: () => import('./pages/calendar/calendar.module').then(m => m.CalendarModule),
+    canActivate: [AuthGuard]
   },
   {
     path: 'graduates',
     loadChildren: () => import('./pages/graduates/graduates.module').then(m => m.GraduatesModule),
+    canActivate: [AuthGuard]
   },
   {
-    path: 'pages',
-    loadChildren: () => import('./main/pages/pages.module').then(m => m.PagesModule),
+    path: 'authentication',
+    loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule),
   },
   {
     path: '',

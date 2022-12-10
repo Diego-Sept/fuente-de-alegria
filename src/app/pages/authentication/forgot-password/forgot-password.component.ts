@@ -1,23 +1,24 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
 import { CoreConfigService } from '@core/services/config.service';
+import { CoreTranslationService } from '@core/services/translation.service';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
+
+import { locale as english } from 'app/i18n/en';
+import { locale as spanish } from 'app/i18n/es';
 
 @Component({
-  selector: 'app-auth-reset-password-v2',
-  templateUrl: './auth-reset-password-v2.component.html',
-  styleUrls: ['./auth-reset-password-v2.component.scss'],
+  selector: 'app-forgot-password',
+  templateUrl: './forgot-password.component.html',
+  styleUrls: ['./forgot-password.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AuthResetPasswordV2Component implements OnInit {
+export class ForgotPasswordComponent implements OnInit {
   // Public
+  public emailVar;
   public coreConfig: any;
-  public passwordTextType: boolean;
-  public confPasswordTextType: boolean;
-  public resetPasswordForm: UntypedFormGroup;
+  public forgotPasswordForm: UntypedFormGroup;
   public submitted = false;
 
   // Private
@@ -28,9 +29,16 @@ export class AuthResetPasswordV2Component implements OnInit {
    *
    * @param {CoreConfigService} _coreConfigService
    * @param {FormBuilder} _formBuilder
+   *
    */
-  constructor(private _coreConfigService: CoreConfigService, private _formBuilder: UntypedFormBuilder) {
+  constructor(
+    private _coreConfigService: CoreConfigService,
+    private _formBuilder: UntypedFormBuilder,
+    private _coreTranslationService: CoreTranslationService
+  ) {
     this._unsubscribeAll = new Subject();
+
+    this._coreTranslationService.translate(english, spanish);
 
     // Configure the layout
     this._coreConfigService.config = {
@@ -52,21 +60,7 @@ export class AuthResetPasswordV2Component implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.resetPasswordForm.controls;
-  }
-
-  /**
-   * Toggle password
-   */
-  togglePasswordTextType() {
-    this.passwordTextType = !this.passwordTextType;
-  }
-
-  /**
-   * Toggle confirm password
-   */
-  toggleConfPasswordTextType() {
-    this.confPasswordTextType = !this.confPasswordTextType;
+    return this.forgotPasswordForm.controls;
   }
 
   /**
@@ -76,7 +70,7 @@ export class AuthResetPasswordV2Component implements OnInit {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.resetPasswordForm.invalid) {
+    if (this.forgotPasswordForm.invalid) {
       return;
     }
   }
@@ -88,9 +82,8 @@ export class AuthResetPasswordV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.resetPasswordForm = this._formBuilder.group({
-      newPassword: ['', [Validators.required]],
-      confirmPassword: ['', [Validators.required]]
+    this.forgotPasswordForm = this._formBuilder.group({
+      email: ['', [Validators.required, Validators.email]]
     });
 
     // Subscribe to config changes

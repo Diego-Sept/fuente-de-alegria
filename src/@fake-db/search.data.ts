@@ -151,11 +151,11 @@ export class SearchFakeData {
         },
         {
           id: 18,
-          target: 'login-v2',
+          target: 'login',
           isBookmarked: false,
           title: 'Login v2 Page',
           icon: 'user-plus',
-          link: '/pages/authentication/login-v2'
+          link: '/authentication/login'
         },
         {
           id: 19,
@@ -187,7 +187,7 @@ export class SearchFakeData {
           isBookmarked: false,
           title: 'Forgot Password v2 Page',
           icon: 'trending-up',
-          link: '/pages/authentication/forgot-password-v2'
+          link: '/authentication/forgotPassword'
         },
         {
           id: 23,

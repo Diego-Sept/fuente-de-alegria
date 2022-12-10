@@ -15,7 +15,6 @@ import { ProfileModule } from './profile/profile.module';
 import { PricingModule } from './pricing/pricing.module';
 import { FaqModule } from 'app/main/pages/faq/faq.module';
 import { AccountSettingsModule } from './account-settings/account-settings.module';
-import { AuthenticationModule } from './authentication/authentication.module';
 import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
 
 @NgModule({
@@ -27,7 +26,6 @@ import { MiscellaneousModule } from './miscellaneous/miscellaneous.module';
     NgbModule,
     NgSelectModule,
     FormsModule,
-    AuthenticationModule,
     MiscellaneousModule,
     Ng2FlatpickrModule,
     PricingModule,

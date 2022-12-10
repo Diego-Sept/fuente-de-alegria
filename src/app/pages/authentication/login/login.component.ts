@@ -1,26 +1,29 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
-import { UntypedFormBuilder, UntypedFormGroup, Validators } from '@angular/forms';
-
-import { takeUntil } from 'rxjs/operators';
-import { Subject } from 'rxjs';
-
+import { UntypedFormGroup, UntypedFormBuilder, Validators } from '@angular/forms';
+import { ActivatedRoute, Router } from '@angular/router';
 import { CoreConfigService } from '@core/services/config.service';
+import { CoreTranslationService } from '@core/services/translation.service';
+import { AuthenticationService } from 'app/auth/service';
+import { Subject } from 'rxjs';
+import { first, takeUntil } from 'rxjs/operators';
 import { locale as english } from 'app/i18n/en';
 import { locale as spanish } from 'app/i18n/es';
-import { CoreTranslationService } from '@core/services/translation.service';
 
 @Component({
-  selector: 'app-auth-register-v2',
-  templateUrl: './auth-register-v2.component.html',
-  styleUrls: ['./auth-register-v2.component.scss'],
+  selector: 'app-login',
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class AuthRegisterV2Component implements OnInit {
-  // Public
+export class LoginComponent implements OnInit {
+  //  Public
   public coreConfig: any;
-  public passwordTextType: boolean;
-  public registerForm: UntypedFormGroup;
+  public loginForm: UntypedFormGroup;
+  public loading = false;
   public submitted = false;
+  public returnUrl: string;
+  public error = '';
+  public passwordTextType: boolean;
 
   // Private
   private _unsubscribeAll: Subject<any>;
@@ -29,17 +32,24 @@ export class AuthRegisterV2Component implements OnInit {
    * Constructor
    *
    * @param {CoreConfigService} _coreConfigService
-   * @param {FormBuilder} _formBuilder
    */
   constructor(
-    private _coreConfigService: CoreConfigService, 
+    private _coreConfigService: CoreConfigService,
     private _formBuilder: UntypedFormBuilder,
+    private _route: ActivatedRoute,
+    private _router: Router,
+    private _authenticationService: AuthenticationService,
     private _coreTranslationService: CoreTranslationService
   ) {
-    this._unsubscribeAll = new Subject();
-
+    // redirect to home if already logged in
+    if (this._authenticationService.currentUserValue) {
+      this._router.navigate(['/']);
+    }
 
     this._coreTranslationService.translate(english, spanish);
+
+    this._unsubscribeAll = new Subject();
+
     // Configure the layout
     this._coreConfigService.config = {
       layout: {
@@ -60,7 +70,7 @@ export class AuthRegisterV2Component implements OnInit {
 
   // convenience getter for easy access to form fields
   get f() {
-    return this.registerForm.controls;
+    return this.loginForm.controls;
   }
 
   /**
@@ -70,16 +80,28 @@ export class AuthRegisterV2Component implements OnInit {
     this.passwordTextType = !this.passwordTextType;
   }
 
-  /**
-   * On Submit
-   */
   onSubmit() {
     this.submitted = true;
 
     // stop here if form is invalid
-    if (this.registerForm.invalid) {
+    if (this.loginForm.invalid) {
       return;
     }
+
+    // Login
+    this.loading = true;
+    this._authenticationService
+      .login(this.f.email.value, this.f.password.value)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this._router.navigate([this.returnUrl]);
+        },
+        error => {
+          this.error = error;
+          this.loading = false;
+        }
+      );
   }
 
   // Lifecycle Hooks
@@ -89,11 +111,13 @@ export class AuthRegisterV2Component implements OnInit {
    * On init
    */
   ngOnInit(): void {
-    this.registerForm = this._formBuilder.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+    this.loginForm = this._formBuilder.group({
+      email: ['admin@demo.com', [Validators.required, Validators.email]],
+      password: ['admin', Validators.required]
     });
+
+    // get return url from route parameters or default to '/'
+    this.returnUrl = this._route.snapshot.queryParams['returnUrl'] || '/';
 
     // Subscribe to config changes
     this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
