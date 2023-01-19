@@ -1,29 +1,29 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AdminCreationComponent } from './admin-creation.component';
-import { AdminCreationService } from './admin-creation.service';
+import { UserCreationComponent } from './user-creation.component';
+import { UserCreationService } from './user-creation.service';
 import { RouterModule } from '@angular/router';
 
 const routes = [
   {
     path: '',
-    component: AdminCreationComponent
+    component: UserCreationComponent
   },
 ];
 
 @NgModule({
   declarations: [
-    AdminCreationComponent
+    UserCreationComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
   ],
   providers: [
-    AdminCreationService
+    UserCreationService
   ],
   exports: [
-    AdminCreationComponent
+    UserCreationComponent
   ]
 })
-export class AdminCreationModule { }
+export class UserCreationModule { }

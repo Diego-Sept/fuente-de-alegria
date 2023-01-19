@@ -1,13 +1,14 @@
-import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class DatatablesService implements Resolve<any> {
-  rows: any;
-  onDatatablessChanged: BehaviorSubject<any>;
+export class UserViewService implements Resolve<any> {
+  public rows: any;
+  public onUserViewChanged: BehaviorSubject<any>;
+  public id;
 
   /**
    * Constructor
@@ -16,7 +17,7 @@ export class DatatablesService implements Resolve<any> {
    */
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
-    this.onDatatablessChanged = new BehaviorSubject({});
+    this.onUserViewChanged = new BehaviorSubject({});
   }
 
   /**
@@ -27,8 +28,9 @@ export class DatatablesService implements Resolve<any> {
    * @returns {Observable<any> | Promise<any> | any}
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+    let currentId = Number(route.paramMap.get('id'));
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows()]).then(() => {
+      Promise.all([this.getApiData(currentId)]).then(() => {
         resolve();
       }, reject);
     });
@@ -37,13 +39,14 @@ export class DatatablesService implements Resolve<any> {
   /**
    * Get rows
    */
-  getDataTableRows(): Promise<any[]> {
+  getApiData(id: number): Promise<any[]> {
+    const url = `api/users-data/${id}`;
+
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/datatable-rows').subscribe((response: any) => {
+      this._httpClient.get(url).subscribe((response: any) => {
         this.rows = response;
-        this.onDatatablessChanged.next(this.rows);
+        this.onUserViewChanged.next(this.rows);
         resolve(this.rows);
-        console.log(this.rows);
       }, reject);
     });
   }

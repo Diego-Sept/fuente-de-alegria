@@ -31,12 +31,28 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
+        id: 'users',
+        title: 'Users',
+        translate: 'MENU.TITLES.USERS',
+        type: 'item',
+        icon: 'user-plus',
+        url: 'users'
+      },
+      {
         id: 'clients',
         title: 'Clients',
         translate: 'MENU.TITLES.CLIENTS',
         type: 'item',
         icon: 'user',
         url: 'clients'
+      },
+      {
+        id: 'graduates',
+        title: 'Graduates',
+        translate: 'MENU.TITLES.GRADUATES',
+        type: 'item',
+        icon: 'users',
+        url: 'graduates'
       },
       {
         id: 'budgets',
@@ -63,14 +79,6 @@ export const menu: CoreMenu[] = [
         url: 'paydesks'
       },
       {
-        id: 'admin-creation',
-        title: 'Admin creation',
-        translate: 'MENU.TITLES.CREATE_ADMIN',
-        type: 'item',
-        icon: 'user',
-        url: 'adminCreation'
-      },
-      {
         id: 'diary-schedules',
         title: 'Diary schedules',
         translate: 'MENU.TITLES.DIARY_SCHEDULES',
@@ -85,14 +93,6 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'calendar',
         url: 'calendar'
-      },
-      {
-        id: 'graduates',
-        title: 'Graduates',
-        translate: 'MENU.TITLES.GRADUATES',
-        type: 'item',
-        icon: 'user',
-        url: 'graduates'
       }
     ]
   }

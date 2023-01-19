@@ -42,6 +42,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'users',
+    loadChildren: () => import('./pages/user/user.module').then(m => m.UserModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'notifications',
     loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsModule),
     canActivate: [AuthGuard]
@@ -59,11 +64,6 @@ const appRoutes: Routes = [
   {
     path: 'paydesks',
     loadChildren: () => import('./pages/paydesks/paydesks.module').then(m => m.PaydesksModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'adminCreation',
-    loadChildren: () => import('./pages/admin-creation/admin-creation.module').then(m => m.AdminCreationModule),
     canActivate: [AuthGuard]
   },
   {

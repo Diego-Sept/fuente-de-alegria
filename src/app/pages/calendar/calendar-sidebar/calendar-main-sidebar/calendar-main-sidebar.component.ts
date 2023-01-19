@@ -92,6 +92,7 @@ export class CalendarMainSidebarComponent implements OnInit {
     // Subscribe to Calendar changes
     this._calendarService.onCalendarChange.subscribe(res => {
       this.calendarRef = res;
+      console.log(res);
     });
   }
 }
