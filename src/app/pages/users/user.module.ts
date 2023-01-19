@@ -15,22 +15,22 @@ import { CoreSidebarModule } from '@core/components';
 
 import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
 import { InvoiceModule } from 'app/main/apps/invoice/invoice.module';
-
-import { UserEditComponent } from 'app/main/apps/user/user-edit/user-edit.component';
-import { UserEditService } from 'app/main/apps/user/user-edit/user-edit.service';
-
-import { UserListComponent } from 'app/main/apps/user/user-list/user-list.component';
-import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
-
-import { UserViewComponent } from 'app/main/apps/user/user-view/user-view.component';
-import { UserViewService } from 'app/main/apps/user/user-view/user-view.service';
-import { NewUserSidebarComponent } from 'app/main/apps/user/user-list/new-user-sidebar/new-user-sidebar.component';
+import { UserEditComponent } from './user-edit/user-edit.component';
+import { UserEditService } from './user-edit/user-edit.service';
+import { NewUserSidebarComponent } from './user-list/new-user-sidebar/new-user-sidebar.component';
+import { UserListComponent } from './user-list/user-list.component';
+import { UserListService } from './user-list/user-list.service';
+import { UserViewComponent } from './user-view/user-view.component';
+import { UserViewService } from './user-view/user-view.service';
 
 // routing
 const routes: Routes = [
   {
-    path: '**',
+    path: '',
     component: UserListComponent,
+    resolve: {
+      uls: UserListService
+    },
   },
   {
     path: 'user-list',

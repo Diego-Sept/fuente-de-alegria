@@ -43,7 +43,6 @@ export class DatatablesService implements Resolve<any> {
         this.rows = response;
         this.onDatatablessChanged.next(this.rows);
         resolve(this.rows);
-        console.log(this.rows);
       }, reject);
     });
   }
