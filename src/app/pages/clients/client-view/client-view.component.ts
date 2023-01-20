@@ -3,16 +3,16 @@ import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-import { UserViewService } from './user-view.service';
+import { ClientViewService } from './client-view.service';
 
 
 @Component({
-  selector: 'app-user-view',
-  templateUrl: './user-view.component.html',
-  styleUrls: ['./user-view.component.scss'],
+  selector: 'app-client-view',
+  templateUrl: './client-view.component.html',
+  styleUrls: ['./client-view.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserViewComponent implements OnInit, OnDestroy {
+export class ClientViewComponent implements OnInit, OnDestroy {
   // public
   public url = this.router.url;
   public lastValue;
@@ -27,7 +27,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
    * @param {Router} router
    * @param {UserViewService} _userViewService
    */
-  constructor(private router: Router, private _userViewService: UserViewService) {
+  constructor(private router: Router, private _clientViewService: ClientViewService) {
     this._unsubscribeAll = new Subject();
     this.lastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
@@ -38,7 +38,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this._userViewService.onUserViewChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    this._clientViewService.onUserViewChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
     });
   }

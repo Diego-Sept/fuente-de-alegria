@@ -1,110 +1,153 @@
 <div class="slideout-content">
-  <!-- Modal to add new user starts-->
-  <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
-    <div class="modal-dialog">
-      <form class="add-new-user modal-content pt-0" (ngSubmit)="(newUserForm.form.valid)" #newUserForm="ngForm">
-        <button
-          type="button"
-          class="close"
-          data-dismiss="modal"
-          aria-label="Close"
-          (click)="toggleSidebar('new-user-sidebar')"
-        >
+    <!-- Modal to add new user starts-->
+    <div class="modalsd modal-slide-in sdfade new-user-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-user modal-content pt-0" [formGroup]="ReactiveUserDetailsForm" (ngSubmit)="ReactiveUDFormOnSubmit()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('new-user-sidebar')">
           ×
         </button>
-        <div class="modal-header mb-1">
-          <h5 class="modal-title" id="exampleModalLabel">New User</h5>
-        </div>
-        <div class="modal-body flex-grow-1">
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-fullname">Full Name</label>
-            <input
-              type="text"
-              class="form-control dt-full-name"
-              id="basic-icon-default-fullname"
-              placeholder="John Doe"
-              name="user-fullname"
-              [(ngModel)]="fullname"
-              [class.error]="newUserForm.submitted && FNameRef.invalid"
-              #FNameRef="ngModel"
-              required
-              aria-label="John Doe"
-              aria-describedby="basic-icon-default-fullname2"
-            />
-            <span *ngIf="newUserForm.submitted && FNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FNameRef.errors.required">This field is required!</small>
-            </span>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-uname">Username</label>
-            <input
-              type="text"
-              id="basic-icon-default-uname"
-              class="form-control dt-uname"
-              placeholder="Web Developer"
-              aria-label="jdoe1"
-              aria-describedby="basic-icon-default-uname2"
-              name="user-name"
-              [(ngModel)]="username"
-              [class.error]="newUserForm.submitted && FUserNameRef.invalid"
-              #FUserNameRef="ngModel"
-              required
-            />
-            <span *ngIf="newUserForm.submitted && FUserNameRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FUserNameRef.errors.required">This field is required!</small>
-            </span>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="basic-icon-default-email">Email</label>
-            <input
-              type="text"
-              id="basic-icon-default-email"
-              class="form-control dt-email"
-              placeholder="john.doe@example.com"
-              aria-label="john.doe@example.com"
-              aria-describedby="basic-icon-default-email2"
-              name="user-email"
-              [(ngModel)]="email"
-              [class.error]="newUserForm.submitted && FEmailRef.invalid"
-              #FEmailRef="ngModel"
-              required
-            />
-            <span *ngIf="newUserForm.submitted && FEmailRef.invalid" class="invalid-form">
-              <small class="form-text text-danger" *ngIf="FEmailRef.errors.required">This field is required!</small>
-            </span>
-            <small class="form-text text-muted"> You can use letters, numbers & periods </small>
-          </div>
-          <div class="form-group">
-            <label class="form-label" for="user-role">User Role</label>
-            <select id="user-role" class="form-control">
-              <option value="subscriber">Subscriber</option>
-              <option value="editor">Editor</option>
-              <option value="maintainer">Maintainer</option>
-              <option value="author">Author</option>
-              <option value="admin">Admin</option>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Usuario</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <div class="form-group">
+                        <label for="UDUserName">Nombre de Usuario</label>
+                        <input type="text" id="UDUserName" [(ngModel)]="UDForm.userName" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.userName.errors }" placeholder="Username" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.userName.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.userName.errors.required">Nombre de Usuario es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UDPassword">Constraseña</label>
+                        <div class="input-group input-group-merge form-password-toggle mb-2">
+                            <input [type]="mergedPwdShow ? 'text' : 'password'" id="UDPassword" formControlName="password" [(ngModel)]="UDForm.password" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.password.errors }" />
+                            <div class="input-group-append" (click)="mergedPwdShow = !mergedPwdShow">
+                                <span class="input-group-text cursor-pointer"><i
+                                class="feather"
+                                [ngClass]="{
+                                  'icon-eye-off': mergedPwdShow,
+                                  'icon-eye': !mergedPwdShow
+                                }"
+                              ></i
+                            ></span>
+                            </div>
+
+                            <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.password.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveUDForm.password.errors.required">Contraseña es requerida</div>
+                                <div *ngIf="ReactiveUDForm.password.errors.minlength">La contraseña debe tener un mínimo de 4 caracteres
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UDConfPassword">Confirmar Contraseña</label>
+                        <div class="input-group input-group-merge form-password-toggle mb-2">
+                            <input [type]="mergedPwdShow ? 'text' : 'password'" id="UDConfPassword" formControlName="confPassword" [(ngModel)]="UDForm.confPassword" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.confPassword.errors }" />
+                            <div class="input-group-append" (click)="mergedPwdShow = !mergedPwdShow">
+                                <span class="input-group-text cursor-pointer"><i
+                            class="feather"
+                            [ngClass]="{
+                              'icon-eye-off': mergedPwdShow,
+                              'icon-eye': !mergedPwdShow
+                            }"
+                          ></i
+                        ></span>
+
+                            </div>
+                            <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.confPassword.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveUDForm.confPassword.errors.required">Confirmar Contraseña es requerido</div>
+                                <div *ngIf="ReactiveUDForm.confPassword.errors.minlength">Confirmar Conretraseña debe tener un mínimo de 4 caracteres
+                                </div>
+                                <div *ngIf="ReactiveUDForm.confPassword.errors.mustMatch">Las contraseñas deben coincidir</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UDFirstName">Nombre</label>
+                        <input type="text" id="UDFirstName" [(ngModel)]="UDForm.firstName" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.firstName.errors }" placeholder="Nombre" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.firstName.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.firstName.errors.required">Nombre es requerido</div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="UDLastName">Apellido</label>
+                        <input type="text" id="UDLastName" formControlName="lastName" [(ngModel)]="UDForm.lastName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.lastName.errors }" placeholder="Apellido" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.lastName.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.lastName.errors.required">Apellido es requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UDDNI">DNI</label>
+                        <input type="text" id="UDDNI" [(ngModel)]="UDForm.dni" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.dni.errors }" placeholder="00111000" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.dni.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.dni.errors.required">DNI es requerido</div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="UDCUIT">CUIT</label>
+                        <input type="text" id="UDCUIT" formControlName="cuit" [(ngModel)]="UDForm.cuit" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.cuit.errors }" placeholder="12 00123234 1" mask="00 00000000 0" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.cuit.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.cuit.errors.required">CUIT es requerido</div>
+                            <div *ngIf="ReactiveUDForm.password.errors.minlength">El CUIT debe tener un mínimo de 4 caracteres
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="form-group">
+                        <label for="UDEmail">Email</label>
+                        <input type="text" id="UDEmail" formControlName="email" [(ngModel)]="UDForm.email" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.email.errors }" placeholder="ejemplo@ejemplo.com" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.email.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.email.errors.required">Email es requerido</div>
+                            <div *ngIf="ReactiveUDForm.email.errors.email">Email tiene que ser una direccion de correo valida</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="UDPhoneNumber">Telefono</label>
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text" id="basic-addon1">+54</span>
+                            </div>
+                            <input type="text" id="UDPhoneNumber" formControlName="phoneNumber" [(ngModel)]="UDForm.phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.phoneNumber.errors }" placeholder="" />
+
+                            <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.phoneNumber.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveUDForm.phoneNumber.errors.required">Telefono es requerido</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- UserType field -->
+                    <div class="form-group">
+                        <label for="UDUserType">Tipo de Usuario</label>
+                        <select id="UDUserType" formControlName="userType" [(ngModel)]="UDForm.userType" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.userType.errors }">
+              <option value="administrador">Administrador</option>
+              <option value="operador">Operador</option>
+              <option value="cliente">Cliente</option>
             </select>
-          </div>
-          <div class="form-group mb-2">
-            <label class="form-label" for="user-plan">Select Plan</label>
-            <select id="user-plan" class="form-control">
-              <option value="basic">Basic</option>
-              <option value="enterprise">Enterprise</option>
-              <option value="company">Company</option>
-              <option value="team">Team</option>
-            </select>
-          </div>
-          <button type="submit" class="btn btn-primary mr-1" (click)="submit(newUserForm)" rippleEffect>Submit</button>
-          <button
-            type="reset"
-            class="btn btn-outline-secondary"
-            (click)="toggleSidebar('new-user-sidebar')"
-            rippleEffect
-          >
-            Cancel
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.userType.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.userType.errors.required">Tipo de Usuario es requerido</div>
+                        </div>
+                    </div>
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect>Añadir</button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-user-sidebar')" rippleEffect>
+            Cancelar
           </button>
+                </div>
+            </form>
         </div>
-      </form>
     </div>
-  </div>
-  <!-- Modal to add new user Ends-->
+    <!-- Modal to add new user Ends-->
 </div>

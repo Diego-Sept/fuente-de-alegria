@@ -7,7 +7,7 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
-import { UserListService } from 'app/main/apps/user/user-list/user-list.service';
+import { UserListService } from './user-list.service';
 
 @Component({
   selector: 'app-user-list',
@@ -18,21 +18,20 @@ import { UserListService } from 'app/main/apps/user/user-list/user-list.service'
 export class UserListComponent implements OnInit {
   // Public
   public sidebarToggleRef = false;
+  public isCollapsed5 = true;
   public rows;
   public selectedOption = 10;
   public ColumnMode = ColumnMode;
   public temp = [];
-  public previousRoleFilter = '';
+  public previousUserTypeFilter = '';
   public previousPlanFilter = '';
   public previousStatusFilter = '';
 
-  public selectRole: any = [
+  public selectUserType: any = [
     { name: 'All', value: '' },
-    { name: 'Admin', value: 'Admin' },
-    { name: 'Author', value: 'Author' },
-    { name: 'Editor', value: 'Editor' },
-    { name: 'Maintainer', value: 'Maintainer' },
-    { name: 'Subscriber', value: 'Subscriber' }
+    { name: 'Administrador', value: 'Administrador' },
+    { name: 'Operador', value: 'Operador' },
+    { name: 'Cliente', value: 'Cliente' },
   ];
 
   public selectPlan: any = [
@@ -50,7 +49,7 @@ export class UserListComponent implements OnInit {
     { name: 'Inactive', value: 'Inactive' }
   ];
 
-  public selectedRole = [];
+  public selectedUserType = [];
   public selectedPlan = [];
   public selectedStatus = [];
   public searchValue = '';
@@ -87,7 +86,7 @@ export class UserListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
-    this.selectedRole = this.selectRole[0];
+    this.selectedUserType = this.selectedUserType[0];
     this.selectedPlan = this.selectPlan[0];
     this.selectedStatus = this.selectStatus[0];
 
@@ -114,13 +113,13 @@ export class UserListComponent implements OnInit {
   }
 
   /**
-   * Filter By Roles
+   * Filter By userTypes
    *
    * @param event
    */
-  filterByRole(event) {
+  filterByUserType(event) {
     const filter = event ? event.value : '';
-    this.previousRoleFilter = filter;
+    this.previousUserTypeFilter = filter;
     this.temp = this.filterRows(filter, this.previousPlanFilter, this.previousStatusFilter);
     this.rows = this.temp;
   }
@@ -133,7 +132,7 @@ export class UserListComponent implements OnInit {
   filterByPlan(event) {
     const filter = event ? event.value : '';
     this.previousPlanFilter = filter;
-    this.temp = this.filterRows(this.previousRoleFilter, filter, this.previousStatusFilter);
+    this.temp = this.filterRows(this.previousUserTypeFilter, filter, this.previousStatusFilter);
     this.rows = this.temp;
   }
 
@@ -145,27 +144,27 @@ export class UserListComponent implements OnInit {
   filterByStatus(event) {
     const filter = event ? event.value : '';
     this.previousStatusFilter = filter;
-    this.temp = this.filterRows(this.previousRoleFilter, this.previousPlanFilter, filter);
+    this.temp = this.filterRows(this.previousUserTypeFilter, this.previousPlanFilter, filter);
     this.rows = this.temp;
   }
 
   /**
    * Filter Rows
    *
-   * @param roleFilter
+   * @param userTypeFilter
    * @param planFilter
    * @param statusFilter
    */
-  filterRows(roleFilter, planFilter, statusFilter): any[] {
+  filterRows(userTypeFilter, planFilter, statusFilter): any[] {
     // Reset search on select change
     this.searchValue = '';
 
-    roleFilter = roleFilter.toLowerCase();
+    userTypeFilter = userTypeFilter.toLowerCase();
     planFilter = planFilter.toLowerCase();
     statusFilter = statusFilter.toLowerCase();
 
     return this.tempData.filter(row => {
-      const isPartialNameMatch = row.role.toLowerCase().indexOf(roleFilter) !== -1 || !roleFilter;
+      const isPartialNameMatch = row.userType.toLowerCase().indexOf(userTypeFilter) !== -1 || !userTypeFilter;
       const isPartialGenderMatch = row.currentPlan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
       const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
       return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;

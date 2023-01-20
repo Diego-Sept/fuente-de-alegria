@@ -1,63 +1,44 @@
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body">
-        <!-- users edit start -->
-        <section class="app-user-edit">
+        <!-- clients edit start -->
+        <section class="app-client-edit">
             <div class="card">
                 <div class="card-body">
                     <ul ngbNav #nav="ngbNav" class="nav nav-pills">
                         <li ngbNavItem>
-                            <a ngbNavLink class="d-flex align-items-center"><i data-feather="user" class="mr-sm-50"></i><span class="d-none d-sm-block">Account</span></a
+                            <a ngbNavLink class="d-flex align-items-center"><i data-feather="client" class="mr-sm-50"></i><span class="d-none d-sm-block">Account</span></a
               >
               <ng-template ngbNavContent>
                 <!-- Account Tab starts -->
                 <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
                       <h4>{{ currentRow.fullName }}</h4>
                       <br>
-                  <!-- users edit account form start -->
+                  <!-- clients edit account form start -->
                   <form class="form-validate" (ngSubmit)="(accountForm.form.valid)" #accountForm="ngForm">
                     <div class="row">
+                      <!-- Fullname -->
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="username">Username</label>
+                          <label for="clientname">Nombre y Apellido</label>
                           <input
                             type="text"
-                            id="username"
+                            id="clientname"
                             class="form-control"
-                            placeholder="Username"
-                            name="username"
-                            [(ngModel)]="currentRow.username"
-                            [class.error]="accountForm.submitted && UserNameRef.invalid"
-                            #UserNameRef="ngModel"
+                            placeholder="clientname"
+                            name="clientname"
+                            [(ngModel)]="currentRow.clientname"
+                            [class.error]="accountForm.submitted && clientNameRef.invalid"
+                            #clientNameRef="ngModel"
                             required
                           />
-                          <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="UserNameRef.errors.required"
-                              >This field is required!</small
+                          <span *ngIf="accountForm.submitted && clientNameRef.invalid" class="invalid-form">
+                            <small class="form-text text-danger" *ngIf="clientNameRef.errors.required"
+                              >Este campo es requerido!</small
                             >
                           </span>
                         </div>
                       </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="name">Name</label>
-                          <input
-                            type="text"
-                            id="name"
-                            class="form-control"
-                            placeholder="Name"
-                            name="fullName"
-                            [(ngModel)]="currentRow.fullName"
-                            [class.error]="accountForm.submitted && FullNameRef.invalid"
-                            #FullNameRef="ngModel"
-                            required
-                          />
-                          <span *ngIf="accountForm.submitted && FullNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FullNameRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
+                      <!-- Email -->
                       <div class="col-md-4">
                         <div class="form-group">
                           <label for="email">E-mail</label>
@@ -74,31 +55,36 @@
                           />
                           <span *ngIf="accountForm.submitted && EmailRef.invalid" class="invalid-form">
                             <small class="form-text text-danger" *ngIf="EmailRef.errors.required"
-                              >This field is required!</small
+                              >Este campo es requerido!</small
                             >
                           </span>
                         </div>
                       </div>
+                      <!-- Telephone -->
                       <div class="col-md-4">
                         <div class="form-group">
-                          <label for="userType">Tipo de Usuario</label>
-                          <select class="form-control" [(ngModel)]="currentRow.userType" name="userType" id="userType">
-                            <option>Administrador</option>
-                            <option>Operador</option>
-                            <option>Cliente</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="company">Company</label>
+                          <label for="telephone">Telefono</label>
                           <input
                             type="text"
                             class="form-control"
                             [(ngModel)]="currentRow.company"
-                            placeholder="Company name"
-                            id="company"
-                            name="company"
+                            placeholder="Nro. de telefono"
+                            id="telephone"
+                            name="telephone"
+                          />
+                        </div>
+                      </div>
+                      <!-- DNI -->
+                      <div class="col-md-4">
+                        <div class="form-group">
+                          <label for="dni">DNI</label>
+                          <input
+                            type="text"
+                            class="form-control"
+                            [(ngModel)]="currentRow.dni"
+                            placeholder="DNI"
+                            id="dni"
+                            name="dni"
                           />
                         </div>
                       </div>
@@ -118,7 +104,7 @@
                       </div>
                     </div>
                   </form>
-                  <!-- users edit account form ends -->
+                  <!-- clients edit account form ends -->
                 </div>
                 <!-- Account Tab ends -->
               </ng-template>
@@ -130,12 +116,12 @@
               <ng-template ngbNavContent>
                 <!-- Information Tab starts -->
                 <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
-                  <!-- users edit Info form start  -->
+                  <!-- clients edit Info form start  -->
                   <form class="form-validate">
                     <div class="row mt-1">
                       <div class="col-12">
                         <h4 class="mb-1">
-                          <i data-feather="user" [size]="16" class="mr-75 font-medium-4"></i>
+                          <i data-feather="client" [size]="16" class="mr-75 font-medium-4"></i>
                           <span class="align-middle">Personal Information</span>
                         </h4>
                       </div>
@@ -275,7 +261,7 @@
                       </div>
                     </div>
                   </form>
-                  <!-- users edit Info form ends -->
+                  <!-- clients edit Info form ends -->
                 </div>
                 <!-- Information Tab ends -->
               </ng-template>
@@ -287,7 +273,7 @@
               <ng-template ngbNavContent>
                 <!-- Social Tab starts -->
                 <div class="tab-pane" id="social" aria-labelledby="social-tab" role="tabpanel">
-                  <!-- users edit social form start -->
+                  <!-- clients edit social form start -->
                   <form class="form-validate">
                     <div class="row">
                       <div class="col-lg-4 col-md-6 form-group">
@@ -407,7 +393,7 @@
                       </div>
                     </div>
                   </form>
-                  <!-- users edit socail form ends -->
+                  <!-- clients edit socail form ends -->
                 </div>
                 <!-- Social Tab ends -->
               </ng-template>
@@ -417,6 +403,6 @@
         </div>
       </div>
     </section>
-    <!-- users edit ends -->
+    <!-- clients edit ends -->
   </div>
 </div>

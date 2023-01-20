@@ -1,10 +1,10 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { ColumnMode, SelectionType, DatatableComponent } from '@swimlane/ngx-datatable';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { ClientsService } from './clients.service';
 
-import * as snippet from './clients.snippetcode';
 
 @Component({
 	selector: 'app-clients',
@@ -17,6 +17,9 @@ export class ClientsComponent implements OnInit {
 	private tempData = [];
 
 	// public
+	public sidebarToggleRef = false;
+	public selectedOption = 10;
+	public isCollapsed5 = true;
 	public contentHeader: object;
 	public rows: any;
 	public selected = [];
@@ -31,17 +34,10 @@ export class ClientsComponent implements OnInit {
 	public chkBoxSelected = [];
 	public SelectionType = SelectionType;
 	public exportCSVData;
+	public searchValue = '';
 
 	@ViewChild(DatatableComponent) table: DatatableComponent;
 	@ViewChild('tableRowDetails') tableRowDetails: any;
-
-	// snippet code variables
-	public _snippetCodeKitchenSink = snippet.snippetCodeKitchenSink;
-	public _snippetCodeInlineEditing = snippet.snippetCodeInlineEditing;
-	public _snippetCodeRowDetails = snippet.snippetCodeRowDetails;
-	public _snippetCodeCustomCheckbox = snippet.snippetCodeCustomCheckbox;
-	public _snippetCodeResponsive = snippet.snippetCodeResponsive;
-	public _snippetCodeMultilangual = snippet.snippetCodeMultilangual;
 
 	// Public Methods
 	// -----------------------------------------------------------------------------------------------------
@@ -117,6 +113,15 @@ export class ClientsComponent implements OnInit {
 		this.table.offset = 0;
 	}
 
+	  /**
+   * Toggle the sidebar
+   *
+   * @param name
+   */
+	   toggleSidebar(name): void {
+		this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+	  }
+
 	/**
 	 * Row Details Toggle
 	 *
@@ -162,8 +167,12 @@ export class ClientsComponent implements OnInit {
 	 *
 	 * @param {DatatablesService} _datatablesService
 	 * @param {CoreTranslationService} _coreTranslationService
+	 * @param {CoreSidebarService} _coreSidebarService
 	 */
-	constructor(private _datatablesService: ClientsService) {
+	constructor(
+		private _datatablesService: ClientsService,
+		private _coreSidebarService: CoreSidebarService,
+		) {
 		this._unsubscribeAll = new Subject();
 	}
 

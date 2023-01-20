@@ -2,12 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { MustMatch } from 'app/main/forms/form-validation/_helpers/must-match.validator';
+import { Observable } from 'rxjs';
 
 @Component({
-  selector: 'app-new-user-sidebar',
-  templateUrl: './new-user-sidebar.component.html'
+  selector: 'app-client-sidebar',
+  templateUrl: './client-sidebar.component.html'
 })
-export class NewUserSidebarComponent implements OnInit {
+export class ClientSidebarComponent implements OnInit {
 
 
   public ReactiveUserDetailsForm: FormGroup;
@@ -16,17 +17,18 @@ export class NewUserSidebarComponent implements OnInit {
 
   // Reactive User Details form data
   public UDForm = {
-    userName: '',
-    password: '',
-    confPassword: '',
-    firstName: '',
-    lastName: '',
+    fullname: '',
     dni:'',
-    cuit: '',
     email: '',
     phoneNumber: '',
-    userType: ''
+    phoneNumber2: '',
+    adress: '',
+    guests: ''
   };
+
+  // select Basic Multi
+  public selectMulti: Observable<any[]>;
+  public selectMultiSelected = [{ name: 'Karyn Wright' }];
   
   /**
    * Constructor
@@ -47,7 +49,7 @@ ReactiveUDFormOnSubmit() {
     return;
   }
 
-  this.toggleSidebar('new-user-sidebar');
+  this.toggleSidebar('client-sidebar');
 }
   /**
    * Toggle the sidebar
@@ -65,23 +67,20 @@ ReactiveUDFormOnSubmit() {
    */
   submit(form) {
     if (form.valid) {
-      this.toggleSidebar('new-user-sidebar');
+      this.toggleSidebar('client-sidebar');
     }
   }
 
   ngOnInit(): void {
     // Reactive form initialization
   this.ReactiveUserDetailsForm = this.formBuilder.group({
-    userName: ['', Validators.required],
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
-    dni: ['', [Validators.required]],
-    cuit: ['', [Validators.required,Validators.minLength(4)]],
-    password: ['', [Validators.required, Validators.minLength(4)]],
-    confPassword: ['', [Validators.required, Validators.minLength(4)]],
+    fullname: ['', Validators.required],
+    dni: ['', [Validators.required]],  
     email: ['', [Validators.required, Validators.email]],
     phoneNumber: ['', [Validators.required, Validators.minLength(4)]],
-    userType: [ '', [Validators.required]]
+    phoneNumber2: ['', [Validators.required, Validators.minLength(4)]],
+    adress: [ '', [Validators.required]],
+    guests: [ '', [Validators.required]]
   },
   {
     validator: MustMatch('password', 'confPassword')

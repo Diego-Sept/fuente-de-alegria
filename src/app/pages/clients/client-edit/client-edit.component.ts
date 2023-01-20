@@ -6,16 +6,17 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { cloneDeep } from 'lodash';
-import { UserEditService } from './user-edit.service';
+import { ClientEditService } from './client-edit.service';
+
 
 
 @Component({
-  selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.scss'],
+  selector: 'app-client-edit',
+  templateUrl: './client-edit.component.html',
+  styleUrls: ['./client-edit.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class ClientEditComponent implements OnInit, OnDestroy {
   // Public
   public url = this.router.url;
   public urlLastValue;
@@ -42,7 +43,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * @param {Router} router
    * @param {UserEditService} _userEditService
    */
-  constructor(private router: Router, private _userEditService: UserEditService) {
+  constructor(private router: Router, private _clientEditService: ClientEditService) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
@@ -91,7 +92,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this._userEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    this._clientEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.rows = response;
       this.rows.map(row => {
         if (row.id == this.urlLastValue) {
