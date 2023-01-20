@@ -908,7 +908,7 @@ export const snippetCodeResponsive: snippetCode = {
       </ng-template>
     </ngx-datatable-column>
     <ngx-datatable-column name="Email" prop="email" [width]="250"></ngx-datatable-column>
-    <ngx-datatable-column name="Age" prop="age" [width]="50"></ngx-datatable-column>
+    <ngx-datatable-column name="DNI" prop="age" [width]="50"></ngx-datatable-column>
     <ngx-datatable-column name="Status" prop="status" [width]="120">
       <ng-template let-status="value" ngx-datatable-cell-template>
         <div

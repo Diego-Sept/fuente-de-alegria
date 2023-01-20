@@ -36,6 +36,9 @@ const routes: Routes = [
     NgxDatatableModule,
     CsvModule
   ],
-  providers: [DatatablesService]
+  providers: [DatatablesService],
+  exports: [
+    DatatablesComponent
+  ]
 })
 export class DatatablesModule {}

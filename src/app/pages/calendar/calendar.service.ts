@@ -11,7 +11,18 @@ export class CalendarService implements Resolve<any>{
 
   // Public
   public events;
-  public calendar;
+  public calendar = [
+    { id: 1, filter: 'Salón', color: 'primary', checked: true },
+    { id: 2, filter: 'Casona', color: 'primary', checked: true },
+    { id: 3, filter: 'Terraza', color: 'primary', checked: true },
+    { id: 4, filter: 'Quincho', color: 'primary', checked: true },
+    { id: 5, filter: 'Capilla', color: 'primary', checked: true },
+  ];
+  public states = [
+    { id: 1, filter: 'Confirmadito', color: 'primary', checked: true },
+    { id: 2, filter: 'Pendiente', color: 'primary', checked: true },
+    { id: 3, filter: 'Presupuestado', color: 'primary', checked: true },
+  ];
   public currentEvent;
   public tempEvents;
 
@@ -49,21 +60,21 @@ export class CalendarService implements Resolve<any>{
       }, reject);
     });
   }
+  
+  /**
+   * Get Calendar (Sidebar)
+   */
+  getCalendar(){
+      this.onCalendarChange.next(this.calendar);
+    }  
 
   /**
-   * Get Calendar
-   */
-  getCalendar(): Promise<any[]> {
-    const url = `api/calendar-filter`;
-
-    return new Promise((resolve, reject) => {
-      this._httpClient.get(url).subscribe((response: any) => {
-        this.calendar = response;
-        this.onCalendarChange.next(this.calendar);
-        resolve(this.calendar);
-      }, reject);
-    });
-  }
+  * Get States (Sidebar)
+  */
+  getStates(){
+      this.onCalendarChange.next(this.states);
+    }
+   
 
   /**
    * Create New Event

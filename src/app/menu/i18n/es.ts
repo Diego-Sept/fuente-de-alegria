@@ -10,7 +10,7 @@ export const locale = {
           BUDGETS: 'Presupuestos',
           STORES: 'Inventarios',
           PAYDESK: 'Cajas',
-          CREATE_ADMIN: 'Crear Admin',
+          USERS: 'Usuarios',
           DIARY_SCHEDULES: 'Planillas Diarias',
           CALENDAR: 'Calendario',
           GRADUATES: 'Egresados',

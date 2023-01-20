@@ -18,11 +18,9 @@ export class CalendarEventSidebarComponent implements OnInit {
   public event: EventRef;
   public isDataEmpty;
   public selectLabel = [
-    { label: 'Business', bullet: 'primary' },
-    { label: 'Personal', bullet: 'danger' },
-    { label: 'Family', bullet: 'warning' },
-    { label: 'Holiday', bullet: 'success' },
-    { label: 'ETC', bullet: 'info' }
+    { label: 'Presupuestado', bullet: 'warning' },
+    { label: 'Confirmado', bullet: 'success' },
+    { label: 'Pendiente', bullet: 'danger' },
   ];
   public selectGuest = [
     { name: 'Jane Foster', avatar: 'assets/images/avatars/1-small.png' },

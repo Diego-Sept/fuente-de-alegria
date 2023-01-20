@@ -2,11 +2,11 @@ export const locale = {
     lang: 'es',
     data: {
       HEADER: {
-        NAME: 'NAME',
+        NAME: 'NOMBRE',
         EMAIL: 'EMAIL',
-        AGE: 'AGE',
-        STATUS: 'STATUS',
-        ACTIONS: 'ACTIONS'
+        TELEFONO: 'TELEFONO',
+        DNI: 'DNI',
+        ACTIONS: 'ACCIONES'
       }
     }
   };

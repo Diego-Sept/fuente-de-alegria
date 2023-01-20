@@ -23,10 +23,6 @@ const routes: Routes = [
     loadChildren: () => import('./todo/todo.module').then(m => m.TodoModule)
   },
   {
-    path: 'calendar',
-    loadChildren: () => import('./calendar/calendar.module').then(m => m.CalendarModule)
-  },
-  {
     path: 'invoice',
     loadChildren: () => import('./invoice/invoice.module').then(m => m.InvoiceModule)
   },
