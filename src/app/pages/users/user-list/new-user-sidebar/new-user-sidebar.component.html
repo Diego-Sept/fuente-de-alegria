@@ -12,10 +12,10 @@
                 <div class="modal-body flex-grow-1">
 
                     <div class="form-group">
-                        <label for="UDUserName">Nombre de Usuario</label>
-                        <input type="text" id="UDUserName" [(ngModel)]="UDForm.userName" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.userName.errors }" placeholder="Username" />
-                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.userName.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveUDForm.userName.errors.required">Nombre de Usuario es requerido</div>
+                        <label for="UDUsername">Nombre de Usuario</label>
+                        <input type="text" id="UDUsername" [(ngModel)]="UDForm.username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.username.errors }" placeholder="username" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.username.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.username.errors.required">Nombre de Usuario es requerido</div>
                         </div>
                     </div>
 
@@ -70,19 +70,10 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="UDFirstName">Nombre</label>
-                        <input type="text" id="UDFirstName" [(ngModel)]="UDForm.firstName" formControlName="firstName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.firstName.errors }" placeholder="Nombre" />
-                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.firstName.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveUDForm.firstName.errors.required">Nombre es requerido</div>
-                        </div>
-                    </div>
-
-
-                    <div class="form-group">
-                        <label for="UDLastName">Apellido</label>
-                        <input type="text" id="UDLastName" formControlName="lastName" [(ngModel)]="UDForm.lastName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.lastName.errors }" placeholder="Apellido" />
-                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.lastName.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveUDForm.lastName.errors.required">Apellido es requerido</div>
+                        <label for="UDFullname">Nombre y Apellido</label>
+                        <input type="text" id="UDFullname" [(ngModel)]="UDForm.fullname" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.fullname.errors }" placeholder="Nombre" />
+                        <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.fullname.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveUDForm.fullname.errors.required">Nombre y Apellido es requerido</div>
                         </div>
                     </div>
 
@@ -116,15 +107,15 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="UDPhoneNumber">Telefono</label>
+                        <label for="UDTelephone">Telefono</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">+54</span>
                             </div>
-                            <input type="text" id="UDPhoneNumber" formControlName="phoneNumber" [(ngModel)]="UDForm.phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.phoneNumber.errors }" placeholder="" />
+                            <input type="text" id="UDTelephone" formControlName="telephone" [(ngModel)]="UDForm.telephone" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUDFormSubmitted && ReactiveUDForm.telephone.errors }" placeholder="" />
 
-                            <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.phoneNumber.errors" class="invalid-feedback">
-                                <div *ngIf="ReactiveUDForm.phoneNumber.errors.required">Telefono es requerido</div>
+                            <div *ngIf="ReactiveUDFormSubmitted && ReactiveUDForm.telephone.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveUDForm.telephone.errors.required">Telefono es requerido</div>
                             </div>
                         </div>
                     </div>
@@ -142,7 +133,7 @@
                         </div>
                     </div>
                     <button type="submit" class="btn btn-primary mr-1" rippleEffect>Añadir</button>
-                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('new-user-sidebar')" rippleEffect>
+                    <button class="btn btn-outline-secondary" (click)="toggleSidebar('new-user-sidebar')" rippleEffect>
             Cancelar
           </button>
                 </div>

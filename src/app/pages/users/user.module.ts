@@ -13,7 +13,6 @@ import { CoreDirectivesModule } from '@core/directives/directives';
 import { CorePipesModule } from '@core/pipes/pipes.module';
 import { CoreSidebarModule } from '@core/components';
 
-import { InvoiceListService } from 'app/main/apps/invoice/invoice-list/invoice-list.service';
 import { InvoiceModule } from 'app/main/apps/invoice/invoice.module';
 import { UserEditComponent } from './user-edit/user-edit.component';
 import { UserEditService } from './user-edit/user-edit.service';
@@ -22,6 +21,7 @@ import { UserListComponent } from './user-list/user-list.component';
 import { UserListService } from './user-list/user-list.service';
 import { UserViewComponent } from './user-view/user-view.component';
 import { UserViewService } from './user-view/user-view.service';
+import { UserService } from './user-service';
 
 // routing
 const routes: Routes = [
@@ -45,7 +45,6 @@ const routes: Routes = [
     component: UserViewComponent,
     resolve: {
       data: UserViewService,
-      InvoiceListService
     },
     data: { path: 'view/:id', animation: 'UserViewComponent' }
   },
@@ -58,12 +57,12 @@ const routes: Routes = [
     data: { animation: 'UserEditComponent' }
   },
   {
-    path: 'user-view',
-    redirectTo: '/apps/user/user-view/2' // Redirection
+    path: 'user-view/',
+    redirectTo: 'user-edit/:id' // Redirection
   },
   {
     path: 'user-edit',
-    redirectTo: '/apps/user/user-edit/2' // Redirection
+    redirectTo: 'user-view/:id' // Redirection
   }
 ];
 
@@ -82,9 +81,9 @@ const routes: Routes = [
     CorePipesModule,
     CoreDirectivesModule,
     InvoiceModule,
-    CoreSidebarModule
+    CoreSidebarModule,
   ],
-  providers: [UserListService, UserViewService, UserEditService],
+  providers: [UserListService, UserViewService, UserEditService, UserService],
   exports: [
     UserEditComponent,
     UserListComponent,

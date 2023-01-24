@@ -17,12 +17,11 @@ export class CalendarService implements Resolve<any>{
     { id: 3, filter: 'Terraza', color: 'primary', checked: true },
     { id: 4, filter: 'Quincho', color: 'primary', checked: true },
     { id: 5, filter: 'Capilla', color: 'primary', checked: true },
+    { id: 6, filter: 'Confirmado', color: 'primary', checked: true },
+    { id: 7, filter: 'Pendiente', color: 'primary', checked: true },
+    { id: 8, filter: 'Presupuestado', color: 'primary', checked: true },
   ];
-  public states = [
-    { id: 1, filter: 'Confirmadito', color: 'primary', checked: true },
-    { id: 2, filter: 'Pendiente', color: 'primary', checked: true },
-    { id: 3, filter: 'Presupuestado', color: 'primary', checked: true },
-  ];
+  
   public currentEvent;
   public tempEvents;
 
@@ -67,15 +66,7 @@ export class CalendarService implements Resolve<any>{
   getCalendar(){
       this.onCalendarChange.next(this.calendar);
     }  
-
-  /**
-  * Get States (Sidebar)
-  */
-  getStates(){
-      this.onCalendarChange.next(this.states);
-    }
    
-
   /**
    * Create New Event
    */

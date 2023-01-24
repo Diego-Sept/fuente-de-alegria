@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
+import { MustMatch } from 'app/main/forms/form-validation/_helpers/must-match.validator';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { takeUntil, switchMap } from 'rxjs/operators';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { cloneDeep } from 'lodash';
 import { UserEditService } from './user-edit.service';
+import { UserService } from '../user-service';
+import { User } from '../interface/user.interface';
 
 
 @Component({
@@ -19,15 +22,24 @@ export class UserEditComponent implements OnInit, OnDestroy {
   // Public
   public url = this.router.url;
   public urlLastValue;
-  public rows;
-  public currentRow;
-  public tempRow;
-  public avatarImage: string;
+  public rows: User[] = [];
+  public currentRow: User;
+  public tempRow: User[];
+  public ReactiveUserEditDetailsForm: FormGroup;
+  public ReactiveUserEditFormSubmitted = false;
+  public mergedPwdShow = false;
 
-  @ViewChild('accountForm') accountForm: NgForm;
-
-  public birthDateOptions: FlatpickrOptions = {
-    altInput: true
+  // Reactive User Details form data
+  public UserEditForm = {
+    username: '',
+    password: '',
+    confPassword: '',
+    fullname: '',
+    dni:'',
+    cuit: '',
+    email: '',
+    telephone: '',
+    userType: ''
   };
 
   public selectMultiLanguages = ['English', 'Spanish', 'French', 'Russian', 'German', 'Arabic', 'Sanskrit'];
@@ -42,7 +54,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
    * @param {Router} router
    * @param {UserEditService} _userEditService
    */
-  constructor(private router: Router, private _userEditService: UserEditService) {
+  constructor(private router: Router,private _userService: UserService ,private _userEditService: UserEditService, private activatedRoute: ActivatedRoute, private formBuilder: UntypedFormBuilder) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
@@ -50,29 +62,18 @@ export class UserEditComponent implements OnInit, OnDestroy {
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * Reset Form With Default Values
-   */
-  resetFormWithDefaultValues() {
-    this.accountForm.resetForm(this.tempRow);
+  // getter for easy access to form fields
+get ReactiveUserEditForm() {
+  return this.ReactiveUserEditDetailsForm.controls;
+}
+
+ReactiveEditFormOnSubmit() {
+  this.ReactiveUserEditFormSubmitted = true;
+  // stop here if form is invalid
+  if (this.ReactiveUserEditDetailsForm.invalid) {
+    return;
   }
-
-  /**
-   * Upload Image
-   *
-   * @param event
-   */
-  uploadImage(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.avatarImage = event.target.result;
-      };
-
-      reader.readAsDataURL(event.target.files[0]);
-    }
-  }
+}
 
   /**
    * Submit
@@ -85,21 +86,46 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  saveUser(){
+    this._userEditService.editUser( this.UserEditForm ).subscribe( user => console.log( "Editando", user ));
+   
+  }
+  
+  redirectToUserList(pageName:string){
+    this.router.navigate([`${pageName}`]);
+  }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   /**
    * On init
    */
   ngOnInit(): void {
+    this.activatedRoute.params.pipe(switchMap( ({id}) => this._userEditService.getUserId(id))).subscribe( user => this.UserEditForm = user);
+
+    this.ReactiveUserEditDetailsForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      fullname: ['', Validators.required],
+      dni: ['', [Validators.required]],
+      cuit: ['', [Validators.required,Validators.minLength(4)]],
+      password: ['', [Validators.required, Validators.minLength(4)]],
+      confPassword: ['', [Validators.required, Validators.minLength(4)]],
+      email: ['', [Validators.required, Validators.email]],
+      telephone: ['', [Validators.required, Validators.minLength(4)]],
+      userType: [ '', [Validators.required]]
+    },
+    {
+      validator: MustMatch('password', 'confPassword')
+    });
+
     this._userEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.rows = response;
       this.rows.map(row => {
         if (row.id == this.urlLastValue) {
           this.currentRow = row;
-          this.avatarImage = this.currentRow.avatar;
           this.tempRow = cloneDeep(row);
         }
-      });
+      });    
     });
   }
 

@@ -27,10 +27,6 @@ export class ClientsComponent implements OnInit {
 	public basicSelectedOption: number = 10;
 	public ColumnMode = ColumnMode;
 	public expanded = {};
-	public editingName = {};
-	public editingStatus = {};
-	public editingAge = {};
-	public editingSalary = {};
 	public chkBoxSelected = [];
 	public SelectionType = SelectionType;
 	public exportCSVData;
@@ -41,58 +37,6 @@ export class ClientsComponent implements OnInit {
 
 	// Public Methods
 	// -----------------------------------------------------------------------------------------------------
-
-	/**
-	 * Inline editing Name
-	 *
-	 * @param event
-	 * @param cell
-	 * @param rowIndex
-	 */
-	inlineEditingUpdateName(event, cell, rowIndex) {
-		this.editingName[rowIndex + '-' + cell] = false;
-		this.rows[rowIndex][cell] = event.target.value;
-		this.rows = [...this.rows];
-	}
-
-	/**
-	 * Inline editing Age
-	 *
-	 * @param event
-	 * @param cell
-	 * @param rowIndex
-	 */
-	inlineEditingUpdateAge(event, cell, rowIndex) {
-		this.editingAge[rowIndex + '-' + cell] = false;
-		this.rows[rowIndex][cell] = event.target.value;
-		this.rows = [...this.rows];
-	}
-
-	/**
-	 * Inline editing Salary
-	 *
-	 * @param event
-	 * @param cell
-	 * @param rowIndex
-	 */
-	inlineEditingUpdateSalary(event, cell, rowIndex) {
-		this.editingSalary[rowIndex + '-' + cell] = false;
-		this.rows[rowIndex][cell] = event.target.value;
-		this.rows = [...this.rows];
-	}
-
-	/**
-	 * Inline editing Status
-	 *
-	 * @param event
-	 * @param cell
-	 * @param rowIndex
-	 */
-	inlineEditingUpdateStatus(event, cell, rowIndex) {
-		this.editingStatus[rowIndex + '-' + cell] = false;
-		this.rows[rowIndex][cell] = event.target.value;
-		this.rows = [...this.rows];
-	}
 
 	/**
 	 * Search (filter)
@@ -184,36 +128,10 @@ export class ClientsComponent implements OnInit {
 	 */
 	ngOnInit(): void {
 
-		this._datatablesService.onDatatablessChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+		this._datatablesService.onClientListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
 			this.rows = response;
 			this.tempData = this.rows;
 			this.kitchenSinkRows = this.rows;
-			this.exportCSVData = this.rows;
 		});
-
-		// content header
-		this.contentHeader = {
-			headerTitle: 'Datatables',
-			actionButton: true,
-			breadcrumb: {
-				type: '',
-				links: [
-					{
-						name: 'Home',
-						isLink: true,
-						link: '/'
-					},
-					{
-						name: 'Forms & Tables',
-						isLink: true,
-						link: '/'
-					},
-					{
-						name: 'Datatables',
-						isLink: false
-					}
-				]
-			}
-		};
 	}
 }

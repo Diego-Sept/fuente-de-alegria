@@ -3,12 +3,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { User } from '../interface/user.interface';
 
 @Injectable()
 export class UserViewService implements Resolve<any> {
-  public rows: any;
+  public apiData: any;
   public onUserViewChanged: BehaviorSubject<any>;
-  public id;
+  public baseUrl = `http://localhost:3000/users`;
 
   /**
    * Constructor
@@ -37,17 +38,23 @@ export class UserViewService implements Resolve<any> {
   }
 
   /**
-   * Get rows
+   * Get API Datas
    */
   getApiData(id: number): Promise<any[]> {
-    const url = `api/users-data/${id}`;
-
     return new Promise((resolve, reject) => {
-      this._httpClient.get(url).subscribe((response: any) => {
-        this.rows = response;
-        this.onUserViewChanged.next(this.rows);
-        resolve(this.rows);
+      this._httpClient.get(`${ this.baseUrl }/${ id }`).subscribe((response: any) => {
+        this.apiData = response;
+        this.onUserViewChanged.next(this.apiData);
+        resolve(this.apiData);
       }, reject);
     });
   }
+
+  /**
+   * Get User Id
+   */
+  getUserId(id: number): Observable<User>{
+    return this._httpClient.get<User>(`${ this.baseUrl }/${id}`);
+  }
+
 }

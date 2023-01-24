@@ -7,7 +7,7 @@ import { BehaviorSubject, Observable } from 'rxjs';
 @Injectable()
 export class ClientViewService implements Resolve<any> {
   public rows: any;
-  public onUserViewChanged: BehaviorSubject<any>;
+  public onClientViewChanged: BehaviorSubject<any>;
   public id;
 
   /**
@@ -17,7 +17,7 @@ export class ClientViewService implements Resolve<any> {
    */
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
-    this.onUserViewChanged = new BehaviorSubject({});
+    this.onClientViewChanged = new BehaviorSubject({});
   }
 
   /**
@@ -45,7 +45,7 @@ export class ClientViewService implements Resolve<any> {
     return new Promise((resolve, reject) => {
       this._httpClient.get(url).subscribe((response: any) => {
         this.rows = response;
-        this.onUserViewChanged.next(this.rows);
+        this.onClientViewChanged.next(this.rows);
         resolve(this.rows);
       }, reject);
     });

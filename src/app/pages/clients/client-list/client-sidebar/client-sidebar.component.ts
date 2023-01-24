@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-import { MustMatch } from 'app/main/forms/form-validation/_helpers/must-match.validator';
-import { Observable } from 'rxjs';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-client-sidebar',
@@ -11,12 +10,12 @@ import { Observable } from 'rxjs';
 export class ClientSidebarComponent implements OnInit {
 
 
-  public ReactiveUserDetailsForm: FormGroup;
-  public ReactiveUDFormSubmitted = false;
+  public ReactiveClientDetailsForm: FormGroup;
+  public ReactiveClientFormSubmitted = false;
   public mergedPwdShow = false;
 
   // Reactive User Details form data
-  public UDForm = {
+  public ClientForm = {
     fullname: '',
     dni:'',
     email: '',
@@ -26,26 +25,25 @@ export class ClientSidebarComponent implements OnInit {
     guests: ''
   };
 
-  // select Basic Multi
-  public selectMulti: Observable<any[]>;
-  public selectMultiSelected = [{ name: 'Karyn Wright' }];
+  
   
   /**
    * Constructor
    *
    * @param {CoreSidebarService} _coreSidebarService
+   * @param {NgbModal} modalService
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private formBuilder: UntypedFormBuilder) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private modalService: NgbModal,private formBuilder: UntypedFormBuilder) {}
 
 // getter for easy access to form fields
-get ReactiveUDForm() {
-  return this.ReactiveUserDetailsForm.controls;
+get ReactiveClientForm() {
+  return this.ReactiveClientDetailsForm.controls;
 }
 
-ReactiveUDFormOnSubmit() {
-  this.ReactiveUDFormSubmitted = true;
+ReactiveClientFormOnSubmit() {
+  this.ReactiveClientFormSubmitted = true;
   // stop here if form is invalid
-  if (this.ReactiveUserDetailsForm.invalid) {
+  if (this.ReactiveClientDetailsForm.invalid) {
     return;
   }
 
@@ -71,9 +69,22 @@ ReactiveUDFormOnSubmit() {
     }
   }
 
+  // ng-select in model
+  modalSelectOpen(modalSelect) {
+    this.modalService.open(modalSelect, {
+      windowClass: 'modal'
+    });
+  }
+  // Lifecycle Hooks
+  // -----------------------------------------------------------------------------------------------------
+
+  /**
+   * On init
+   */
+
   ngOnInit(): void {
-    // Reactive form initialization
-  this.ReactiveUserDetailsForm = this.formBuilder.group({
+  // Reactive form initialization
+  this.ReactiveClientDetailsForm = this.formBuilder.group({
     fullname: ['', Validators.required],
     dni: ['', [Validators.required]],  
     email: ['', [Validators.required, Validators.email]],
@@ -82,9 +93,6 @@ ReactiveUDFormOnSubmit() {
     adress: [ '', [Validators.required]],
     guests: [ '', [Validators.required]]
   },
-  {
-    validator: MustMatch('password', 'confPassword')
-  }
   );
   }
 }

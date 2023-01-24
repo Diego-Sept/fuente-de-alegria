@@ -1,12 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
+import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class ClientsService {
-  rows: any;
-  onDatatablessChanged: BehaviorSubject<any>;
+export class ClientsService implements Resolve<any> {
+  public rows: any;
+  public onClientListChanged: BehaviorSubject<any>;
 
   /**
    * Constructor
@@ -15,7 +15,7 @@ export class ClientsService {
    */
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
-    this.onDatatablessChanged = new BehaviorSubject({});
+    this.onClientListChanged = new BehaviorSubject({});
   }
 
   /**
@@ -40,7 +40,7 @@ export class ClientsService {
     return new Promise((resolve, reject) => {
       this._httpClient.get('api/datatable-rows').subscribe((response: any) => {
         this.rows = response;
-        this.onDatatablessChanged.next(this.rows);
+        this.onClientListChanged.next(this.rows);
         resolve(this.rows);
       }, reject);
     });

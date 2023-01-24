@@ -6,417 +6,177 @@
                 <div class="card-body">
                     <ul ngbNav #nav="ngbNav" class="nav nav-pills">
                         <li ngbNavItem>
-                            <a ngbNavLink class="d-flex align-items-center"><i data-feather="user" class="mr-sm-50"></i><span class="d-none d-sm-block">Account</span></a
-              >
-              <ng-template ngbNavContent>
-                <!-- Account Tab starts -->
-                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
-                      <h4>{{ currentRow.fullName }}</h4>
-                      <br>
-                  <!-- users edit account form start -->
-                  <form class="form-validate" (ngSubmit)="(accountForm.form.valid)" #accountForm="ngForm">
-                    <div class="row">
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="username">Username</label>
-                          <input
-                            type="text"
-                            id="username"
-                            class="form-control"
-                            placeholder="Username"
-                            name="username"
-                            [(ngModel)]="currentRow.username"
-                            [class.error]="accountForm.submitted && UserNameRef.invalid"
-                            #UserNameRef="ngModel"
-                            required
-                          />
-                          <span *ngIf="accountForm.submitted && UserNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="UserNameRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="name">Name</label>
-                          <input
-                            type="text"
-                            id="name"
-                            class="form-control"
-                            placeholder="Name"
-                            name="fullName"
-                            [(ngModel)]="currentRow.fullName"
-                            [class.error]="accountForm.submitted && FullNameRef.invalid"
-                            #FullNameRef="ngModel"
-                            required
-                          />
-                          <span *ngIf="accountForm.submitted && FullNameRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="FullNameRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="email">E-mail</label>
-                          <input
-                            type="email"
-                            id="email"
-                            class="form-control"
-                            placeholder="Email"
-                            name="email"
-                            [(ngModel)]="currentRow.email"
-                            [class.error]="accountForm.submitted && EmailRef.invalid"
-                            #EmailRef="ngModel"
-                            required
-                          />
-                          <span *ngIf="accountForm.submitted && EmailRef.invalid" class="invalid-form">
-                            <small class="form-text text-danger" *ngIf="EmailRef.errors.required"
-                              >This field is required!</small
-                            >
-                          </span>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="userType">Tipo de Usuario</label>
-                          <select class="form-control" [(ngModel)]="currentRow.userType" name="userType" id="userType">
-                            <option>Administrador</option>
-                            <option>Operador</option>
-                            <option>Cliente</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-md-4">
-                        <div class="form-group">
-                          <label for="company">Company</label>
-                          <input
-                            type="text"
-                            class="form-control"
-                            [(ngModel)]="currentRow.company"
-                            placeholder="Company name"
-                            id="company"
-                            name="company"
-                          />
-                        </div>
-                      </div>
+                            <ng-template ngbNavContent>
+                                <!-- Account Tab starts -->
+                                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
 
-                      <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button
-                          type="submit"
-                          (click)="submit(accountForm)"
-                          class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1"
-                          rippleEffect
-                        >
-                          Save Changes
-                        </button>
-                        <button (click)="resetFormWithDefaultValues()" class="btn btn-outline-secondary" rippleEffect>
-                          Reset
-                        </button>
-                      </div>
-                    </div>
-                  </form>
-                  <!-- users edit account form ends -->
-                </div>
-                <!-- Account Tab ends -->
-              </ng-template>
-            </li>
-            <li ngbNavItem>
-              <a ngbNavLink class="d-flex align-items-center">
-                <i data-feather="info" class="mr-sm-50"></i><span class="d-none d-sm-block">Information</span></a
-              >
-              <ng-template ngbNavContent>
-                <!-- Information Tab starts -->
-                <div class="tab-pane" id="information" aria-labelledby="information-tab" role="tabpanel">
-                  <!-- users edit Info form start  -->
-                  <form class="form-validate">
-                    <div class="row mt-1">
-                      <div class="col-12">
-                        <h4 class="mb-1">
-                          <i data-feather="user" [size]="16" class="mr-75 font-medium-4"></i>
-                          <span class="align-middle">Personal Information</span>
-                        </h4>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="birth">Birth date</label>
-                          <ng2-flatpickr
-                            [config]="birthDateOptions"
-                            id="birthDate"
-                            name="birthDate"
-                            placeholder="June 18, 2021"
-                          ></ng2-flatpickr>
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="mobile">Mobile</label>
-                          <input id="mobile" type="text" class="form-control" value="&#43;6595895857" name="phone" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="website">Website</label>
-                          <input
-                            id="website"
-                            type="text"
-                            class="form-control"
-                            placeholder="Website here..."
-                            value="https://rowboat.com/insititious/Angelo"
-                            name="website"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="languages">Languages</label>
-                          <select id="languages" class="form-control">
-                            <option value="English">English</option>
-                            <option value="Spanish">Spanish</option>
-                            <option value="French" selected>French</option>
-                            <option value="Russian">Russian</option>
-                            <option value="German">German</option>
-                            <option value="Arabic">Arabic</option>
-                            <option value="Sanskrit">Sanskrit</option>
-                          </select>
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label class="d-block mb-1">Gender</label>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="male" name="gender" class="custom-control-input" />
-                            <label class="custom-control-label" for="male">Male</label>
-                          </div>
-                          <div class="custom-control custom-radio custom-control-inline">
-                            <input type="radio" id="female" name="gender" class="custom-control-input" checked />
-                            <label class="custom-control-label" for="female">Female</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label class="d-block mb-1">Contact Options</label>
-                          <div class="custom-control custom-checkbox custom-control-inline">
-                            <input type="checkbox" class="custom-control-input" id="email-cb" checked />
-                            <label class="custom-control-label" for="email-cb">Email</label>
-                          </div>
-                          <div class="custom-control custom-checkbox custom-control-inline">
-                            <input type="checkbox" class="custom-control-input" id="message" checked />
-                            <label class="custom-control-label" for="message">Message</label>
-                          </div>
-                          <div class="custom-control custom-checkbox custom-control-inline">
-                            <input type="checkbox" class="custom-control-input" id="phone" />
-                            <label class="custom-control-label" for="phone">Phone</label>
-                          </div>
-                        </div>
-                      </div>
-                      <div class="col-12">
-                        <h4 class="mb-1 mt-2">
-                          <i data-feather="map-pin" [size]="16" class="mr-75 font-medium-4"></i>
-                          <span class="align-middle">Address</span>
-                        </h4>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="address-1">Address Line 1</label>
-                          <input
-                            id="address-1"
-                            type="text"
-                            class="form-control"
-                            value="A-65, Belvedere Streets"
-                            name="address"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="address-2">Address Line 2</label>
-                          <input id="address-2" type="text" class="form-control" placeholder="T-78, Groove Street" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="postcode">Postcode</label>
-                          <input id="postcode" type="text" class="form-control" placeholder="597626" name="zip" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="city">City</label>
-                          <input id="city" type="text" class="form-control" value="New York" name="city" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="state">State</label>
-                          <input id="state" type="text" class="form-control" name="state" placeholder="Manhattan" />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6">
-                        <div class="form-group">
-                          <label for="country">Country</label>
-                          <input
-                            id="country"
-                            type="text"
-                            class="form-control"
-                            name="country"
-                            placeholder="United States"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
-                          Save Changes
-                        </button>
-                        <button type="reset" class="btn btn-outline-secondary" rippleEffect>Reset</button>
-                      </div>
-                    </div>
-                  </form>
-                  <!-- users edit Info form ends -->
-                </div>
-                <!-- Information Tab ends -->
-              </ng-template>
-            </li>
-            <li ngbNavItem>
-              <a ngbNavLink class="d-flex align-items-center"
-                ><i data-feather="share-2" class="mr-sm-50"></i><span class="d-none d-sm-block">Social</span></a
-              >
-              <ng-template ngbNavContent>
-                <!-- Social Tab starts -->
-                <div class="tab-pane" id="social" aria-labelledby="social-tab" role="tabpanel">
-                  <!-- users edit social form start -->
-                  <form class="form-validate">
-                    <div class="row">
-                      <div class="col-lg-4 col-md-6 form-group">
-                        <label for="twitter-input">Twitter</label>
-                        <div class="input-group input-group-merge">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon3">
-                              <i class="font-medium-2" data-feather="twitter"></i>
-                            </span>
-                          </div>
-                          <input
-                            id="twitter-input"
-                            type="text"
-                            class="form-control"
-                            value="https://www.twitter.com/adoptionism744"
-                            placeholder="https://www.twitter.com/"
-                            aria-describedby="basic-addon3"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6 form-group">
-                        <label for="facebook-input">Facebook</label>
-                        <div class="input-group input-group-merge">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon4">
-                              <i class="font-medium-2" data-feather="facebook"></i>
-                            </span>
-                          </div>
-                          <input
-                            id="facebook-input"
-                            type="text"
-                            class="form-control"
-                            value="https://www.facebook.com/adoptionism664"
-                            placeholder="https://www.facebook.com/"
-                            aria-describedby="basic-addon4"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6 form-group">
-                        <label for="instagram-input">Instagram</label>
-                        <div class="input-group input-group-merge">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon5">
-                              <i class="font-medium-2" data-feather="instagram"></i>
-                            </span>
-                          </div>
-                          <input
-                            id="instagram-input"
-                            type="text"
-                            class="form-control"
-                            value="https://www.instagram.com/adopt-ionism744"
-                            placeholder="https://www.instagram.com/"
-                            aria-describedby="basic-addon5"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6 form-group">
-                        <label for="github-input">Github</label>
-                        <div class="input-group input-group-merge">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon9">
-                              <i class="font-medium-2" data-feather="github"></i>
-                            </span>
-                          </div>
-                          <input
-                            id="github-input"
-                            type="text"
-                            class="form-control"
-                            value="https://www.github.com/madop818"
-                            placeholder="https://www.github.com/"
-                            aria-describedby="basic-addon9"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6 form-group">
-                        <label for="codepen-input">Codepen</label>
-                        <div class="input-group input-group-merge">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon12">
-                              <i class="font-medium-2" data-feather="codepen"></i>
-                            </span>
-                          </div>
-                          <input
-                            id="codepen-input"
-                            type="text"
-                            class="form-control"
-                            value="https://www.codepen.com/adoptism243"
-                            placeholder="https://www.codepen.com/"
-                            aria-describedby="basic-addon12"
-                          />
-                        </div>
-                      </div>
-                      <div class="col-lg-4 col-md-6 form-group">
-                        <label for="slack-input">Slack</label>
-                        <div class="input-group input-group-merge">
-                          <div class="input-group-prepend">
-                            <span class="input-group-text" id="basic-addon11">
-                              <i class="font-medium-2" data-feather="slack"></i>
-                            </span>
-                          </div>
-                          <input
-                            id="slack-input"
-                            type="text"
-                            class="form-control"
-                            value="@adoptionism744"
-                            placeholder="https://www.slack.com/"
-                            aria-describedby="basic-addon11"
-                          />
-                        </div>
-                      </div>
+                                    <br>
+                                    <!-- users edit account form start -->
+                                    <form class="edit-user" [formGroup]="ReactiveUserEditDetailsForm" (ngSubmit)="ReactiveEditFormOnSubmit()">
+                                        <div class="row">
+                                            <!-- Username -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserUsername">Nombre de Usuario</label>
+                                                    <input type="text" id="UserUsername" [(ngModel)]="UserEditForm.username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.username.errors }" />
+                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.username.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveUserEditForm.username.errors.required">Nombre de Usuario es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
-                      <div class="col-12 d-flex flex-sm-row flex-column mt-2">
-                        <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
-                          Save Changes
-                        </button>
-                        <button type="reset" class="btn btn-outline-secondary" rippleEffect>Reset</button>
-                      </div>
-                    </div>
-                  </form>
-                  <!-- users edit socail form ends -->
+                                            <!-- Password -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserPassword">Constraseña</label>
+                                                    <div class="input-group input-group-merge form-password-toggle mb-2">
+                                                        <input [type]="mergedPwdShow ? 'text' : 'password'" id="UserPassword" formControlName="password" [(ngModel)]="UserEditForm.password" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.password.errors }"
+                                                        />
+                                                        <div class="input-group-append" (click)="mergedPwdShow = !mergedPwdShow">
+                                                            <span class="input-group-text cursor-pointer"><i
+                                                            class="feather"
+                                                            [ngClass]="{
+                                                            'icon-eye-off': mergedPwdShow,
+                                                            'icon-eye': !mergedPwdShow
+                                                            }"
+                                                        ></i
+                                                        ></span>
+                                                        </div>
+
+                                                        <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.password.errors" class="invalid-feedback">
+                                                            <div *ngIf="ReactiveUserEditForm.password.errors.required">Contraseña es requerida</div>
+                                                            <div *ngIf="ReactiveUserEditForm.password.errors.minlength">La contraseña debe tener un mínimo de 4 caracteres
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Confirm Password -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserConfPassword">Confirmar Contraseña</label>
+                                                    <div class="input-group input-group-merge form-password-toggle mb-2">
+                                                        <input [type]="mergedPwdShow ? 'text' : 'password'" id="UserConfPassword" formControlName="confPassword" [(ngModel)]="UserEditForm.confPassword" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.confPassword.errors }"
+                                                        />
+                                                        <div class="input-group-append" (click)="mergedPwdShow = !mergedPwdShow">
+                                                            <span class="input-group-text cursor-pointer"><i
+                                                        class="feather"
+                                                        [ngClass]="{
+                                                        'icon-eye-off': mergedPwdShow,
+                                                        'icon-eye': !mergedPwdShow
+                                                        }"
+                                                    ></i
+                                                    ></span>
+                                                        </div>
+                                                        <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.confPassword.errors" class="invalid-feedback">
+                                                            <div *ngIf="ReactiveUserEditForm.confPassword.errors.required">Confirmar Contraseña es requerido</div>
+                                                            <div *ngIf="ReactiveUserEditForm.confPassword.errors.minlength">Confirmar Conretraseña debe tener un mínimo de 4 caracteres
+                                                            </div>
+                                                            <div *ngIf="ReactiveUserEditForm.confPassword.errors.mustMatch">Las contraseñas deben coincidir</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+
+                                            <!-- Fullname -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="Userfullname">Nombre y Apellido</label>
+                                                    <input type="text" id="Userfullname" [(ngModel)]="UserEditForm.fullname" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.fullname.errors }" />
+                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.fullname.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveUserEditForm.fullname.errors.required">Nombre es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- DNI -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserDNI">DNI</label>
+                                                    <input type="text" id="UserDNI" [(ngModel)]="UserEditForm.dni" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.dni.errors }" />
+                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.dni.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveUserEditForm.dni.errors.required">DNI es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- DNI -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserCUIT">CUIT</label>
+                                                    <input type="text" id="UserCUIT" formControlName="cuit" [(ngModel)]="UserEditForm.cuit" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.cuit.errors }" />
+                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.cuit.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveUserEditForm.cuit.errors.required">CUIT es requerido</div>
+                                                        <div *ngIf="ReactiveUserEditForm.cuit.errors.minlength">El CUIT debe tener un mínimo de 4 caracteres
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserEmail">Email</label>
+                                                    <input type="text" id="UserEmail" formControlName="email" [(ngModel)]="UserEditForm.email" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.email.errors }" />
+                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.email.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveUserEditForm.email.errors.required">Email es requerido</div>
+                                                        <div *ngIf="ReactiveUserEditForm.email.errors.email">Email tiene que ser una direccion de correo valida</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Telephone -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserTelephone">Telefono</label>
+                                                    <div class="input-group">
+                                                        <div class="input-group-prepend">
+                                                            <span class="input-group-text" id="basic-addon1">+54</span>
+                                                        </div>
+                                                        <input type="text" id="UserTelephone" formControlName="telephone" [(ngModel)]="UserEditForm.telephone" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.telephone.errors }" />
+
+                                                        <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.telephone.errors" class="invalid-feedback">
+                                                            <div *ngIf="ReactiveUserEditForm.telephone.errors.required">Telefono es requerido</div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- UserType field -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserUserType">Tipo de Usuario</label>
+                                                    <select id="UserUserType" formControlName="userType" [(ngModel)]="UserEditForm.userType" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.userType.errors }">
+                                                    <option value="administrador">Administrador</option>
+                                                    <option value="operador">Operador</option>
+                                                    <option value="cliente">Cliente</option>
+                                                    </select>
+                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.userType.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveUserEditForm.userType.errors.required">Tipo de Usuario es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <div class="col-12 d-flex flex-sm-row flex-column mt-2 justify-content-end">
+                                                <button type="submit" (click)="saveUser(); redirectToUserList('users')" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                                              Guardar
+                                              </button>
+                                                <button class="btn btn-outline-secondary" (click)="redirectToUserList('users')" rippleEffect>
+                                              Cancelar
+                                              </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- users edit account form ends -->
+                                </div>
+                                <!-- Account Tab ends -->
+                            </ng-template>
+                        </li>
+                    </ul>
+                    <div [ngbNavOutlet]="nav" class="mt-2"></div>
                 </div>
-                <!-- Social Tab ends -->
-              </ng-template>
-            </li>
-          </ul>
-          <div [ngbNavOutlet]="nav" class="mt-2"></div>
-        </div>
-      </div>
-    </section>
-    <!-- users edit ends -->
-  </div>
+            </div>
+        </section>
+        <!-- users edit ends -->
+    </div>
 </div>
