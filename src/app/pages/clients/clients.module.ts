@@ -7,6 +7,8 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
+
 
 import { CoreCommonModule } from '@core/common.module';
 import { CoreSidebarModule } from '@core/components';
@@ -14,14 +16,14 @@ import { CoreDirectivesModule } from '@core/directives/directives';
 import { CorePipesModule } from '@core/pipes/pipes.module';
 
 import { ClientsComponent } from './client-list/clients.component';
-import { ClientsService } from './client-list/clients.service';
-
-import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { ClientSidebarComponent } from './client-list/client-sidebar/client-sidebar.component';
 import { ClientViewComponent } from './client-view/client-view.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
+
+import { ClientsService } from './client-list/clients.service';
 import { ClientViewService } from './client-view/client-view.service';
 import { ClientEditService } from './client-edit/client-edit.service';
+import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
 
 
 const routes = [
@@ -67,29 +69,25 @@ const routes = [
 ];
 
 @NgModule({
-  declarations: [
-    ClientsComponent,
-    ClientViewComponent,
-    ClientEditComponent,
-    ClientSidebarComponent
-  ],
+  declarations: [ ClientsComponent, ClientViewComponent, ClientEditComponent, ClientSidebarComponent ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    NgbModule,
     CoreCommonModule,
-    ContentHeaderModule,
-    NgxDatatableModule,
     FormsModule,
     ReactiveFormsModule,
+    NgbModule,
+    ContentHeaderModule,
+    NgxDatatableModule,
     NgSelectModule,
     Ng2FlatpickrModule,
     NgxDatatableModule,
     CorePipesModule,
     CoreDirectivesModule,
     CoreSidebarModule,
+    CoreTouchspinModule,
   ],
-  providers: [ ClientsService, ClientViewService, ClientEditService ],
+  providers: [ ClientsService, ClientViewService, ClientEditService],
   exports: [
     ClientsComponent, 
     ClientSidebarComponent,

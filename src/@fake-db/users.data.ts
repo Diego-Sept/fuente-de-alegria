@@ -11,10 +11,11 @@ export class UsersFakeData {
       email: 'gslixby0@abc.net.au',
       telephone: '223-688888',
       dni: '22111444',
+      cuit: '20-22111444-2',
+      adress: 'Luro 2200',
       currentPlan: 'Enterprise',
       status: 'inactive',
       avatar: ''
-
     },
     {
       id: 2,
@@ -27,6 +28,8 @@ export class UsersFakeData {
       email: 'hredmore1@imgur.com',
       telephone: '223-558512',
       dni: '35441200',
+      cuit: '20-22111444-2',
+      adress: 'Luro 2200',
       currentPlan: 'Team',
       status: 'pending',
       avatar: 'assets/images/avatars/10.png'

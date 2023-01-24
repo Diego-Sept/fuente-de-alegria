@@ -1,0 +1,87 @@
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Galen Slixby",
+      "userType": "Administrador",
+      "username": "gslixby0",
+      "email": "gslixby0@abc.net.au",
+      "telephone": "223-688888",
+      "dni": "22111444",
+      "cuit": "20-22111444-2",
+      "adress": "Luro 2200"
+    },
+    {
+      "username": "4412528420",
+      "password": "12345",
+      "confPassword": "12345",
+      "fullname": "Pedro Alvarez2",
+      "dni": "44125284",
+      "cuit": "20441252842",
+      "email": "palvarez@gmail.com",
+      "telephone": "2235145585",
+      "userType": "cliente",
+      "id": 5
+    },
+    {
+      "username": "generalperon1263",
+      "password": "1234",
+      "confPassword": "1234",
+      "fullname": "pedro peron",
+      "dni": "645146516",
+      "cuit": "154561655",
+      "email": "nada@nada.com",
+      "telephone": "11111111",
+      "userType": "administrador",
+      "id": 6
+    },
+    {
+      "username": "sirstallin",
+      "password": "123456",
+      "confPassword": "123456",
+      "fullname": "Stallin",
+      "dni": "01",
+      "cuit": "01",
+      "email": "01",
+      "telephone": "",
+      "userType": "",
+      "id": 7
+    },
+    {
+      "username": "sirstallin",
+      "password": "123456",
+      "confPassword": "123456",
+      "fullname": "Stallin",
+      "dni": "01",
+      "cuit": "200101",
+      "email": "stallin@gmail.com",
+      "telephone": "2236112515",
+      "userType": "operador",
+      "id": 8
+    },
+    {
+      "username": "",
+      "password": "9g7QMXDa2nUNx48",
+      "confPassword": "",
+      "fullname": "",
+      "dni": "",
+      "cuit": "",
+      "email": "",
+      "telephone": "",
+      "userType": "",
+      "id": 9
+    },
+    {
+      "username": "test",
+      "password": "9g7QMXDa2nUNx48",
+      "confPassword": "9g7QMXDa2nUNx48",
+      "fullname": "test",
+      "dni": "123123123123",
+      "cuit": "156165165165",
+      "email": "nada@nada.com",
+      "telephone": "11",
+      "userType": "operador",
+      "id": 10
+    }
+  ]
+}

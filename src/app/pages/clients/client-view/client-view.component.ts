@@ -25,11 +25,15 @@ export class ClientViewComponent implements OnInit, OnDestroy {
    * Constructor
    *
    * @param {Router} router
-   * @param {UserViewService} _userViewService
+   * @param {ClientViewService} _clientViewService
    */
   constructor(private router: Router, private _clientViewService: ClientViewService) {
     this._unsubscribeAll = new Subject();
     this.lastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+  }
+
+  redirectToClientList(pageName:string){
+    this.router.navigate([`${pageName}`]);
   }
 
   // Lifecycle Hooks
@@ -38,7 +42,7 @@ export class ClientViewComponent implements OnInit, OnDestroy {
    * On init
    */
   ngOnInit(): void {
-    this._clientViewService.onUserViewChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+    this._clientViewService.onClientViewChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
       this.data = response;
     });
   }

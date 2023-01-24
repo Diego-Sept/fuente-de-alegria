@@ -1,6 +1,7 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
 import { Router } from '@angular/router';
-import { NgForm } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
+
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -23,9 +24,19 @@ export class ClientEditComponent implements OnInit, OnDestroy {
   public rows;
   public currentRow;
   public tempRow;
-  public avatarImage: string;
+  public ReactiveClientEditDetailsForm: FormGroup;
+  public ReactiveClientEditFormSubmitted = false;
 
-  @ViewChild('accountForm') accountForm: NgForm;
+  // Reactive User Details form data
+  public ClientEditForm = {
+    fullname: '',
+    dni:'',
+    email: '',
+    phoneNumber: '',
+    phoneNumber2: '',
+    adress: '',
+    guests: ''
+  };
 
   public birthDateOptions: FlatpickrOptions = {
     altInput: true
@@ -43,7 +54,7 @@ export class ClientEditComponent implements OnInit, OnDestroy {
    * @param {Router} router
    * @param {UserEditService} _userEditService
    */
-  constructor(private router: Router, private _clientEditService: ClientEditService) {
+  constructor(private router: Router, private _clientEditService: ClientEditService, private formBuilder: UntypedFormBuilder) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
@@ -51,27 +62,16 @@ export class ClientEditComponent implements OnInit, OnDestroy {
   // Public Methods
   // -----------------------------------------------------------------------------------------------------
 
-  /**
-   * Reset Form With Default Values
-   */
-  resetFormWithDefaultValues() {
-    this.accountForm.resetForm(this.tempRow);
-  }
+  // getter for easy access to form fields
+get ReactiveClientEditForm() {
+  return this.ReactiveClientEditDetailsForm.controls;
+}
 
-  /**
-   * Upload Image
-   *
-   * @param event
-   */
-  uploadImage(event: any) {
-    if (event.target.files && event.target.files[0]) {
-      let reader = new FileReader();
-
-      reader.onload = (event: any) => {
-        this.avatarImage = event.target.result;
-      };
-
-      reader.readAsDataURL(event.target.files[0]);
+  ReactiveClientEditFormOnSubmit() {
+    this.ReactiveClientEditFormSubmitted = true;
+    // stop here if form is invalid
+    if (this.ReactiveClientEditDetailsForm.invalid) {
+      return;
     }
   }
 
@@ -86,6 +86,10 @@ export class ClientEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  redirectToClientList(pageName:string){
+    this.router.navigate([`${pageName}`]);
+  }
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
   /**
@@ -93,11 +97,22 @@ export class ClientEditComponent implements OnInit, OnDestroy {
    */
   ngOnInit(): void {
     this._clientEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
+
+      this.ReactiveClientEditDetailsForm = this.formBuilder.group({
+        fullname: ['', Validators.required],
+        dni: ['', [Validators.required]],  
+        email: ['', [Validators.required, Validators.email]],
+        phoneNumber: ['', [Validators.required, Validators.minLength(4)]],
+        phoneNumber2: ['', [Validators.required, Validators.minLength(4)]],
+        adress: [ '', [Validators.required]],
+        guests: [ '', [Validators.required]]
+      },
+      );
+
       this.rows = response;
       this.rows.map(row => {
         if (row.id == this.urlLastValue) {
           this.currentRow = row;
-          this.avatarImage = this.currentRow.avatar;
           this.tempRow = cloneDeep(row);
         }
       });
@@ -112,4 +127,4 @@ export class ClientEditComponent implements OnInit, OnDestroy {
     this._unsubscribeAll.next();
     this._unsubscribeAll.complete();
   }
-}
+ }

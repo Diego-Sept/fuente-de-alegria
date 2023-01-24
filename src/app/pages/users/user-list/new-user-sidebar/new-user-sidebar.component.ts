@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { MustMatch } from 'app/main/forms/form-validation/_helpers/must-match.validator';
+import { UserListService } from '../user-list.service';
 
 @Component({
   selector: 'app-new-user-sidebar',
@@ -16,15 +17,14 @@ export class NewUserSidebarComponent implements OnInit {
 
   // Reactive User Details form data
   public UDForm = {
-    userName: '',
+    username: '',
     password: '',
     confPassword: '',
-    firstName: '',
-    lastName: '',
-    dni:'',
+    fullname: '',
+    dni: '',
     cuit: '',
     email: '',
-    phoneNumber: '',
+    telephone: '',
     userType: ''
   };
   
@@ -33,7 +33,7 @@ export class NewUserSidebarComponent implements OnInit {
    *
    * @param {CoreSidebarService} _coreSidebarService
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private formBuilder: UntypedFormBuilder) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private userService: UserListService, private formBuilder: UntypedFormBuilder) {}
 
 // getter for easy access to form fields
 get ReactiveUDForm() {
@@ -44,9 +44,11 @@ ReactiveUDFormOnSubmit() {
   this.ReactiveUDFormSubmitted = true;
   // stop here if form is invalid
   if (this.ReactiveUserDetailsForm.invalid) {
-    return;
+    return console.log(this.UDForm);;
   }
-
+  this.userService.addUser(this.UDForm).subscribe( resp => {
+    console.log('Response', resp);
+  })
   this.toggleSidebar('new-user-sidebar');
 }
   /**
@@ -58,34 +60,23 @@ ReactiveUDFormOnSubmit() {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
-  /**
-   * Submit
-   *
-   * @param form
-   */
-  submit(form) {
-    if (form.valid) {
-      this.toggleSidebar('new-user-sidebar');
-    }
-  }
-
   ngOnInit(): void {
     // Reactive form initialization
   this.ReactiveUserDetailsForm = this.formBuilder.group({
-    userName: ['', Validators.required],
-    firstName: ['', Validators.required],
-    lastName: ['', Validators.required],
+    username: ['', Validators.required],
+    fullname: ['', Validators.required],
     dni: ['', [Validators.required]],
     cuit: ['', [Validators.required,Validators.minLength(4)]],
     password: ['', [Validators.required, Validators.minLength(4)]],
     confPassword: ['', [Validators.required, Validators.minLength(4)]],
     email: ['', [Validators.required, Validators.email]],
-    phoneNumber: ['', [Validators.required, Validators.minLength(4)]],
+    telephone: ['', [Validators.required, Validators.minLength(4)]],
     userType: [ '', [Validators.required]]
   },
   {
     validator: MustMatch('password', 'confPassword')
   }
   );
+
   }
 }

@@ -8,6 +8,8 @@ import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
 import { UserListService } from './user-list.service';
+import { Router } from '@angular/router';
+import { User } from 'app/auth/models';
 
 @Component({
   selector: 'app-user-list',
@@ -20,12 +22,13 @@ export class UserListComponent implements OnInit {
   public sidebarToggleRef = false;
   public isCollapsed5 = true;
   public rows;
+  public user: User[] = [];
   public selectedOption = 10;
   public ColumnMode = ColumnMode;
   public temp = [];
+  public previousUsernameFilter = '';
   public previousUserTypeFilter = '';
-  public previousPlanFilter = '';
-  public previousStatusFilter = '';
+  public previousUserIdFilter = '';
 
   public selectUserType: any = [
     { name: 'All', value: '' },
@@ -34,25 +37,12 @@ export class UserListComponent implements OnInit {
     { name: 'Cliente', value: 'Cliente' },
   ];
 
-  public selectPlan: any = [
-    { name: 'All', value: '' },
-    { name: 'Basic', value: 'Basic' },
-    { name: 'Company', value: 'Company' },
-    { name: 'Enterprise', value: 'Enterprise' },
-    { name: 'Team', value: 'Team' }
-  ];
-
-  public selectStatus: any = [
-    { name: 'All', value: '' },
-    { name: 'Pending', value: 'Pending' },
-    { name: 'Active', value: 'Active' },
-    { name: 'Inactive', value: 'Inactive' }
-  ];
-
+  public selectedUserId = [];
+  public selectedUsername = [];
   public selectedUserType = [];
-  public selectedPlan = [];
-  public selectedStatus = [];
-  public searchValue = '';
+  public searchById = '';
+  public searchByUsername = '';
+  public searchByUserType = '';
 
   // Decorator
   @ViewChild(DatatableComponent) table: DatatableComponent;
@@ -71,7 +61,8 @@ export class UserListComponent implements OnInit {
   constructor(
     private _userListService: UserListService,
     private _coreSidebarService: CoreSidebarService,
-    private _coreConfigService: CoreConfigService
+    private _coreConfigService: CoreConfigService,
+    private _router: Router
   ) {
     this._unsubscribeAll = new Subject();
   }
@@ -86,9 +77,9 @@ export class UserListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
+    this.selectedUserId = this.selectedUserId[0];
+    this.selectedUsername = this.selectedUsername[0];
     this.selectedUserType = this.selectedUserType[0];
-    this.selectedPlan = this.selectPlan[0];
-    this.selectedStatus = this.selectStatus[0];
 
     const val = event.target.value.toLowerCase();
 
@@ -113,61 +104,75 @@ export class UserListComponent implements OnInit {
   }
 
   /**
+   * Filter By UserId
+   *
+   * @param event
+   */
+  filterByUserId(event) {
+    const filter = event ? event.value : '';
+    this.previousUserIdFilter = filter;
+    this.temp = this.filterRows(this.previousUserTypeFilter, this.previousUsernameFilter, filter);
+    this.rows = this.temp;
+  }
+
+  /**
+   * Filter By Username(
+   *
+   * @param event
+   */
+  filterByUsername(event) {
+    const filter = event ? event.value : '';
+    this.previousUsernameFilter = filter;
+    this.temp = this.filterRows(this.previousUserTypeFilter, filter, this.previousUserIdFilter);
+    this.rows = this.temp;
+  }
+
+  /**
    * Filter By userTypes
    *
    * @param event
    */
   filterByUserType(event) {
-    const filter = event ? event.value : '';
+    const filter = event ? event.value : [];
     this.previousUserTypeFilter = filter;
-    this.temp = this.filterRows(filter, this.previousPlanFilter, this.previousStatusFilter);
-    this.rows = this.temp;
-  }
-
-  /**
-   * Filter By Plan
-   *
-   * @param event
-   */
-  filterByPlan(event) {
-    const filter = event ? event.value : '';
-    this.previousPlanFilter = filter;
-    this.temp = this.filterRows(this.previousUserTypeFilter, filter, this.previousStatusFilter);
-    this.rows = this.temp;
-  }
-
-  /**
-   * Filter By Status
-   *
-   * @param event
-   */
-  filterByStatus(event) {
-    const filter = event ? event.value : '';
-    this.previousStatusFilter = filter;
-    this.temp = this.filterRows(this.previousUserTypeFilter, this.previousPlanFilter, filter);
+    this.temp = this.filterRows(filter, this.previousUsernameFilter, this.previousUserIdFilter);
     this.rows = this.temp;
   }
 
   /**
    * Filter Rows
-   *
+   * 
+   * @param userIdFilter
+   * @param usernameFilter
    * @param userTypeFilter
-   * @param planFilter
-   * @param statusFilter
+   * 
    */
-  filterRows(userTypeFilter, planFilter, statusFilter): any[] {
+  filterRows(userIdFilter, usernameFilter, userTypeFilter): any[] {
     // Reset search on select change
-    this.searchValue = '';
+    this.searchById = '';
+    this.searchByUsername = '';
+    this.selectedUserType = [];
+
 
     userTypeFilter = userTypeFilter.toLowerCase();
-    planFilter = planFilter.toLowerCase();
-    statusFilter = statusFilter.toLowerCase();
+    usernameFilter = usernameFilter.toLowerCase();
+    userIdFilter = userIdFilter.toLowerCase();
 
     return this.tempData.filter(row => {
-      const isPartialNameMatch = row.userType.toLowerCase().indexOf(userTypeFilter) !== -1 || !userTypeFilter;
-      const isPartialGenderMatch = row.currentPlan.toLowerCase().indexOf(planFilter) !== -1 || !planFilter;
-      const isPartialStatusMatch = row.status.toLowerCase().indexOf(statusFilter) !== -1 || !statusFilter;
-      return isPartialNameMatch && isPartialGenderMatch && isPartialStatusMatch;
+      const isPartialIdMatch = row.id.toLowerCase().indexOf(userIdFilter) !== -1 || !userIdFilter;
+      const isPartialUsernameMatch = row.username.toLowerCase().indexOf(usernameFilter) !== -1 || !usernameFilter;
+      const isPartialUserTypeMatch = row.userType.toLowerCase().indexOf(userTypeFilter) !== -1 || !userTypeFilter;
+      return isPartialUserTypeMatch && isPartialUsernameMatch && isPartialIdMatch;
+    });
+  }
+
+  /**
+   * Delete User
+   *
+   */
+  delete(id:string){
+    this._userListService.deleteUser(id).subscribe( resp => {
+      this._router.navigate([`/users`]);
     });
   }
 
@@ -194,6 +199,7 @@ export class UserListComponent implements OnInit {
         });
       }
     });
+
   }
 
   /**

@@ -1,0 +1,79 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- users edit start -->
+        <section class="app-user-edit">
+            <div class="card">
+                <div class="card-body">
+                    <ul ngbNav #nav="ngbNav" class="nav nav-pills">
+                        <li ngbNavItem>
+                            <ng-template ngbNavContent>
+                                <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
+                                    <h4>{{ currentRow.fullName }}</h4>
+                                    <br>
+                                    <!-- myData form start -->
+                                    <form class="myData" [formGroup]="ReactiveMyDataDetailsForm" (ngSubmit)="ReactiveEditFormOnSubmit()">
+                                        <div class="row">
+                                            <!-- Username -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserUserName">Nombre de Usuario</label>
+                                                    <input type="text" id="UserUserName" [(ngModel)]="MyDataForm.userName" formControlName="userName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveMyDataFormSubmitted && ReactiveMyDataForm.userName.errors }" />
+                                                    <div *ngIf="ReactiveMyDataFormSubmitted && ReactiveMyDataForm.userName.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveMyDataForm.userName.errors.required">Nombre de Usuario es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- Fullname -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="Userfullname">Nombre y Apellido</label>
+                                                    <input type="text" id="Userfullname" [(ngModel)]="MyDataForm.fullname" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': ReactiveMyDataFormSubmitted && ReactiveMyDataForm.fullname.errors }" />
+                                                    <div *ngIf="ReactiveMyDataFormSubmitted && ReactiveMyDataForm.fullname.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveMyDataForm.fullname.errors.required">Nombre es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <!-- DNI -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserDNI">DNI</label>
+                                                    <input type="text" id="UserDNI" [(ngModel)]="MyDataForm.dni" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': ReactiveMyDataFormSubmitted && ReactiveMyDataForm.dni.errors }" />
+                                                    <div *ngIf="ReactiveMyDataFormSubmitted && ReactiveMyDataForm.dni.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveMyDataForm.dni.errors.required">DNI es requerido</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <!-- Email -->
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="UserEmail">Email</label>
+                                                    <input type="text" id="UserEmail" formControlName="email" [(ngModel)]="MyDataForm.email" class="form-control" [ngClass]="{ 'is-invalid': ReactiveMyDataFormSubmitted && ReactiveMyDataForm.email.errors }" />
+                                                    <div *ngIf="ReactiveMyDataFormSubmitted && ReactiveMyDataForm.email.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveMyDataForm.email.errors.required">Email es requerido</div>
+                                                        <div *ngIf="ReactiveMyDataForm.email.errors.email">Email tiene que ser una direccion de correo valida</div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="col-12 d-flex flex-sm-row flex-column mt-2 justify-content-end">
+                                                <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                                              Guardar
+                                              </button>
+                                                <button class="btn btn-outline-secondary" (click)="redirectToUserList('users')" rippleEffect>
+                                              Cancelar
+                                              </button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                    <!-- myData form ends -->
+                                </div>
+                            </ng-template>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+        <!-- users edit ends -->
+    </div>
+</div>

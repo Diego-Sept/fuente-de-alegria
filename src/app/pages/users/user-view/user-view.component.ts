@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
+import { User } from '../interface/user.interface';
 import { UserViewService } from './user-view.service';
 
 
@@ -16,7 +17,8 @@ export class UserViewComponent implements OnInit, OnDestroy {
   // public
   public url = this.router.url;
   public lastValue;
-  public data;
+  public data: User;
+  public baseUrl = `http://localhost:3000/users/user-edit`;
 
   // private
   private _unsubscribeAll: Subject<any>;
@@ -30,6 +32,14 @@ export class UserViewComponent implements OnInit, OnDestroy {
   constructor(private router: Router, private _userViewService: UserViewService) {
     this._unsubscribeAll = new Subject();
     this.lastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
+  }
+
+  redirectToUserList(pageName:string){
+    this.router.navigate([`${pageName}`]);
+  }
+
+  redirectToEdit(id: number){
+    this.router.navigate([`${this.baseUrl}/${id}`]);
   }
 
   // Lifecycle Hooks
