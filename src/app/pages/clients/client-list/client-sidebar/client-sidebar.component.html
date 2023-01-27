@@ -37,28 +37,28 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="ClientPhoneNumber">Telefono</label>
+                        <label for="ClientTelephone">Telefono</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">+54</span>
                             </div>
-                            <input type="text" id="ClientPhoneNumber" formControlName="phoneNumber" [(ngModel)]="ClientForm.phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber.errors }" placeholder="" />
+                            <input type="text" id="ClientTelephone" formControlName="telephone" [(ngModel)]="ClientForm.telephone" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.telephone.errors }" placeholder="" />
 
-                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber.errors" class="invalid-feedback">
-                                <div *ngIf="ReactiveClientForm.phoneNumber.errors.required">Telefono es requerido</div>
+                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.telephone.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveClientForm.telephone.errors.required">Telefono es requerido</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ClientPhoneNumber2">Telefono 2</label>
+                        <label for="ClientTelephone2">Telefono 2</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">+54</span>
                             </div>
-                            <input type="text" id="ClientPhoneNumber2" formControlName="phoneNumber2" [(ngModel)]="ClientForm.phoneNumber2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber2.errors }" placeholder="" />
-                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber2.errors" class="invalid-feedback">
-                                <div *ngIf="ReactiveClientForm.phoneNumber2.errors.required">Telefono es requerido</div>
+                            <input type="text" id="ClientTelephone2" formControlName="telephone2" [(ngModel)]="ClientForm.telephone2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.telephone2.errors }" placeholder="" />
+                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.telephone2.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveClientForm.telephone2.errors.required">Telefono 2 es requerido</div>
                             </div>
                         </div>
                     </div>
@@ -76,10 +76,10 @@
                         <label for="ClientGuests">Cantidad de Invitados</label>
                         <br>
                         <core-touchspin id="ClientGuests" formControlName="guests" bindLabel="name" [(ngModel)]="ClientForm.guests" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guests.errors }">
+                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.guests.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveClientForm.guests.errors.required">Seleccione al menos 1 invitado</div>
+                            </div>
                         </core-touchspin>
-                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.guests.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveClientForm.guests.errors.required">Seleccione al menos 1 invitado</div>
-                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-1" rippleEffect> Añadir </button>

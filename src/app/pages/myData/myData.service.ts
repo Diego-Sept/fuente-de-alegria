@@ -1,12 +1,14 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
+
 import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable()
-export class ClientsService implements Resolve<any> {
-  public rows: any;
-  public onClientListChanged: BehaviorSubject<any>;
+export class MyDataService implements Resolve<any> {
+  public apiData: any;
+  public onMyDataViewChanged: BehaviorSubject<any>;
+  public baseUrl = `http://localhost:3000/clients`;
 
   /**
    * Constructor
@@ -15,7 +17,7 @@ export class ClientsService implements Resolve<any> {
    */
   constructor(private _httpClient: HttpClient) {
     // Set the defaults
-    this.onClientListChanged = new BehaviorSubject({});
+    this.onMyDataViewChanged = new BehaviorSubject({});
   }
 
   /**
@@ -26,23 +28,25 @@ export class ClientsService implements Resolve<any> {
    * @returns {Observable<any> | Promise<any> | any}
    */
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<any> | Promise<any> | any {
+    
     return new Promise<void>((resolve, reject) => {
-      Promise.all([this.getDataTableRows()]).then(() => {
+      Promise.all([this.getApiData()]).then(() => {
         resolve();
       }, reject);
     });
   }
 
   /**
-   * Get rows
+   * Get API Datas
    */
-  getDataTableRows(): Promise<any[]> {
+  getApiData(): Promise<any[]> {
     return new Promise((resolve, reject) => {
-      this._httpClient.get('api/datatable-rows').subscribe((response: any) => {
-        this.rows = response;
-        this.onClientListChanged.next(this.rows);
-        resolve(this.rows);
+      this._httpClient.get(`${ this.baseUrl }`).subscribe((response: any) => {
+        this.apiData = response;
+        this.onMyDataViewChanged.next(this.apiData);
+        resolve(this.apiData);
       }, reject);
     });
   }
+
 }

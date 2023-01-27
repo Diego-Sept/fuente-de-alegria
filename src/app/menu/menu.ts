@@ -47,12 +47,12 @@ export const menu: CoreMenu[] = [
         url: 'clients'
       },
       {
-        id: 'graduates',
-        title: 'Graduates',
-        translate: 'MENU.TITLES.GRADUATES',
+        id: 'myData',
+        title: 'myData',
+        translate: 'MENU.TITLES.MYDATA',
         type: 'item',
-        icon: 'users',
-        url: 'graduates'
+        icon: 'data',
+        url: 'myData'
       },
       {
         id: 'budgets',

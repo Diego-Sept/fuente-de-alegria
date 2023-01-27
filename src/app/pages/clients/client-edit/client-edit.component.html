@@ -50,15 +50,14 @@
                                             <!-- Telephone -->
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="ClientPhoneNumber">Telefono</label>
+                                                    <label for="ClientTelephone">Telefono</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1">+54</span>
                                                         </div>
-                                                        <input type="text" id="ClientPhoneNumber" formControlName="phoneNumber" [(ngModel)]="ClientEditForm.phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.phoneNumber.errors }" placeholder=""
-                                                        />
-                                                        <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.phoneNumber.errors" class="invalid-feedback">
-                                                            <div *ngIf="ReactiveClientEditForm.phoneNumber.errors.required">Telefono es requerido</div>
+                                                        <input type="text" id="ClientTelephone" formControlName="telephone" [(ngModel)]="ClientEditForm.telephone" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.telephone.errors }" placeholder="" />
+                                                        <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.telephone.errors" class="invalid-feedback">
+                                                            <div *ngIf="ReactiveClientEditForm.telephone.errors.required">Telefono es requerido</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -66,15 +65,15 @@
                                             <!-- Telephone 2 -->
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="ClientPhoneNumber2">Telefono 2</label>
+                                                    <label for="ClientTelephone2">Telefono 2</label>
                                                     <div class="input-group">
                                                         <div class="input-group-prepend">
                                                             <span class="input-group-text" id="basic-addon1">+54</span>
                                                         </div>
-                                                        <input type="text" id="ClientPhoneNumber2" formControlName="phoneNumber2" [(ngModel)]="ClientEditForm.phoneNumber2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.phoneNumber2.errors }" placeholder=""
+                                                        <input type="text" id="ClientTelephone2" formControlName="telephone2" [(ngModel)]="ClientEditForm.telephone2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.telephone2.errors }" placeholder=""
                                                         />
-                                                        <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.phoneNumber2.errors" class="invalid-feedback">
-                                                            <div *ngIf="ReactiveClientEditForm.phoneNumber2.errors.required">Telefono es requerido</div>
+                                                        <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.telephone2.errors" class="invalid-feedback">
+                                                            <div *ngIf="ReactiveClientEditForm.telephone2.errors.required">Telefono es requerido</div>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -93,7 +92,7 @@
                                             <div class="form-group">
                                                 <label for="ClientGuests">Cantidad de Invitados</label>
                                                 <br>
-                                                <core-touchspin id="ClientGuests" formControlName="guests" bindLabel="name" [(ngModel)]="ClientEditForm.guests" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guests.errors }">
+                                                <core-touchspin [minValue]="1" id="ClientGuests" formControlName="guests" bindLabel="name" [(ngModel)]="ClientEditForm.guests" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guests.errors }">
                                                 </core-touchspin>
                                                 <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guests.errors" class="invalid-feedback">
                                                     <div *ngIf="ReactiveClientEditForm.guests.errors.required">Seleccione al menos 1 invitado</div>
@@ -101,7 +100,7 @@
                                             </div>
                                             <!-- Buttons -->
                                             <div class="col-12 d-flex flex-sm-row flex-column mt-2 justify-content-end">
-                                                <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                                                <button type="submit" (click)="saveClient(); redirectToClientList('clients')" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
                                                 Guardar
                                                 </button>
                                                 <button (click)="redirectToClientList('clients')" class="btn btn-outline-secondary" rippleEffect>

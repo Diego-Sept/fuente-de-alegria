@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { ClientListService } from '../client-list.service';
 
 @Component({
   selector: 'app-client-sidebar',
@@ -19,21 +20,19 @@ export class ClientSidebarComponent implements OnInit {
     fullname: '',
     dni:'',
     email: '',
-    phoneNumber: '',
-    phoneNumber2: '',
+    telephone: '',
+    telephone2: '',
     adress: '',
-    guests: ''
+    guests: null
   };
 
-  
-  
   /**
    * Constructor
    *
    * @param {CoreSidebarService} _coreSidebarService
    * @param {NgbModal} modalService
    */
-  constructor(private _coreSidebarService: CoreSidebarService, private modalService: NgbModal,private formBuilder: UntypedFormBuilder) {}
+  constructor(private _coreSidebarService: CoreSidebarService, private _clientListService: ClientListService,private modalService: NgbModal,private formBuilder: UntypedFormBuilder) {}
 
 // getter for easy access to form fields
 get ReactiveClientForm() {
@@ -44,9 +43,11 @@ ReactiveClientFormOnSubmit() {
   this.ReactiveClientFormSubmitted = true;
   // stop here if form is invalid
   if (this.ReactiveClientDetailsForm.invalid) {
-    return;
+    return console.log(this.ClientForm);;
   }
-
+  this._clientListService.addClient(this.ClientForm).subscribe( resp => {
+    console.log('Response', resp);
+  })
   this.toggleSidebar('client-sidebar');
 }
   /**
@@ -58,23 +59,14 @@ ReactiveClientFormOnSubmit() {
     this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
   }
 
-  /**
-   * Submit
-   *
-   * @param form
-   */
-  submit(form) {
-    if (form.valid) {
-      this.toggleSidebar('client-sidebar');
-    }
-  }
-
   // ng-select in model
   modalSelectOpen(modalSelect) {
     this.modalService.open(modalSelect, {
       windowClass: 'modal'
     });
   }
+
+
   // Lifecycle Hooks
   // -----------------------------------------------------------------------------------------------------
 
@@ -88,10 +80,10 @@ ReactiveClientFormOnSubmit() {
     fullname: ['', Validators.required],
     dni: ['', [Validators.required]],  
     email: ['', [Validators.required, Validators.email]],
-    phoneNumber: ['', [Validators.required, Validators.minLength(4)]],
-    phoneNumber2: ['', [Validators.required, Validators.minLength(4)]],
+    telephone: ['', [Validators.required, Validators.minLength(4)]],
+    telephone2: ['', [Validators.required, Validators.minLength(4)]],
     adress: [ '', [Validators.required]],
-    guests: [ '', [Validators.required]]
+    guests: [ null, [Validators.required, Validators.min(1)]]
   },
   );
   }

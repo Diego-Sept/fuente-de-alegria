@@ -8,7 +8,7 @@ import { User } from '../interface/user.interface';
 
 @Injectable()
 export class UserListService implements Resolve<any> {
-  public rows: User[] = [];
+  public rows: User[];
   public onUserListChanged: BehaviorSubject<any>;
   public baseUrl = `http://localhost:3000/users` ;
 
