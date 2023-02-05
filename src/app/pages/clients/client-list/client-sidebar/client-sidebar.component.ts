@@ -3,6 +3,7 @@ import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@an
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientListService } from '../client-list.service';
+import { Contact } from '../../interface/client.interface';
 
 @Component({
   selector: 'app-client-sidebar',
@@ -17,13 +18,16 @@ export class ClientSidebarComponent implements OnInit {
 
   // Reactive User Details form data
   public ClientForm = {
-    fullname: '',
-    dni:'',
-    email: '',
-    telephone: '',
-    telephone2: '',
+    name: '',
+    surname: '',
+    identificationNumber:'',
+    contacts: [{
+      email: '',
+      phone:'',
+      mainContact: true
+    }],
     adress: '',
-    guests: null
+    guestsQuantity: 0
   };
 
   /**
@@ -77,13 +81,18 @@ ReactiveClientFormOnSubmit() {
   ngOnInit(): void {
   // Reactive form initialization
   this.ReactiveClientDetailsForm = this.formBuilder.group({
-    fullname: ['', Validators.required],
-    dni: ['', [Validators.required]],  
-    email: ['', [Validators.required, Validators.email]],
-    telephone: ['', [Validators.required, Validators.minLength(4)]],
-    telephone2: ['', [Validators.required, Validators.minLength(4)]],
-    adress: [ '', [Validators.required]],
-    guests: [ null, [Validators.required, Validators.min(1)]]
+    name: ['', Validators.required],
+    surname: ['', Validators.required],
+    identificationNumber: ['', [Validators.required]],  
+    contacts: [
+      {
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.minLength(4)]],
+        mainContact: ['', [Validators.required]],
+      }
+    ],
+    adress: ['', Validators.required],
+    guestsQuantity: [ 0, [Validators.required, Validators.min(1)]]
   },
   );
   }

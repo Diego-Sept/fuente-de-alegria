@@ -7,6 +7,7 @@ export const locale = {
           NOTIFICATIONS: 'Notificaciones',
           SECTIONS: 'Secciones',
           CLIENTS: 'Clientes',
+          MYDATA: 'Mis Datos',
           BUDGETS: 'Presupuestos',
           STORES: 'Inventarios',
           PAYDESK: 'Cajas',

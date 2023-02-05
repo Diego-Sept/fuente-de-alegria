@@ -44,7 +44,7 @@ ReactiveUDFormOnSubmit() {
   this.ReactiveUDFormSubmitted = true;
   // stop here if form is invalid
   if (this.ReactiveUserDetailsForm.invalid) {
-    return console.log(this.UDForm);;
+    return console.log(this.UDForm);
   }
   this.userService.addUser(this.UDForm).subscribe( resp => {
     console.log('Response', resp);

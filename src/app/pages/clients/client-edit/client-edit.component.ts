@@ -27,16 +27,18 @@ export class ClientEditComponent implements OnInit, OnDestroy {
   public ReactiveClientEditDetailsForm: FormGroup;
   public ReactiveClientEditFormSubmitted = false;
 
-  // Reactive User Details form data
-  public ClientEditForm = {
-    fullname: '',
-    dni:'',
-    email: '',
-    telephone: '',
-    telephone2: '',
-    adress: '',
-    guests: 0
-  };
+    // Reactive User Details form data
+    public ClientEditForm = {
+      name: '',
+      surname: '',
+      identificationNumber:'',
+      contacts: [{
+        email: '',
+        phone:'',
+        mainContact: true
+      }],
+      guestsQuantity: 0
+    };
 
   public birthDateOptions: FlatpickrOptions = {
     altInput: true
@@ -107,13 +109,17 @@ get ReactiveClientEditForm() {
     this._clientEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
 
       this.ReactiveClientEditDetailsForm = this.formBuilder.group({
-        fullname: ['', Validators.required],
-        dni: ['', [Validators.required]],  
-        email: ['', [Validators.required, Validators.email]],
-        telephone: ['', [Validators.required, Validators.minLength(4)]],
-        telephone2: ['', [Validators.required, Validators.minLength(4)]],
-        adress: [ '', [Validators.required]],
-        guests: [ '', [Validators.required, Validators.min(1)]]
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        identificationNumber: ['', [Validators.required]],  
+        contacts: [
+          {
+            email: ['', [Validators.required, Validators.email]],
+            phone: ['', [Validators.required, Validators.minLength(4)]],
+            mainContact: ['', [Validators.required]],
+          }
+        ],
+        guestsQuantity: [ 0, [Validators.required, Validators.min(1)]]
       },
       );
 

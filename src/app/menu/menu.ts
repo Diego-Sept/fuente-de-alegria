@@ -48,10 +48,10 @@ export const menu: CoreMenu[] = [
       },
       {
         id: 'myData',
-        title: 'myData',
+        title: 'MyData',
         translate: 'MENU.TITLES.MYDATA',
         type: 'item',
-        icon: 'data',
+        icon: 'database',
         url: 'myData'
       },
       {

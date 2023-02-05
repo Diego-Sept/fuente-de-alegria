@@ -18,7 +18,7 @@
                                                     <div class="client-info-title">
                                                         <span class="card-text client-info-title font-weight-bold mb-0">Nombre y Apellido</span>
                                                     </div>
-                                                    <p class="card-text mb-0">{{ data.fullname }}</p>
+                                                    <p class="card-text mb-0">{{ data.name }}</p>
                                                 </div>
                                             </div>
                                             <!-- DNI -->
@@ -27,7 +27,7 @@
                                                     <div class="client-info-title">
                                                         <span class="card-text client-info-title font-weight-bold mb-0">DNI</span>
                                                     </div>
-                                                    <p class="card-text mb-0">{{ data.dni }}</p>
+                                                    <p class="card-text mb-0">{{ data.identificationNumber }}</p>
                                                 </div>
                                             </div>
                                             <!-- Email -->
@@ -36,7 +36,7 @@
                                                     <div class="client-info-title">
                                                         <span class="card-text client-info-title font-weight-bold mb-0">Email</span>
                                                     </div>
-                                                    <p class="card-text mb-0">{{ data.email }}</p>
+                                                    <p class="card-text mb-0">{{ data.contacts[0].email }}</p>
                                                 </div>
                                             </div>
                                             <!-- Telephone -->
@@ -45,24 +45,7 @@
                                                     <div class="client-info-title">
                                                         <span class="card-text client-info-title font-weight-bold mb-0">Telefono</span>
                                                     </div>
-                                                    <p class="card-text mb-0">{{ data.telephone }}</p>
-                                                </div>
-                                            </div>
-                                            <!-- Telephone 2-->
-                                            <div class="d-flex flex-wrap">
-                                                <div class="form-group">
-                                                    <div class="client-info-title">
-                                                        <span class="card-text client-info-title font-weight-bold mb-0">Telefono 2</span>
-                                                    </div>
-                                                    <p class="card-text mb-0">{{ data.telephone }}</p>
-                                                </div>
-                                            </div>
-                                            <div class="d-flex flex-wrap">
-                                                <div class="form-group">
-                                                    <div class="client-info-title">
-                                                        <span class="card-text client-info-title font-weight-bold mb-0">Domicilio</span>
-                                                    </div>
-                                                    <p class="card-text mb-0">{{ data.adress }}</p>
+                                                    <p class="card-text mb-0">{{ data.contacts[0].phone }}</p>
                                                 </div>
                                             </div>
                                         </div>
