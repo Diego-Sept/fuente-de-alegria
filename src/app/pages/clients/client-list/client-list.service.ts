@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 import { BehaviorSubject, Observable } from 'rxjs';
-import { Client } from '../interface/client.interface';
+import { Client, ClientDto } from '../interface/client.interface';
 
 @Injectable()
 export class ClientListService implements Resolve<any> {
@@ -51,7 +51,7 @@ export class ClientListService implements Resolve<any> {
   /**
    * Add Client
    */
-  addClient(client: Client): Observable<Client>{
+  addClient(client: ClientDto): Observable<Client>{
     return this._httpClient.post<Client>(`${ this.baseUrl }`, client);
   }
 

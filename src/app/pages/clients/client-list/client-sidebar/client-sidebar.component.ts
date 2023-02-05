@@ -3,7 +3,7 @@ import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@an
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { ClientListService } from '../client-list.service';
-import { Contact } from '../../interface/client.interface';
+import { Client, Contact, CreateClientDto, ClientDto } from '../../interface/client.interface';
 
 @Component({
   selector: 'app-client-sidebar',
@@ -21,13 +21,14 @@ export class ClientSidebarComponent implements OnInit {
     name: '',
     surname: '',
     identificationNumber:'',
-    contacts: [{
-      email: '',
-      phone:'',
-      mainContact: true
-    }],
-    adress: '',
-    guestsQuantity: 0
+    contactName: '',
+    email: '',
+    phone: '',
+    contactName2: '',
+    email2: '',
+    phone2: '',
+    address: '',
+    guests: 1
   };
 
   /**
@@ -47,9 +48,44 @@ ReactiveClientFormOnSubmit() {
   this.ReactiveClientFormSubmitted = true;
   // stop here if form is invalid
   if (this.ReactiveClientDetailsForm.invalid) {
-    return console.log(this.ClientForm);;
+    return console.log(this.ClientForm);
   }
-  this._clientListService.addClient(this.ClientForm).subscribe( resp => {
+  let clientData : CreateClientDto = {
+    name: this.ClientForm.name,
+    surname: this.ClientForm.surname,
+    guestsQuantity: this.ClientForm.guests,
+    identificationNumber: this.ClientForm.identificationNumber,
+    address: this.ClientForm.address,
+  };
+
+  let contacts: Contact[] = [];
+  let mainContact : Contact = {
+    name: this.ClientForm.contactName,
+    email: this.ClientForm.email,
+    phone: this.ClientForm.phone,
+    mainContact: true
+  }
+
+  let secondaryContact : Contact = {
+    name: this.ClientForm.contactName,
+    email: this.ClientForm.email,
+    phone: this.ClientForm.phone,
+    mainContact: false
+  }  
+  
+  contacts.push(mainContact);
+  contacts.push(secondaryContact);
+
+  let client : ClientDto = {
+    clientData: clientData,
+    contacts: contacts,
+    roleId: 2
+  }
+
+
+  console.log("Cliente a enviar: ", client);
+
+  this._clientListService.addClient(client).subscribe( resp => {
     console.log('Response', resp);
   })
   this.toggleSidebar('client-sidebar');
@@ -79,21 +115,19 @@ ReactiveClientFormOnSubmit() {
    */
 
   ngOnInit(): void {
-  // Reactive form initialization
-  this.ReactiveClientDetailsForm = this.formBuilder.group({
-    name: ['', Validators.required],
-    surname: ['', Validators.required],
-    identificationNumber: ['', [Validators.required]],  
-    contacts: [
-      {
-        email: ['', [Validators.required, Validators.email]],
-        phone: ['', [Validators.required, Validators.minLength(4)]],
-        mainContact: ['', [Validators.required]],
-      }
-    ],
-    adress: ['', Validators.required],
-    guestsQuantity: [ 0, [Validators.required, Validators.min(1)]]
-  },
-  );
+    // Reactive form initialization
+    this.ReactiveClientDetailsForm = this.formBuilder.group({
+      name: ['', Validators.required],
+      surname: ['', Validators.required],
+      identificationNumber: ['', [Validators.required]], 
+      contactName: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required, Validators.minLength(4)]],
+      contactName2: ['', [Validators.required]],
+      email2: ['', [Validators.required, Validators.email]],
+      phone2: ['', [Validators.required, Validators.minLength(4)]],
+      address: ['', Validators.required],
+      guests: [ 1, [Validators.required, Validators.min(1)]]
+    });
   }
 }

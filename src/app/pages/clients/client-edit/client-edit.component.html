@@ -82,9 +82,9 @@
                                             <div class="col-md-4">
                                                 <div class="form-group">
                                                     <label for="ClientAdress">Domicilio</label>
-                                                    <input type="text" id="ClientAdress" formControlName="adress" [(ngModel)]="ClientEditForm.adress" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.adress.errors }" placeholder="Ejemplo 5040" />
-                                                    <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.adress.errors" class="invalid-feedback">
-                                                        <div *ngIf="ReactiveClientEditForm.adress.errors.required">Domicilio es requerido</div>
+                                                    <input type="text" id="ClientAdress" formControlName="address" [(ngModel)]="ClientEditForm.address" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.adress.errors }" placeholder="Ejemplo 5040" />
+                                                    <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.address.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveClientEditForm.address.errors.required">Domicilio es requerido</div>
                                                     </div>
                                                 </div>
                                             </div>

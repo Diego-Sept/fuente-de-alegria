@@ -71,7 +71,11 @@
                                 <span class="text-font-2"> {{ row.name }}</span>
                             </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="Email" prop="row.contacts[0].email" [width]="200"></ngx-datatable-column>
+                        <ngx-datatable-column name="Email" prop="row.contacts[0].email" [width]="200">
+                          <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                            <span class="text-font-2"> {{ getMainContact(row.contacts).email }}</span>
+                          </ng-template>
+                        </ngx-datatable-column>
                         <ngx-datatable-column name="Telefono" prop="contacts[0].phone" [width]="100"></ngx-datatable-column>
                         <ngx-datatable-column name="DNI" prop="identificationNumber" [width]="50">
                         </ngx-datatable-column>
@@ -85,7 +89,7 @@
                                         <a routerLink="client-view/{{ row.id }}" ngbDropdownItem><span [data-feather]="'eye'" [size]="16" [class]="'mr-50'"></span> Ver</a>
                                         <a routerLink="client-edit/{{ row.id }}" ngbDropdownItem>
                                           <span [data-feather]="'edit-3'" [size]="16" [class]="'mr-50'"></span> Editar</a>
-                                        <div (click)="delete(row.id)">
+                                        <div (click)="deleteClient(row.id)">
                                         <a href="javascript:;" ngbDropdownItem>
                                         <span [data-feather]="'trash'" [size]="16" [class]="'mr-50'"></span> Eliminar</a>
                                       </div>

@@ -8,6 +8,7 @@ import { switchMap, takeUntil } from 'rxjs/operators';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { cloneDeep } from 'lodash';
 import { ClientEditService } from './client-edit.service';
+import { Client, Contact } from '../interface/client.interface';
 
 
 
@@ -32,11 +33,13 @@ export class ClientEditComponent implements OnInit, OnDestroy {
       name: '',
       surname: '',
       identificationNumber:'',
-      contacts: [{
-        email: '',
-        phone:'',
-        mainContact: true
-      }],
+      contactName: '',
+      email: '',
+      phone: '',
+      contactName2: '',
+      email2: '',
+      phone2: '',
+      address: '',
       guestsQuantity: 0
     };
 
@@ -89,7 +92,33 @@ get ReactiveClientEditForm() {
   }
 
   saveClient(){
-    this._clientEditService.editClient( this.ClientEditForm ).subscribe( client => console.log( "Editando", client ));
+    let client : Client = {
+      name: this.ClientEditForm.name,
+      surname: this.ClientEditForm.surname,
+      guestsQuantity: this.ClientEditForm.guestsQuantity,
+      identificationNumber: this.ClientEditForm.identificationNumber,
+      address: this.ClientEditForm.address,
+      contacts: []
+    };
+  
+    let mainContact : Contact = {
+      name: this.ClientEditForm.contactName,
+      email: this.ClientEditForm.email,
+      phone: this.ClientEditForm.phone,
+      mainContact: true
+    }
+  
+    let secondaryContact : Contact = {
+      name: this.ClientEditForm.contactName,
+      email: this.ClientEditForm.email,
+      phone: this.ClientEditForm.phone,
+      mainContact: false
+    }  
+    
+    client.contacts.push(mainContact);
+    client.contacts.push(secondaryContact);
+
+    this._clientEditService.editClient( client ).subscribe( client => console.log( "Editando", client ));
    
   }
 
@@ -104,24 +133,37 @@ get ReactiveClientEditForm() {
    */
   ngOnInit(): void {
 
-    this.activatedRoute.params.pipe(switchMap( ({id}) => this._clientEditService.getClientId(id))).subscribe( user => this.ClientEditForm = user);
+    this.activatedRoute.params.pipe(switchMap( ({id}) => this._clientEditService.getClientId(id))).subscribe( client => {
+      this.ClientEditForm = {
+        name: client.name,
+        surname: client.surname,
+        identificationNumber: client.identificationNumber,
+        address: client.address,
+        guestsQuantity: client.guestsQuantity,
+        contactName: client.contacts[0].name,
+        email: client.contacts[0].email,
+        phone: client.contacts[0].phone,
+        contactName2: client.contacts[1].name,
+        email2: client.contacts[1].email,
+        phone2: client.contacts[1].phone,
+      }
+    });
 
     this._clientEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
 
       this.ReactiveClientEditDetailsForm = this.formBuilder.group({
         name: ['', Validators.required],
         surname: ['', Validators.required],
-        identificationNumber: ['', [Validators.required]],  
-        contacts: [
-          {
-            email: ['', [Validators.required, Validators.email]],
-            phone: ['', [Validators.required, Validators.minLength(4)]],
-            mainContact: ['', [Validators.required]],
-          }
-        ],
+        identificationNumber: ['', [Validators.required]], 
+        contactName: ['', [Validators.required]],
+        email: ['', [Validators.required, Validators.email]],
+        phone: ['', [Validators.required, Validators.minLength(4)]],
+        contactName2: ['', [Validators.required]],
+        email2: ['', [Validators.required, Validators.email]],
+        phone2: ['', [Validators.required, Validators.minLength(4)]],
+        adress: ['', Validators.required],
         guestsQuantity: [ 0, [Validators.required, Validators.min(1)]]
-      },
-      );
+      });
 
       this.rows = response;
       this.rows.map(row => {
