@@ -6,6 +6,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import { EventRef } from './calendar.model';
 import { CalendarService } from './calendar.service';
+import esLocale from '@fullcalendar/core/locales/es';
 
 @Component({
   selector: 'app-calendar',
@@ -24,6 +25,7 @@ export class CalendarComponent implements OnInit {
       start: 'sidebarToggle, prev,next, title',
       end: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
     },
+    locale: esLocale,
     initialView: 'dayGridMonth',
     initialEvents: this.events,
     weekends: true,

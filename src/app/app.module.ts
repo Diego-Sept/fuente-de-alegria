@@ -83,6 +83,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'myData',
+    loadChildren: () => import('./pages/myData/myData.module').then(m => m.MyDataModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'authentication',
     loadChildren: () => import('./pages/authentication/authentication.module').then(m => m.AuthenticationModule),
   },

@@ -40,11 +40,11 @@
       "password": "123456",
       "confPassword": "123456",
       "fullname": "Stallin",
-      "dni": "01",
-      "cuit": "01",
+      "dni": "012",
+      "cuit": "0121",
       "email": "01",
-      "telephone": "",
-      "userType": "",
+      "telephone": "2222",
+      "userType": "administrador",
       "id": 7
     },
     {
@@ -60,15 +60,15 @@
       "id": 8
     },
     {
-      "username": "",
-      "password": "9g7QMXDa2nUNx48",
-      "confPassword": "",
-      "fullname": "",
-      "dni": "",
-      "cuit": "",
-      "email": "",
-      "telephone": "",
-      "userType": "",
+      "username": "tenid3",
+      "password": "33656",
+      "confPassword": "33656",
+      "fullname": "nicolas silva",
+      "dni": "6456165",
+      "cuit": "1651561651456",
+      "email": "nsilva@gmail.com",
+      "telephone": "56164156156",
+      "userType": "cliente",
       "id": 9
     },
     {
@@ -82,6 +82,66 @@
       "telephone": "11",
       "userType": "operador",
       "id": 10
+    },
+    {
+      "username": "pedrote",
+      "password": "132654",
+      "confPassword": "132654",
+      "fullname": "pedro alvarez",
+      "dni": "1561616",
+      "cuit": "45615616",
+      "email": "nada@nada.com",
+      "telephone": "111665",
+      "userType": "operador",
+      "id": 11
+    },
+    {
+      "username": "rosameltrozo",
+      "password": "1234",
+      "confPassword": "1234",
+      "fullname": "rosa meltrozo",
+      "dni": "1564654156",
+      "cuit": "4651651651",
+      "email": "nada@nada.com",
+      "telephone": "111231",
+      "userType": "cliente",
+      "id": 12
+    },
+    {
+      "username": "rosameltrozo",
+      "password": "1234",
+      "confPassword": "1234",
+      "fullname": "rosa meltrozo",
+      "dni": "1564654156",
+      "cuit": "4651651651",
+      "email": "nada@nada.com",
+      "telephone": "111231",
+      "userType": "cliente",
+      "id": 13
+    },
+    {
+      "username": "merluza",
+      "password": "3336q",
+      "confPassword": "3336q",
+      "fullname": "marcelo luza",
+      "dni": "451641561",
+      "cuit": "541561651",
+      "email": "nada@nada.com",
+      "telephone": "55641561",
+      "userType": "cliente",
+      "id": 14
+    },
+    {
+      "username": "moreta",
+      "password": "1234",
+      "confPassword": "1234",
+      "fullname": "mmoreta",
+      "dni": "156165",
+      "cuit": "651156156",
+      "email": "nada@nada.com",
+      "telephone": "15656156",
+      "userType": "cliente",
+      "id": 15
     }
   ]
 }

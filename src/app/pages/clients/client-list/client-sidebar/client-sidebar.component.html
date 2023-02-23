@@ -12,62 +12,101 @@
                 <div class="modal-body flex-grow-1">
 
                     <div class="form-group">
-                        <label for="ClientFullname">Nombre y Apellido</label>
-                        <input type="text" id="ClientFullname" [(ngModel)]="ClientForm.fullname" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.fullname.errors }" placeholder="Jhon Doe" />
-                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.fullname.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveClientForm.fullname.errors.required">Nombre y Apellido son requerido</div>
+                        <label for="ClientName">Nombre</label>
+                        <input type="text" id="ClientName" [(ngModel)]="ClientForm.name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.name.errors }" placeholder="Jhon Doe" />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.name.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.name.errors.required">Nombre requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ClientSurname">Apellido</label>
+                        <input type="text" id="ClientSurname" [(ngModel)]="ClientForm.surname" formControlName="surname" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.surname.errors }" placeholder="Jhon Doe" />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.surname.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.surname.errors.required">Apellido requerido</div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="ClientDNI">DNI</label>
-                        <input type="text" id="ClientDNI" [(ngModel)]="ClientForm.dni" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.dni.errors }" placeholder="00111000" />
-                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.dni.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveClientForm.dni.errors.required">DNI es requerido</div>
+                        <input type="text" id="ClientDNI" [(ngModel)]="ClientForm.identificationNumber" formControlName="identificationNumber" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.identificationNumber.errors }" placeholder="00111000" />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.identificationNumber.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.identificationNumber.errors.required">DNI requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ClientEmail">Nombre de contacto</label>
+                        <input type="text" id="ClientContactName" formControlName="contactName" [(ngModel)]="ClientForm.contactName" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.contactName.errors }" placeholder="ejemplo@ejemplo.com"
+                        />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.contactName.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.contactName.errors.required">Nombre de contacto requerido</div>
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label for="ClientEmail">Email</label>
-                        <input type="text" id="ClientEmail" formControlName="email" [(ngModel)]="ClientForm.email" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.email.errors }" placeholder="ejemplo@ejemplo.com" />
+                        <input type="text" id="ClientEmail" formControlName="email" [(ngModel)]="ClientForm.email" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.email.errors }" placeholder="ejemplo@ejemplo.com"
+                        />
                         <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.email.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveClientForm.email.errors.required">Email es requerido</div>
+                            <div *ngIf="ReactiveClientForm.email.errors.required">Email requerido</div>
                             <div *ngIf="ReactiveClientForm.email.errors.email">Email tiene que ser una direccion de correo valida</div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ClientPhoneNumber">Telefono</label>
+                        <label for="ClientPhone">Telefono</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">+54</span>
                             </div>
-                            <input type="text" id="ClientPhoneNumber" formControlName="phoneNumber" [(ngModel)]="ClientForm.phoneNumber" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber.errors }" placeholder="" />
+                            <input type="text" id="ClientPhone" formControlName="phone" [(ngModel)]="ClientForm.phone" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.phone.errors }" placeholder="" />
 
-                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber.errors" class="invalid-feedback">
-                                <div *ngIf="ReactiveClientForm.phoneNumber.errors.required">Telefono es requerido</div>
+                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.phone.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveClientForm.phone.errors.required">Telefono requerido</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ClientPhoneNumber2">Telefono 2</label>
+                        <label for="ClientEmail">Nombre de contacto 2</label>
+                        <input type="text" id="ClientContactName2" formControlName="contactName2" [(ngModel)]="ClientForm.contactName2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.contactName2.errors }" placeholder="ejemplo@ejemplo.com"
+                        />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.contactName2.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.contactName2.errors.required">Nombre de contacto requerido</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ClientEmail">Email 2</label>
+                        <input type="text" id="ClientEmail2" formControlName="email2" [(ngModel)]="ClientForm.email2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.email2.errors }" placeholder="ejemplo@ejemplo.com"
+                        />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.email2.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.email2.errors.required">Email requerido</div>
+                            <div *ngIf="ReactiveClientForm.email2.errors.email">Email tiene que ser una direccion de correo valida</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="ClientPhone">Telefono 2</label>
                         <div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text" id="basic-addon1">+54</span>
                             </div>
-                            <input type="text" id="ClientPhoneNumber2" formControlName="phoneNumber2" [(ngModel)]="ClientForm.phoneNumber2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber2.errors }" placeholder="" />
-                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.phoneNumber2.errors" class="invalid-feedback">
-                                <div *ngIf="ReactiveClientForm.phoneNumber2.errors.required">Telefono es requerido</div>
+                            <input type="text" id="ClientPhone2" formControlName="phone2" [(ngModel)]="ClientForm.phone2" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.phone2.errors }" placeholder="" />
+                            
+                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.phone2.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveClientForm.phone2.errors.required">Telefono requerido</div>
                             </div>
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label for="ClientAdress">Domicilio</label>
-                        <input type="text" id="ClientAdress" formControlName="adress" [(ngModel)]="ClientForm.adress" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.adress.errors }" placeholder="Ejemplo 5040" />
-                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.adress.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveClientForm.adress.errors.required">Domicilio es requerido</div>
+                        <label for="ClientAddress">Dirección</label>
+                        <input type="text" id="ClientAddress" formControlName="address" [(ngModel)]="ClientForm.address" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.address.errors }"
+                        />
+                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.address.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveClientForm.address.errors.required">Direccion requerida</div>
                         </div>
                     </div>
 
@@ -75,11 +114,11 @@
                     <div class="form-group">
                         <label for="ClientGuests">Cantidad de Invitados</label>
                         <br>
-                        <core-touchspin id="ClientGuests" formControlName="guests" bindLabel="name" [(ngModel)]="ClientForm.guests" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guests.errors }">
+                        <core-touchspin id="ClientGuests" formControlName="guestsQuantity" [minValue]="1" [(ngModel)]="ClientForm.guestsQuantity" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors }">
+                            <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors" class="invalid-feedback">
+                                <div *ngIf="ReactiveClientForm.guestsQuantity.errors.required">Seleccione al menos 1 invitado</div>
+                            </div>
                         </core-touchspin>
-                        <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.guests.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveClientForm.guests.errors.required">Seleccione al menos 1 invitado</div>
-                        </div>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-1" rippleEffect> Añadir </button>

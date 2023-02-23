@@ -1,13 +1,14 @@
 import { Component, OnInit, OnDestroy, ViewEncapsulation, ViewChild } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators } from '@angular/forms';
 
 
 import { Subject } from 'rxjs';
-import { takeUntil } from 'rxjs/operators';
+import { switchMap, takeUntil } from 'rxjs/operators';
 import { FlatpickrOptions } from 'ng2-flatpickr';
 import { cloneDeep } from 'lodash';
 import { ClientEditService } from './client-edit.service';
+import { Client, Contact } from '../interface/client.interface';
 
 
 
@@ -27,16 +28,20 @@ export class ClientEditComponent implements OnInit, OnDestroy {
   public ReactiveClientEditDetailsForm: FormGroup;
   public ReactiveClientEditFormSubmitted = false;
 
-  // Reactive User Details form data
-  public ClientEditForm = {
-    fullname: '',
-    dni:'',
-    email: '',
-    phoneNumber: '',
-    phoneNumber2: '',
-    adress: '',
-    guests: ''
-  };
+    // Reactive User Details form data
+    public ClientEditForm = {
+      name: '',
+      surname: '',
+      identificationNumber:'',
+      contactName: '',
+      email: '',
+      phone: '',
+      contactName2: '',
+      email2: '',
+      phone2: '',
+      address: '',
+      guestsQuantity: 0
+    };
 
   public birthDateOptions: FlatpickrOptions = {
     altInput: true
@@ -54,7 +59,7 @@ export class ClientEditComponent implements OnInit, OnDestroy {
    * @param {Router} router
    * @param {UserEditService} _userEditService
    */
-  constructor(private router: Router, private _clientEditService: ClientEditService, private formBuilder: UntypedFormBuilder) {
+  constructor(private router: Router, private _clientEditService: ClientEditService, private activatedRoute: ActivatedRoute,private formBuilder: UntypedFormBuilder) {
     this._unsubscribeAll = new Subject();
     this.urlLastValue = this.url.substr(this.url.lastIndexOf('/') + 1);
   }
@@ -86,6 +91,37 @@ get ReactiveClientEditForm() {
     }
   }
 
+  saveClient(){
+    let client : Client = {
+      name: this.ClientEditForm.name,
+      surname: this.ClientEditForm.surname,
+      guestsQuantity: this.ClientEditForm.guestsQuantity,
+      identificationNumber: this.ClientEditForm.identificationNumber,
+      address: this.ClientEditForm.address,
+      contacts: []
+    };
+  
+    let mainContact : Contact = {
+      name: this.ClientEditForm.contactName,
+      email: this.ClientEditForm.email,
+      phone: this.ClientEditForm.phone,
+      mainContact: true
+    }
+  
+    let secondaryContact : Contact = {
+      name: this.ClientEditForm.contactName,
+      email: this.ClientEditForm.email,
+      phone: this.ClientEditForm.phone,
+      mainContact: false
+    }  
+    
+    client.contacts.push(mainContact);
+    client.contacts.push(secondaryContact);
+
+    this._clientEditService.editClient( client ).subscribe( client => console.log( "Editando", client ));
+   
+  }
+
   redirectToClientList(pageName:string){
     this.router.navigate([`${pageName}`]);
   }
@@ -96,18 +132,38 @@ get ReactiveClientEditForm() {
    * On init
    */
   ngOnInit(): void {
+
+    this.activatedRoute.params.pipe(switchMap( ({id}) => this._clientEditService.getClientId(id))).subscribe( client => {
+      this.ClientEditForm = {
+        name: client.name,
+        surname: client.surname,
+        identificationNumber: client.identificationNumber,
+        address: client.address,
+        guestsQuantity: client.guestsQuantity,
+        contactName: client.contacts[0].name,
+        email: client.contacts[0].email,
+        phone: client.contacts[0].phone,
+        contactName2: client.contacts[1].name,
+        email2: client.contacts[1].email,
+        phone2: client.contacts[1].phone,
+      }
+    });
+
     this._clientEditService.onUserEditChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
 
       this.ReactiveClientEditDetailsForm = this.formBuilder.group({
-        fullname: ['', Validators.required],
-        dni: ['', [Validators.required]],  
+        name: ['', Validators.required],
+        surname: ['', Validators.required],
+        identificationNumber: ['', [Validators.required]], 
+        contactName: ['', [Validators.required]],
         email: ['', [Validators.required, Validators.email]],
-        phoneNumber: ['', [Validators.required, Validators.minLength(4)]],
-        phoneNumber2: ['', [Validators.required, Validators.minLength(4)]],
-        adress: [ '', [Validators.required]],
-        guests: [ '', [Validators.required]]
-      },
-      );
+        phone: ['', [Validators.required, Validators.minLength(4)]],
+        contactName2: ['', [Validators.required]],
+        email2: ['', [Validators.required, Validators.email]],
+        phone2: ['', [Validators.required, Validators.minLength(4)]],
+        adress: ['', Validators.required],
+        guestsQuantity: [ 0, [Validators.required, Validators.min(1)]]
+      });
 
       this.rows = response;
       this.rows.map(row => {

@@ -3,11 +3,13 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from '@angular/router';
 
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Client } from '../interface/client.interface';
 
 @Injectable()
 export class ClientEditService implements Resolve<any> {
   public apiData: any;
   public onUserEditChanged: BehaviorSubject<any>;
+  public baseUrl = `http://localhost:3000/clients` ;
 
   /**
    * Constructor
@@ -46,4 +48,20 @@ export class ClientEditService implements Resolve<any> {
       }, reject);
     });
   }
+
+  /**
+   * Get Client Id
+   */
+  getClientId(id: number): Observable<Client>{
+    return this._httpClient.get<Client>(`${ this.baseUrl }/${id}`);
+  }
+  
+
+  /**
+   * Edit Client
+   */
+  editClient(client: Client): Observable<Client>{
+    return this._httpClient.put<Client>(`${ this.baseUrl }/${client.id}`, client);
+  }
+
 }

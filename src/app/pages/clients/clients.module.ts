@@ -15,12 +15,11 @@ import { CoreSidebarModule } from '@core/components';
 import { CoreDirectivesModule } from '@core/directives/directives';
 import { CorePipesModule } from '@core/pipes/pipes.module';
 
-import { ClientsComponent } from './client-list/clients.component';
+import { ClientListComponent } from './client-list/client-list.component';
 import { ClientSidebarComponent } from './client-list/client-sidebar/client-sidebar.component';
 import { ClientViewComponent } from './client-view/client-view.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
 
-import { ClientsService } from './client-list/clients.service';
 import { ClientViewService } from './client-view/client-view.service';
 import { ClientEditService } from './client-edit/client-edit.service';
 import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
@@ -29,18 +28,12 @@ import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchs
 const routes = [
   {
     path: '',
-    component: ClientsComponent,
-    resolve: {
-      datatables: ClientsService
-    },
+    component: ClientListComponent,
   },
   {
-    path: 'clients',
-    component: ClientsComponent,
-    resolve: {
-      uls: ClientsService
-    },
-    data: { animation: 'ClientComponent' }
+    path: 'client-list',
+    component: ClientListComponent,
+    data: { animation: 'ClientListComponent' }
   },
   {
     path: 'client-view/:id',
@@ -60,16 +53,16 @@ const routes = [
   },
   {
     path: 'client-view',
-    redirectTo: '/apps/clients/client-view/2' // Redirection
+    redirectTo: 'client-view/:id' // Redirection
   },
   {
     path: 'client-edit',
-    redirectTo: '/apps/clients/client-edit/2' // Redirection
+    redirectTo: 'client-edit/:id' // Redirection
   }
 ];
 
 @NgModule({
-  declarations: [ ClientsComponent, ClientViewComponent, ClientEditComponent, ClientSidebarComponent ],
+  declarations: [ ClientListComponent, ClientViewComponent, ClientEditComponent, ClientSidebarComponent ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
@@ -87,9 +80,9 @@ const routes = [
     CoreSidebarModule,
     CoreTouchspinModule,
   ],
-  providers: [ ClientsService, ClientViewService, ClientEditService],
+  providers: [ ClientViewService, ClientEditService],
   exports: [
-    ClientsComponent, 
+    ClientListComponent, 
     ClientSidebarComponent,
     ClientViewComponent,
     ClientEditComponent,

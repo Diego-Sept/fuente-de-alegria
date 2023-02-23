@@ -57,7 +57,7 @@ const routes: Routes = [
     data: { animation: 'UserEditComponent' }
   },
   {
-    path: 'user-view/',
+    path: 'user-view',
     redirectTo: 'user-edit/:id' // Redirection
   },
   {

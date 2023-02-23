@@ -1,0 +1,24 @@
+{
+  "clients": [
+    {
+      "id": 1,
+      "fullName": "Galen Slixby",
+      "dni": "22111444",
+      "email": "gslixby0@abc.net.au",
+      "telephone": "223-688888",
+      "telephone2": "223-6625584",
+      "adress": "Luro 2200",
+      "guests": 2
+    },
+    {
+      "fullname": "Enrique Silva",
+      "dni": "3654552",
+      "email": "esilva@gmail.com",
+      "telephone": "2236514252",
+      "telephone2": "2235664125",
+      "adress": "Colon 1039",
+      "guests": 1,
+      "id": 2
+    }
+  ]
+}
