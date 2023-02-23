@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
 
 import { Subject } from 'rxjs';
@@ -7,11 +7,11 @@ import { takeUntil } from 'rxjs/operators';
 import { CoreConfigService } from '@core/services/config.service';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 
-import { ClientListService } from './client-list.service';
 import { Router } from '@angular/router';
 import { User } from 'app/auth/models';
 import { Contact } from '../interface/client.interface';
 import Swal from 'sweetalert2';
+import { ClientFacade } from '../../../core/facade/client.facade';
 
 @Component({
 	selector: 'app-client-list',
@@ -53,10 +53,10 @@ export class ClientListComponent implements OnInit {
 	 * @param {CoreSidebarService} _coreSidebarService
 	 */
 	constructor(
-		private _clientListService: ClientListService,
 		private _coreSidebarService: CoreSidebarService,
 		private _coreConfigService: CoreConfigService,
-		private _router: Router
+		private _router: Router,
+		private clientFacade: ClientFacade
 	) {
 		this._unsubscribeAll = new Subject();
 	}
@@ -170,13 +170,12 @@ export class ClientListComponent implements OnInit {
 		})
 
 		swalWithBootstrapButtons.fire({
-			title: 'Are you sure?',
-			text: "You won't be able to revert this!",
+			title: '¿Desea eliminar el cliente seleccionado?',
 			icon: 'warning',
 			showCancelButton: true,
-			confirmButtonText: 'Yes, delete it!',
-			cancelButtonText: 'No, cancel!',
-			reverseButtons: true
+			confirmButtonText: 'Continuar',
+			cancelButtonText: 'Cancelar',
+			buttonsStyling: true,
 		}).then((result) => {
 			if (result.isConfirmed) {
 				this.delete(id);
@@ -189,7 +188,7 @@ export class ClientListComponent implements OnInit {
 	 *
 	 */
 	delete(id: number) {
-		this._clientListService.deleteClient(id).subscribe(resp => {
+		this.clientFacade.deleteClient(id).subscribe(resp => {
 			Swal.fire({
 				title: 'El cliente se eliminó con éxito!!!',
 				icon: 'success'
@@ -206,23 +205,25 @@ export class ClientListComponent implements OnInit {
 	 */
 	ngOnInit(): void {
 		// Subscribe config change
+		this.clientFacade.loadClients();
 		this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
 			//! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
 			if (config.layout.animation === 'zoomIn') {
 				setTimeout(() => {
-					this._clientListService.onClientListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-						this.rows = response;
-						this.tempData = this.rows;
-					});
+					this.suscribeToData();
 				}, 450);
 			} else {
-				this._clientListService.onClientListChanged.pipe(takeUntil(this._unsubscribeAll)).subscribe(response => {
-					this.rows = response;
-					this.tempData = this.rows;
-				});
+				this.suscribeToData();
 			}
 		});
 
+	}
+
+	suscribeToData(){
+		this.clientFacade.getClients().pipe(takeUntil(this._unsubscribeAll)).subscribe(clients => {
+			this.rows = JSON.parse(JSON.stringify(clients));
+			this.tempData = this.rows;
+		})
 	}
 
 	/**

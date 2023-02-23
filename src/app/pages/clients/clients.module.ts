@@ -20,7 +20,6 @@ import { ClientSidebarComponent } from './client-list/client-sidebar/client-side
 import { ClientViewComponent } from './client-view/client-view.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
 
-import { ClientListService } from './client-list/client-list.service';
 import { ClientViewService } from './client-view/client-view.service';
 import { ClientEditService } from './client-edit/client-edit.service';
 import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
@@ -30,16 +29,10 @@ const routes = [
   {
     path: '',
     component: ClientListComponent,
-    resolve: {
-      datatables: ClientListService
-    },
   },
   {
     path: 'client-list',
     component: ClientListComponent,
-    resolve: {
-      uls: ClientListService
-    },
     data: { animation: 'ClientListComponent' }
   },
   {
@@ -87,7 +80,7 @@ const routes = [
     CoreSidebarModule,
     CoreTouchspinModule,
   ],
-  providers: [ ClientListService, ClientViewService, ClientEditService],
+  providers: [ ClientViewService, ClientEditService],
   exports: [
     ClientListComponent, 
     ClientSidebarComponent,

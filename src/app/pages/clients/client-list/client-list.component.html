@@ -76,7 +76,11 @@
                             <span class="text-font-2"> {{ getMainContact(row.contacts).email }}</span>
                           </ng-template>
                         </ngx-datatable-column>
-                        <ngx-datatable-column name="Telefono" prop="contacts[0].phone" [width]="100"></ngx-datatable-column>
+                        <ngx-datatable-column name="Telefono" prop="contacts[0].phone" [width]="100">
+                          <ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+                            <span class="text-font-2"> {{ getMainContact(row.contacts).phone }}</span>
+                          </ng-template>
+                        </ngx-datatable-column>
                         <ngx-datatable-column name="DNI" prop="identificationNumber" [width]="50">
                         </ngx-datatable-column>
                         <ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
