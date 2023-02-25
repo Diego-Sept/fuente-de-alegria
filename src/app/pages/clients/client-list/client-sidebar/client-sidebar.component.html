@@ -114,11 +114,10 @@
                     <div class="form-group">
                         <label for="ClientGuests">Cantidad de Invitados</label>
                         <br>
-                        <core-touchspin id="ClientGuests" formControlName="guestsQuantity" [minValue]="1" [(ngModel)]="ClientForm.guestsQuantity" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors }">
+                        <input type="number" id="ClientGuests" formControlName="guestsQuantity" min="1" [(ngModel)]="ClientForm.guestsQuantity" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors }"/>
                             <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors" class="invalid-feedback">
                                 <div *ngIf="ReactiveClientForm.guestsQuantity.errors.required">Seleccione al menos 1 invitado</div>
                             </div>
-                        </core-touchspin>
                     </div>
 
                     <button type="submit" class="btn btn-primary mr-1" rippleEffect> Añadir </button>

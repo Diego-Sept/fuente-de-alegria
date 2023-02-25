@@ -18,20 +18,20 @@
                         <br>
                         <form>
                             <div class="row">
-                                <!-- Id Filter -->
+                                <!-- Client Name Filter -->
                                 <div class="col-12 col-md-4">
-                                    <input [(ngModel)]="searchById" name="searchById" type="search" class="form-control ml-25" (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" placeholder="Id." />
+                                  <label>
+                                     <h4> Nombre </h4>
+                                  </label>
+                                    <input [(ngModel)]="searchByName" name="searchByName" type="searchByName" class="form-control ml-25" (keyup)="filterUpdate($event)" (search)="filterUpdate($event)"/>
                                 </div>
-                                <!-- Username Filter -->
+                                <!-- DNI Filter -->
                                 <div class="col-12 col-md-4">
-                                    <input [(ngModel)]="searchByUsername" name="searchByUsername" type="searchByUsername" class="form-control ml-25" (keyup)="filterUpdate($event)" (search)="filterUpdate($event)" placeholder="Nombre de Usuario." />
-                                </div>
-                                <!-- User Type Filter -->
-                                <div class="col-12 col-md-4">
-                                    <fieldset class="form-group">
-                                        <ng-select [(ngModel)]="searchByDni" name="searchByDni" bindLabel="name" (change)="filterByUserType($event)" placeholder="DNI"></ng-select>
-                                    </fieldset>
-                                </div>
+                                  <label> 
+                                    <h4> DNI </h4> 
+                                  </label>
+                                  <input [(ngModel)]="searchByDNI" name="searchByDNI" type="searchByDNI" class="form-control ml-25" (keyup)="filterUpdate($event)" (search)="filterUpdate($event)"/>
+                              </div>
                             </div>
                         </form>
                     </div>

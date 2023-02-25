@@ -28,15 +28,12 @@ export class ClientListComponent implements OnInit {
 	public selectedOption = 10;
 	public ColumnMode = ColumnMode;
 	public temp = [];
-	public previousUsernameFilter = '';
-	public previousUserTypeFilter = '';
-	public previousUserIdFilter = '';
-	public selectedUserId = [];
-	public selectedUsername = [];
-	public selectedUserType = [];
-	public searchById = '';
-	public searchByUsername = '';
-	public searchByDni = '';
+	public previousNameFilter = '';
+	public previousDNIFilter = '';
+	public selectedName = [];
+	public selectedDNI = [];
+	public searchByName = '';
+	public searchByDNI = '';
 
 	// Decorator
 	@ViewChild(DatatableComponent) table: DatatableComponent;
@@ -71,9 +68,8 @@ export class ClientListComponent implements OnInit {
 	 */
 	filterUpdate(event) {
 		// Reset ng-select on search
-		this.selectedUserId = this.selectedUserId[0];
-		this.selectedUsername = this.selectedUsername[0];
-		this.selectedUserType = this.selectedUserType[0];
+		this.selectedName = this.selectedName[0];
+		this.selectedDNI = this.selectedDNI[0];
 
 		const val = event.target.value.toLowerCase();
 
@@ -98,38 +94,26 @@ export class ClientListComponent implements OnInit {
 	}
 
 	/**
-	 * Filter By UserId
+	 * Filter By Name
 	 *
 	 * @param event
 	 */
 	filterByUserId(event) {
 		const filter = event ? event.value : '';
-		this.previousUserIdFilter = filter;
-		this.temp = this.filterRows(this.previousUserTypeFilter, this.previousUsernameFilter, filter);
+		this.previousNameFilter = filter;
+		this.temp = this.filterRows(this.previousDNIFilter, filter);
 		this.rows = this.temp;
 	}
 
 	/**
-	 * Filter By Username(
+	 * Filter By DNI
 	 *
 	 * @param event
 	 */
 	filterByUsername(event) {
 		const filter = event ? event.value : '';
-		this.previousUsernameFilter = filter;
-		this.temp = this.filterRows(this.previousUserTypeFilter, filter, this.previousUserIdFilter);
-		this.rows = this.temp;
-	}
-
-	/**
-	 * Filter By userTypes
-	 *
-	 * @param event
-	 */
-	filterByUserType(event) {
-		const filter = event ? event.value : [];
-		this.previousUserTypeFilter = filter;
-		this.temp = this.filterRows(filter, this.previousUsernameFilter, this.previousUserIdFilter);
+		this.previousDNIFilter = filter;
+		this.temp = this.filterRows(this.previousNameFilter, filter);
 		this.rows = this.temp;
 	}
 
@@ -141,22 +125,19 @@ export class ClientListComponent implements OnInit {
 	 * @param userTypeFilter
 	 * 
 	 */
-	filterRows(userIdFilter, usernameFilter, userTypeFilter): any[] {
+	filterRows(nameFilter, dniFilter): any[] {
 		// Reset search on select change
-		this.searchById = '';
-		this.searchByUsername = '';
-		this.selectedUserType = [];
+		this.searchByName = '';
+		this.searchByDNI = '';
 
 
-		userTypeFilter = userTypeFilter.toLowerCase();
-		usernameFilter = usernameFilter.toLowerCase();
-		userIdFilter = userIdFilter.toLowerCase();
+		nameFilter = nameFilter.toLowerCase();
+		dniFilter = dniFilter.toLowerCase();
 
 		return this.tempData.filter(row => {
-			const isPartialIdMatch = row.id.toLowerCase().indexOf(userIdFilter) !== -1 || !userIdFilter;
-			const isPartialUsernameMatch = row.username.toLowerCase().indexOf(usernameFilter) !== -1 || !usernameFilter;
-			const isPartialUserTypeMatch = row.userType.toLowerCase().indexOf(userTypeFilter) !== -1 || !userTypeFilter;
-			return isPartialUserTypeMatch && isPartialUsernameMatch && isPartialIdMatch;
+			const isPartialNameMatch = row.name.toLowerCase().indexOf(nameFilter) !== -1 || !nameFilter;
+			const isPartialDNIMatch = row.dni.toLowerCase().indexOf(dniFilter) !== -1 || !dniFilter;
+			return isPartialNameMatch && isPartialDNIMatch;
 		});
 	}
 
