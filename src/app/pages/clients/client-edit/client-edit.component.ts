@@ -119,9 +119,9 @@ export class ClientEditComponent implements OnInit, OnDestroy {
 		}
 
 		let secondaryContact: Contact = {
-			name: this.ClientEditForm.contactName,
-			email: this.ClientEditForm.email,
-			phone: this.ClientEditForm.phone,
+			name: this.ClientEditForm.contactName2,
+			email: this.ClientEditForm.email2,
+			phone: this.ClientEditForm.phone2,
 			mainContact: false
 		}
 
