@@ -114,7 +114,7 @@
                     <div class="form-group">
                         <label for="ClientGuests">Cantidad de Invitados</label>
                         <br>
-                        <input type="number" id="ClientGuests" formControlName="guestsQuantity" min="1" [(ngModel)]="ClientForm.guestsQuantity" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors }"/>
+                        <input type="number" id="ClientGuests" formControlName="guestsQuantity" min="1" [(ngModel)]="ClientForm.guestsQuantity" class="form-control" [ngClass]="{ 'is-invalid': ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors }"/>
                             <div *ngIf="ReactiveClientFormSubmitted && ReactiveClientForm.guestsQuantity.errors" class="invalid-feedback">
                                 <div *ngIf="ReactiveClientForm.guestsQuantity.errors.required">Seleccione al menos 1 invitado</div>
                             </div>

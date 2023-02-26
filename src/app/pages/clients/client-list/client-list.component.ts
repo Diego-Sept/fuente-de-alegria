@@ -122,7 +122,6 @@ export class ClientListComponent implements OnInit {
 	 * 
 	 * @param userIdFilter
 	 * @param usernameFilter
-	 * @param userTypeFilter
 	 * 
 	 */
 	filterRows(nameFilter, dniFilter): any[] {

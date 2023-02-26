@@ -138,14 +138,14 @@ get ReactiveClientEditForm() {
         name: client.name,
         surname: client.surname,
         identificationNumber: client.identificationNumber,
-        address: client.address,
-        guestsQuantity: client.guestsQuantity,
         contactName: client.contacts[0].name,
         email: client.contacts[0].email,
         phone: client.contacts[0].phone,
         contactName2: client.contacts[1].name,
         email2: client.contacts[1].email,
         phone2: client.contacts[1].phone,
+        address: client.address,
+        guestsQuantity: client.guestsQuantity,
       }
     });
 
@@ -161,7 +161,7 @@ get ReactiveClientEditForm() {
         contactName2: ['', [Validators.required]],
         email2: ['', [Validators.required, Validators.email]],
         phone2: ['', [Validators.required, Validators.minLength(4)]],
-        adress: ['', Validators.required],
+        address: ['', Validators.required],
         guestsQuantity: [ 0, [Validators.required, Validators.min(1)]]
       });
 
