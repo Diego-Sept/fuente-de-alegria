@@ -39,7 +39,7 @@
                                             <!-- identificationNumber -->
                                             <div class="col-md-4">
                                                 <div class="form-group">
-                                                    <label for="ClientidentificationNumber">identificationNumber</label>
+                                                    <label for="ClientidentificationNumber">DNI</label>
                                                     <input type="text" id="ClientidentificationNumber" [(ngModel)]="ClientEditForm.identificationNumber" formControlName="identificationNumber" class="form-control" 
                                                         [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.identificationNumber.errors }"/>
                                                     <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.identificationNumber.errors" class="invalid-feedback">
@@ -49,14 +49,14 @@
                                             </div>
                                             <!-- Contact Name -->
                                             <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="ClientContactName">Nombre de contacto</label>
-                                                <input type="text" id="ClientContactName" formControlName="contactName" [(ngModel)]="ClientEditForm.contactName" class="form-control" 
-                                                    [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName.errors }"/>
-                                                <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName.errors" class="invalid-feedback">
-                                                    <div *ngIf="ReactiveClientEditForm.contactName.errors.required">Nombre de contacto requerido</div>
+                                                <div class="form-group">
+                                                    <label for="ClientContactName">Nombre de contacto</label>
+                                                    <input type="text" id="ClientContactName" formControlName="contactName" [(ngModel)]="ClientEditForm.contactName" class="form-control" 
+                                                        [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName.errors }"/>
+                                                    <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveClientEditForm.contactName.errors.required">Nombre de contacto requerido</div>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <!-- Email -->
                                             <div class="col-md-4">
@@ -88,26 +88,26 @@
                                             </div>
                                             <!-- Contact Name 2 -->
                                             <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="ClientContactName2">Nombre de contacto 2</label>
-                                                <input type="text" id="ClientContactName2" formControlName="contactName2" [(ngModel)]="ClientEditForm.contactName2" class="form-control" 
-                                                    [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName2.errors }"/>
-                                                <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName2.errors" class="invalid-feedback">
-                                                    <div *ngIf="ReactiveClientEditForm.contactName2.errors.required">Nombre de contacto 2 requerido</div>
+                                                <div class="form-group">
+                                                    <label for="ClientContactName2">Nombre de contacto 2</label>
+                                                    <input type="text" id="ClientContactName2" formControlName="contactName2" [(ngModel)]="ClientEditForm.contactName2" class="form-control" 
+                                                        [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName2.errors }"/>
+                                                    <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.contactName2.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveClientEditForm.contactName2.errors.required">Nombre de contacto 2 requerido</div>
+                                                    </div>
                                                 </div>
-                                            </div>
                                             </div>
                                             <!-- Email 2 -->
                                             <div class="col-md-4">
-                                            <div class="form-group">
-                                                <label for="ClientEmail2">Email 2</label>
-                                                <input type="text" id="ClientEmail2" formControlName="email2" [(ngModel)]="ClientEditForm.email2" class="form-control" 
-                                                    [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.email2.errors }"/>
-                                                <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.email2.errors" class="invalid-feedback">
-                                                    <div *ngIf="ReactiveClientEditForm.email2.errors.required">Email requerido</div>
-                                                    <div *ngIf="ReactiveClientEditForm.email2.errors.email">Email tiene que ser una direccion de correo valida</div>
-                                                </div>
-                                            </div>           
+                                                <div class="form-group">
+                                                    <label for="ClientEmail2">Email 2</label>
+                                                    <input type="text" id="ClientEmail2" formControlName="email2" [(ngModel)]="ClientEditForm.email2" class="form-control" 
+                                                        [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.email2.errors }"/>
+                                                    <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.email2.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveClientEditForm.email2.errors.required">Email requerido</div>
+                                                        <div *ngIf="ReactiveClientEditForm.email2.errors.email">Email tiene que ser una direccion de correo valida</div>
+                                                    </div>
+                                                </div>           
                                             </div>             
                                             <!-- Telephone 2 -->
                                             <div class="col-md-4">
@@ -137,18 +137,20 @@
                                                 </div>
                                             </div>
                                             <!-- touchspin default -->
-                                            <div class="form-group">
-                                                <label for="ClientGuests">Cantidad de Invitados</label>
-                                                <br>
-                                                <input type="number" id="ClientGuests" formControlName="guestsQuantity" min="1" [(ngModel)]="ClientEditForm.guestsQuantity" class="form-control" 
-                                                    [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guestsQuantity.errors }"/>
-                                                <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guests.errors" class="invalid-feedback">
-                                                    <div *ngIf="ReactiveClientEditForm.guests.errors.required">Seleccione al menos 1 invitado</div>
+                                            <div class="col-md-4">
+                                                <div class="form-group">
+                                                    <label for="ClientGuests">Cantidad de Invitados</label>
+                                                    <br>
+                                                    <input type="number" id="ClientGuests" formControlName="guestsQuantity" min="1" [(ngModel)]="ClientEditForm.guestsQuantity" class="form-control" 
+                                                        [ngClass]="{ 'is-invalid': ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guestsQuantity.errors }"/>
+                                                    <div *ngIf="ReactiveClientEditFormSubmitted && ReactiveClientEditForm.guestsQuantity.errors" class="invalid-feedback">
+                                                        <div *ngIf="ReactiveClientEditForm.guestsQuantity.errors.required">Seleccione al menos 1 invitado</div>
+                                                    </div>
                                                 </div>
                                             </div>
                                             <!-- Buttons -->
                                             <div class="col-12 d-flex flex-sm-row flex-column mt-2 justify-content-end">
-                                                <button type="submit" (click)="saveClient(); redirectToClientList('clients')" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
+                                                <button type="submit" class="btn btn-primary mb-1 mb-sm-0 mr-0 mr-sm-1" rippleEffect>
                                                 Guardar
                                                 </button>
                                                 <button (click)="redirectToClientList('clients')" class="btn btn-outline-secondary" rippleEffect>

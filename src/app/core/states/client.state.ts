@@ -24,6 +24,10 @@ export class ClientState extends BaseState {
         return this.store.client$.asObservable();
     }
 
+    getClients(): Client[] {
+        return this.store.client$.value;
+    }
+
     setClients(clients: Client[]) {
         this.store.client$.next(clients);
     }
@@ -67,6 +71,10 @@ export class ClientState extends BaseState {
 
     deleteClient(clientId: number) {
         this.delete<Partial<Client[]>>({ dataId: clientId, storeRefAttribute: this.store.client$ });
+    }
+
+    updateClient(client: Partial<Client>, entidadId: number) {
+        this.update<Partial<Client>>({ data: client, dataId: entidadId, storeRefAttribute: this.store.client$ })
     }
 
 }

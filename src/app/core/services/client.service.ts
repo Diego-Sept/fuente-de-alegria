@@ -30,6 +30,20 @@ export class ClientService {
             );
     }
 
+    getClientById(id): Observable<Client> {
+        const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
+        return this.http
+            .get<any>(`${environment.apiUrl}/clients/${id}`, {
+                headers: queryHeaders,
+                observe: 'response',
+            })
+            .pipe<any>(
+                map<HttpResponse<any>, any>((response) => {
+                    return response.body;
+                }),
+            );
+    }
+
     postClient(client: ClientDto): Observable<Client> {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
@@ -44,18 +58,39 @@ export class ClientService {
             );
     }
 
-    deleteClient(id : number ){
+    deleteClient(id: number) {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-           .delete<any>(`${environment.apiUrl}/clients/${id}` ,{
-              headers: queryHeaders,
-              observe: 'response',
-           })
-           .pipe<any>(
-              map<HttpResponse<any>, any>((response) => {
-                 return response;
-              }),
-           );
-     }
+            .delete<any>(`${environment.apiUrl}/clients/${id}`, {
+                headers: queryHeaders,
+                observe: 'response',
+            })
+            .pipe<any>(
+                map<HttpResponse<any>, any>((response) => {
+                    return response;
+                }),
+            );
+    }
+
+    patchClient(id: number, clientDto: ClientDto) {
+        console.log("Entro acáaaa!!!");
+        console.log("Ruta: " + `${environment.apiUrl}/clients/${id}`);
+        console.log("Payload: ", JSON.stringify(clientDto));
+        const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
+        return this.http
+            .patch<any>(
+                `${environment.apiUrl}/clients/${id}`,
+                JSON.stringify(clientDto),
+                {
+                    headers: queryHeaders,
+                    observe: 'response',
+                },
+            )
+            .pipe<any>(
+                map<HttpResponse<any>, any>((response) => {
+                    return response.body;
+                }),
+            );
+    }
 
 }

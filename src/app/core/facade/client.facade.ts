@@ -43,6 +43,10 @@ export class ClientFacade {
         return this.clientState.getClients$();
     }
 
+    getClientsValue() : Client[]{
+        return this.clientState.getClients();
+    }
+
     // ADD - CREATE
     addClient(client: ClientDto): any | Observable<Client> {
         this.clientState.setLoadingCreatingClient(true);
@@ -75,6 +79,25 @@ export class ClientFacade {
             )
         })
         return from(promise);
+    }
+
+    // UPDATE - PATCH
+    updateClient(id: number, client: ClientDto): Observable<Client> {
+        this.clientState.setLoadingUpdatingClient(true);
+
+        const promise: Promise<Client> = new Promise((res, rej) => {
+            this.clientService.patchClient(id, client).pipe(
+                finalize(() => this.clientState.setLoadingUpdatingClient(false))
+            ).subscribe(
+                (client) => { this.clientState.updateClient(client, client.id); res(client) },
+                (e) => rej(e)
+            )
+        })
+        return from(promise);
+    }
+
+    getClientById(id: number) {
+        return this.getClientsValue().find(client => client.id == id);
     }
 
 

@@ -40,5 +40,5 @@ export interface CreateClientDto {
 export interface ClientDto{
   clientData: CreateClientDto;
   contacts: Contact[];
-  roleId: number;
+  roleId?: number;
 }
