@@ -75,9 +75,9 @@ export class ClientSidebarComponent implements OnInit {
 		}
 
 		let secondaryContact: Contact = {
-			name: this.ClientForm.contactName,
-			email: this.ClientForm.email,
-			phone: this.ClientForm.phone,
+			name: this.ClientForm.contactName2,
+			email: this.ClientForm.email2,
+			phone: this.ClientForm.phone2,
 			mainContact: false
 		}
 

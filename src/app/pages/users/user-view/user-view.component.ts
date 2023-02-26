@@ -18,7 +18,7 @@ export class UserViewComponent implements OnInit, OnDestroy {
   public url = this.router.url;
   public lastValue;
   public data: User;
-  public baseUrl = `http://localhost:3000/users/user-edit`;
+  public baseUrl = `http://localhost:3000/users/user-view`;
 
   // private
   private _unsubscribeAll: Subject<any>;

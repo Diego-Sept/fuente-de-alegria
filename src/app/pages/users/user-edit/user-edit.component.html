@@ -9,7 +9,6 @@
                             <ng-template ngbNavContent>
                                 <!-- Account Tab starts -->
                                 <div class="tab-pane active" id="account" aria-labelledby="account-tab" role="tabpanel">
-
                                     <br>
                                     <!-- users edit account form start -->
                                     <form class="edit-user" [formGroup]="ReactiveUserEditDetailsForm" (ngSubmit)="ReactiveEditFormOnSubmit()">
@@ -21,125 +20,6 @@
                                                     <input type="text" id="UserUsername" [(ngModel)]="UserEditForm.username" formControlName="username" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.username.errors }" />
                                                     <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.username.errors" class="invalid-feedback">
                                                         <div *ngIf="ReactiveUserEditForm.username.errors.required">Nombre de Usuario es requerido</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Password -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="UserPassword">Constraseña</label>
-                                                    <div class="input-group input-group-merge form-password-toggle mb-2">
-                                                        <input [type]="mergedPwdShow ? 'text' : 'password'" id="UserPassword" formControlName="password" [(ngModel)]="UserEditForm.password" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.password.errors }"
-                                                        />
-                                                        <div class="input-group-append" (click)="mergedPwdShow = !mergedPwdShow">
-                                                            <span class="input-group-text cursor-pointer"><i
-                                                            class="feather"
-                                                            [ngClass]="{
-                                                            'icon-eye-off': mergedPwdShow,
-                                                            'icon-eye': !mergedPwdShow
-                                                            }"
-                                                        ></i
-                                                        ></span>
-                                                        </div>
-
-                                                        <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.password.errors" class="invalid-feedback">
-                                                            <div *ngIf="ReactiveUserEditForm.password.errors.required">Contraseña es requerida</div>
-                                                            <div *ngIf="ReactiveUserEditForm.password.errors.minlength">La contraseña debe tener un mínimo de 4 caracteres
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Confirm Password -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="UserConfPassword">Confirmar Contraseña</label>
-                                                    <div class="input-group input-group-merge form-password-toggle mb-2">
-                                                        <input [type]="mergedPwdShow ? 'text' : 'password'" id="UserConfPassword" formControlName="confPassword" [(ngModel)]="UserEditForm.confPassword" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.confPassword.errors }"
-                                                        />
-                                                        <div class="input-group-append" (click)="mergedPwdShow = !mergedPwdShow">
-                                                            <span class="input-group-text cursor-pointer"><i
-                                                        class="feather"
-                                                        [ngClass]="{
-                                                        'icon-eye-off': mergedPwdShow,
-                                                        'icon-eye': !mergedPwdShow
-                                                        }"
-                                                    ></i
-                                                    ></span>
-                                                        </div>
-                                                        <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.confPassword.errors" class="invalid-feedback">
-                                                            <div *ngIf="ReactiveUserEditForm.confPassword.errors.required">Confirmar Contraseña es requerido</div>
-                                                            <div *ngIf="ReactiveUserEditForm.confPassword.errors.minlength">Confirmar Conretraseña debe tener un mínimo de 4 caracteres
-                                                            </div>
-                                                            <div *ngIf="ReactiveUserEditForm.confPassword.errors.mustMatch">Las contraseñas deben coincidir</div>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-
-                                            <!-- Fullname -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="Userfullname">Nombre y Apellido</label>
-                                                    <input type="text" id="Userfullname" [(ngModel)]="UserEditForm.fullname" formControlName="fullname" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.fullname.errors }" />
-                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.fullname.errors" class="invalid-feedback">
-                                                        <div *ngIf="ReactiveUserEditForm.fullname.errors.required">Nombre es requerido</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- DNI -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="UserDNI">DNI</label>
-                                                    <input type="text" id="UserDNI" [(ngModel)]="UserEditForm.dni" formControlName="dni" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.dni.errors }" />
-                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.dni.errors" class="invalid-feedback">
-                                                        <div *ngIf="ReactiveUserEditForm.dni.errors.required">DNI es requerido</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- DNI -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="UserCUIT">CUIT</label>
-                                                    <input type="text" id="UserCUIT" formControlName="cuit" [(ngModel)]="UserEditForm.cuit" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.cuit.errors }" />
-                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.cuit.errors" class="invalid-feedback">
-                                                        <div *ngIf="ReactiveUserEditForm.cuit.errors.required">CUIT es requerido</div>
-                                                        <div *ngIf="ReactiveUserEditForm.cuit.errors.minlength">El CUIT debe tener un mínimo de 4 caracteres
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Email -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="UserEmail">Email</label>
-                                                    <input type="text" id="UserEmail" formControlName="email" [(ngModel)]="UserEditForm.email" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.email.errors }" />
-                                                    <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.email.errors" class="invalid-feedback">
-                                                        <div *ngIf="ReactiveUserEditForm.email.errors.required">Email es requerido</div>
-                                                        <div *ngIf="ReactiveUserEditForm.email.errors.email">Email tiene que ser una direccion de correo valida</div>
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <!-- Telephone -->
-                                            <div class="col-md-4">
-                                                <div class="form-group">
-                                                    <label for="UserTelephone">Telefono</label>
-                                                    <div class="input-group">
-                                                        <div class="input-group-prepend">
-                                                            <span class="input-group-text" id="basic-addon1">+54</span>
-                                                        </div>
-                                                        <input type="text" id="UserTelephone" formControlName="telephone" [(ngModel)]="UserEditForm.telephone" class="form-control" [ngClass]="{ 'is-invalid': ReactiveUserEditFormSubmitted && ReactiveUserEditForm.telephone.errors }" />
-
-                                                        <div *ngIf="ReactiveUserEditFormSubmitted && ReactiveUserEditForm.telephone.errors" class="invalid-feedback">
-                                                            <div *ngIf="ReactiveUserEditForm.telephone.errors.required">Telefono es requerido</div>
-                                                        </div>
                                                     </div>
                                                 </div>
                                             </div>
