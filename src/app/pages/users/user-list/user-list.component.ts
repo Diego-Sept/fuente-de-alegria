@@ -28,13 +28,11 @@ export class UserListComponent implements OnInit {
   public temp = [];
   public previousUsernameFilter = '';
   public previousUserTypeFilter = '';
-  public previousUserIdFilter = '';
 
   public selectUserType: any = [
     { name: 'All', value: '' },
     { name: 'Administrador', value: 'Administrador' },
-    { name: 'Operador', value: 'Operador' },
-    { name: 'Cliente', value: 'Cliente' },
+    { name: 'Egresado', value: 'Egresado' },
   ];
 
   public selectedUserId = [];
@@ -77,7 +75,6 @@ export class UserListComponent implements OnInit {
    */
   filterUpdate(event) {
     // Reset ng-select on search
-    this.selectedUserId = this.selectedUserId[0];
     this.selectedUsername = this.selectedUsername[0];
     this.selectedUserType = this.selectedUserType[0];
 
@@ -104,18 +101,6 @@ export class UserListComponent implements OnInit {
   }
 
   /**
-   * Filter By UserId
-   *
-   * @param event
-   */
-  filterByUserId(event) {
-    const filter = event ? event.value : '';
-    this.previousUserIdFilter = filter;
-    this.temp = this.filterRows(this.previousUserTypeFilter, this.previousUsernameFilter, filter);
-    this.rows = this.temp;
-  }
-
-  /**
    * Filter By Username(
    *
    * @param event
@@ -123,7 +108,7 @@ export class UserListComponent implements OnInit {
   filterByUsername(event) {
     const filter = event ? event.value : '';
     this.previousUsernameFilter = filter;
-    this.temp = this.filterRows(this.previousUserTypeFilter, filter, this.previousUserIdFilter);
+    this.temp = this.filterRows(this.previousUserTypeFilter, filter);
     this.rows = this.temp;
   }
 
@@ -135,34 +120,30 @@ export class UserListComponent implements OnInit {
   filterByUserType(event) {
     const filter = event ? event.value : [];
     this.previousUserTypeFilter = filter;
-    this.temp = this.filterRows(filter, this.previousUsernameFilter, this.previousUserIdFilter);
+    this.temp = this.filterRows(filter, this.previousUsernameFilter);
     this.rows = this.temp;
   }
 
   /**
    * Filter Rows
    * 
-   * @param userIdFilter
    * @param usernameFilter
    * @param userTypeFilter
    * 
    */
-  filterRows(userIdFilter, usernameFilter, userTypeFilter): any[] {
+  filterRows( usernameFilter, userTypeFilter): any[] {
     // Reset search on select change
-    this.searchById = '';
     this.searchByUsername = '';
     this.selectedUserType = [];
 
 
     userTypeFilter = userTypeFilter.toLowerCase();
     usernameFilter = usernameFilter.toLowerCase();
-    userIdFilter = userIdFilter.toLowerCase();
 
     return this.tempData.filter(row => {
-      const isPartialIdMatch = row.id.toLowerCase().indexOf(userIdFilter) !== -1 || !userIdFilter;
       const isPartialUsernameMatch = row.username.toLowerCase().indexOf(usernameFilter) !== -1 || !usernameFilter;
       const isPartialUserTypeMatch = row.userType.toLowerCase().indexOf(userTypeFilter) !== -1 || !userTypeFilter;
-      return isPartialUserTypeMatch && isPartialUsernameMatch && isPartialIdMatch;
+      return isPartialUserTypeMatch && isPartialUsernameMatch;
     });
   }
 

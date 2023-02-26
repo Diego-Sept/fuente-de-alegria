@@ -16,9 +16,10 @@
                                             <div class="d-flex flex-wrap my-50">
                                                 <div class="form-group">
                                                     <div class="client-info-title">
+                                                        <h4> Datos del cliente: </h4>
                                                         <span class="card-text client-info-title font-weight-bold mb-0">Nombre y Apellido</span>
                                                     </div>
-                                                    <p class="card-text mb-0">{{ data.name }}</p>
+                                                    <p class="card-text mb-0">{{ data.name }} {{ data.surname }}</p>
                                                 </div>
                                             </div>
                                             <!-- DNI -->
@@ -28,6 +29,16 @@
                                                         <span class="card-text client-info-title font-weight-bold mb-0">DNI</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{ data.identificationNumber }}</p>
+                                                </div>
+                                            </div>
+                                            <!-- Main Contact -->
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <h4> Contacto Principal: </h4>
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Nombre</span>
+                                                    </div>
+                                                    <p class="card-text mb-0">{{ data.contacts[0].name }}</p>
                                                 </div>
                                             </div>
                                             <!-- Email -->
@@ -46,6 +57,43 @@
                                                         <span class="card-text client-info-title font-weight-bold mb-0">Telefono</span>
                                                     </div>
                                                     <p class="card-text mb-0">{{ data.contacts[0].phone }}</p>
+                                                </div>
+                                            </div>
+                                            <!-- Secondary Contact -->
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <h4> Contacto Secundario: </h4>
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Nombre</span>
+                                                    </div>
+                                                    <p class="card-text mb-0">{{ data.contacts[1].name }}</p>
+                                                </div>
+                                            </div>
+                                            <!-- Email 2 -->
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Email</span>
+                                                    </div>
+                                                    <p class="card-text mb-0">{{ data.contacts[1].email }}</p>
+                                                </div>
+                                            </div>
+                                            <!-- Telephone 2 -->
+                                            <div class="d-flex flex-wrap">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Telefono</span>
+                                                    </div>
+                                                    <p class="card-text mb-0">{{ data.contacts[1].phone }}</p>
+                                                </div>
+                                            </div>
+                                            <!-- Guests Quantity -->
+                                            <div class="d-flex flex-wrap">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Cantidad de invitados</span>
+                                                    </div>
+                                                    <p class="card-text mb-0">{{ data.guestsQuantity }}</p>
                                                 </div>
                                             </div>
                                         </div>
