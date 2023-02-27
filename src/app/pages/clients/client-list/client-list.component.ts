@@ -98,7 +98,7 @@ export class ClientListComponent implements OnInit {
 	 *
 	 * @param event
 	 */
-	filterByUserId(event) {
+	filterByUsername(event) {
 		const filter = event ? event.value : '';
 		this.previousNameFilter = filter;
 		this.temp = this.filterRows(this.previousDNIFilter, filter);
@@ -110,7 +110,7 @@ export class ClientListComponent implements OnInit {
 	 *
 	 * @param event
 	 */
-	filterByUsername(event) {
+	filterByDNI(event) {
 		const filter = event ? event.value : '';
 		this.previousDNIFilter = filter;
 		this.temp = this.filterRows(this.previousNameFilter, filter);
@@ -134,9 +134,9 @@ export class ClientListComponent implements OnInit {
 		dniFilter = dniFilter.toLowerCase();
 
 		return this.tempData.filter(row => {
-			const isPartialNameMatch = row.name.toLowerCase().indexOf(nameFilter) !== -1 || !nameFilter;
+			const isPartialNameMatch = (row.name.toLowerCase().indexOf(nameFilter) !== -1 || row.surname.toLowerCase().indexOf(nameFilter) !== -1) || !nameFilter;
 			const isPartialDNIMatch = row.dni.toLowerCase().indexOf(dniFilter) !== -1 || !dniFilter;
-			return isPartialNameMatch && isPartialDNIMatch;
+			return isPartialNameMatch || isPartialDNIMatch;
 		});
 	}
 
