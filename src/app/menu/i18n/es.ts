@@ -14,7 +14,10 @@ export const locale = {
           USERS: 'Usuarios',
           DIARY_SCHEDULES: 'Planillas Diarias',
           CALENDAR: 'Calendario',
+          STOCK_MANAGEMENT: 'Gestión de stock',
           GRADUATES: 'Egresados',
+          PRODUCTS: 'Productos',
+          STOCK: 'Stock'
         }
       }
     }
