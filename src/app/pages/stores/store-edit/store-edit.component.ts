@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -6,20 +6,22 @@ import Swal from 'sweetalert2';
 import { forwardRef } from 'preact/compat';
 import { StoreFacade } from '../../../core/facade/store.facade';
 import { CreateStoreDto, StoreDto } from '../interface/stores.interface';
+import { StoresService } from 'app/core/services/stores.service';
 
 @Component({
-	selector: 'store-add',
-	templateUrl: './store-add.component.html'
+	selector: 'store-edit',
+	templateUrl: './store-edit.component.html'
 })
-export class StoreAddComponent implements OnInit {
-
+export class StoreEditComponent implements OnInit {
 
 	public ReactiveStoreDetailsForm: FormGroup;
 	public ReactiveStoreFormSubmitted = false;
 	public mergedPwdShow = false;
+	storeId: number;
+	@Input() id:number;
 
 	// Reactive User Details form data
-	public StoreForm = {
+	public StoreEditForm = {
 		name: '',
 	};
 
@@ -33,7 +35,8 @@ export class StoreAddComponent implements OnInit {
 		private _coreSidebarService: CoreSidebarService,
 		private modalService: NgbModal,
 		private formBuilder: UntypedFormBuilder,
-		private storeFacade: StoreFacade
+		private storeFacade: StoreFacade,
+		private storeService: StoresService
 	) { }
 
 	// getter for easy access to form fields
@@ -45,25 +48,25 @@ export class StoreAddComponent implements OnInit {
 		this.ReactiveStoreFormSubmitted = true;
 		// stop here if form is invalid
 		if (this.ReactiveStoreDetailsForm.invalid) {
-			return console.log(this.StoreForm);
+			return console.log(this.StoreEditForm);
 		}
 		let storeData: CreateStoreDto = {
-			name: this.StoreForm.name,
+			name: this.StoreEditForm.name,
 		};
 
 		let store: StoreDto = {
 			storeData: storeData,
-		}
+		};
 
-		this.storeFacade.addStore(storeData).subscribe(_ => {
+		this.storeFacade.updateStore(this.id, storeData).subscribe(_ => {
 			Swal.fire({
-				text: 'El inventario se creó exitosamente',
+				text: 'El inventario se modifico exitosamente',
         		icon: 'success'
 			})
 			this.initForm();
 		})
 
-		this.toggleSidebar('store-sidebar');
+		this.toggleSidebar('store-edit-sidebar');
 	}
 	/**
 	 * Toggle the sidebar
@@ -99,4 +102,18 @@ export class StoreAddComponent implements OnInit {
 	ngOnInit(): void {
 		this.initForm();
 	}
+
+	ngOnChanges(changes: SimpleChanges){
+		console.log(this.id);
+		if ( !!changes.id ){
+			this.storeService.getStoreById(this.id).subscribe(store => {
+				this.StoreEditForm = {
+					name: store.name,
+				}
+			});
+		}
+	}
+
 }
+
+

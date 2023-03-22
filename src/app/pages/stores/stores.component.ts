@@ -28,6 +28,7 @@ export class StoresComponent implements OnInit {
 	public previousNameFilter = '';
 	public selectedName = [];
 	public searchByName = '';
+	public storeToEdit: number;
 
   // Decorator
 	@ViewChild(DatatableComponent) table: DatatableComponent;
@@ -76,6 +77,16 @@ export class StoresComponent implements OnInit {
 	// -----------------------------------------------------------------------------------------------------
 
 	/**
+		 * Toggle the sidebar
+		 *
+		 * @param name
+		 */
+	toggleSidebar(name, id?: number): void {
+		this.storeToEdit = id;
+		this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
+	}
+
+	/**
 	 * filterUpdate
 	 *
 	 * @param event
@@ -88,7 +99,7 @@ export class StoresComponent implements OnInit {
 
 		// Filter Our Data
 		const temp = this.tempData.filter(function (d) {
-			return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+			return d.name.toLowerCase().indexOf(val) !== -1 || !val;
 		});
 
 		// Update The Rows
@@ -98,20 +109,11 @@ export class StoresComponent implements OnInit {
 	}
 
 	/**
-	 * Toggle the sidebar
-	 *
-	 * @param name
-	 */
-	toggleSidebar(name): void {
-		this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
-	}
-
-	/**
 	 * Filter By Name
 	 *
 	 * @param event
 	 */
-	filterByUsername(event) {
+	filterByName(event) {
 		const filter = event ? event.value : '';
 		this.previousNameFilter = filter;
 		this.temp = this.filterRows(filter);
@@ -156,7 +158,7 @@ export class StoresComponent implements OnInit {
 		})
 
 		swalWithBootstrapButtons.fire({
-			title: '¿Desea eliminar el cliente seleccionado?',
+			title: '¿Desea eliminar el Inventario seleccionado?',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Continuar',
@@ -176,7 +178,7 @@ export class StoresComponent implements OnInit {
 	delete(id: number) {
 		this._storeFacade.deleteStore(id).subscribe(resp => {
 			Swal.fire({
-				title: 'El cliente se eliminó con éxito!!!',
+				title: 'El Inventario se eliminó con éxito!!!',
 				icon: 'success'
 			}).then(_ => {
 				  this._router.navigate([`/stores`]);

@@ -4,7 +4,7 @@ import { from, Observable } from 'rxjs';
 import { finalize } from 'rxjs/operators';
 import { StoreState } from '../states/store.state';
 import { StoresService } from '../services/stores.service';
-import { Store, StoreDto } from 'app/pages/stores/interface/stores.interface';
+import { CreateStoreDto, Store, StoreDto } from 'app/pages/stores/interface/stores.interface';
 
 
 
@@ -50,7 +50,7 @@ export class StoreFacade {
     }
 
     // ADD - CREATE
-    addStore(store: StoreDto): any | Observable<Store> {
+    addStore(store: CreateStoreDto): any | Observable<Store> {
         this.storeState.setLoadingCreatingStore(true);
 
         const promise: Promise<Store> = new Promise((res, rej) => {
@@ -84,14 +84,14 @@ export class StoreFacade {
     }
 
     // UPDATE - PATCH
-    updateStore(id: number, client: StoreDto): Observable<Store> {
+    updateStore(id: number, store: CreateStoreDto): Observable<Store> {
         this.storeState.setLoadingUpdatingStore(true);
 
         const promise: Promise<Store> = new Promise((res, rej) => {
-            this.storeService.patchStore(id, client).pipe(
+            this.storeService.patchStore(id, store).pipe(
                 finalize(() => this.storeState.setLoadingUpdatingStore(false))
             ).subscribe(
-                (client) => { this.storeState.updateStore(client, client.id); res(client) },
+                (store) => { this.storeState.updateStore(store, store.id); res(store) },
                 (e) => rej(e)
             )
         })

@@ -3,7 +3,7 @@ import { environment } from "environments/environment";
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { RestUtilitiesService } from './rest-utilities.service';
-import { Store, StoreDto } from 'app/pages/stores/interface/stores.interface';
+import { CreateStoreDto, Store, StoreDto } from 'app/pages/stores/interface/stores.interface';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -48,7 +48,7 @@ getStoreById(id): Observable<Store> {
       );
 }
 
-postStore(store: StoreDto): Observable<Store> {
+postStore(store: CreateStoreDto): Observable<Store> {
   const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
   return this.http
       .post<any>(`${environment.apiUrl}/stores`, JSON.stringify(store), {
@@ -76,7 +76,7 @@ deleteStore(id: number) {
       );
 }
 
-patchStore(id: number, storeDto: StoreDto) {
+patchStore(id: number, storeDto: CreateStoreDto) {
   console.log("Entro acáaaa!!!");
   console.log("Ruta: " + `${environment.apiUrl}/stores/${id}`);
   console.log("Payload: ", JSON.stringify(storeDto));

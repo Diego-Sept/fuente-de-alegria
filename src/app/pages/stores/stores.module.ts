@@ -15,6 +15,7 @@ import { CoreSidebarModule } from '@core/components';
 
 import { StoresComponent } from './stores.component';
 import { StoreAddComponent } from './store-add/store-add.component';
+import { StoreEditComponent } from './store-edit/store-edit.component';
 
 const routes = [
   {
@@ -34,7 +35,8 @@ const routes = [
 @NgModule({
   declarations: [
     StoresComponent, 
-    StoreAddComponent
+    StoreAddComponent,
+    StoreEditComponent
   ],
   imports: [
     CommonModule,
@@ -52,7 +54,8 @@ const routes = [
   ],
   exports: [
     StoresComponent,
-    StoreAddComponent
+    StoreAddComponent,
+    StoreEditComponent
   ]
 })
 export class StoresModule { }
