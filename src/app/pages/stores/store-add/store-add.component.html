@@ -1,0 +1,29 @@
+<div class="slideout-content">
+    <!-- Modal to add new store starts-->
+    <div class="modalsd modal-slide-in sdfade new-store-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-store modal-content pt-0" [formGroup]="ReactiveStoreDetailsForm" (ngSubmit)="ReactiveStoreFormOnSubmit()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('store-add')">
+          ×
+        </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">Nuevo Inventario</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <div class="form-group">
+                        <label for="StoreName">Nombre</label>
+                        <input type="text" id="StoreName" [(ngModel)]="StoreForm.name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': ReactiveStoreFormSubmitted && ReactiveStoreForm.name.errors }" />
+                        <div *ngIf="ReactiveStoreFormSubmitted && ReactiveStoreForm.name.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveStoreForm.name.errors.required">Nombre requerido</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect> Añadir </button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('client-sidebar')" rippleEffect> Cancelar </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new client Ends-->
+</div>

@@ -20,10 +20,6 @@ import { ClientSidebarComponent } from './client-list/client-sidebar/client-side
 import { ClientViewComponent } from './client-view/client-view.component';
 import { ClientEditComponent } from './client-edit/client-edit.component';
 
-import { ClientViewService } from './client-view/client-view.service';
-import { ClientEditService } from './client-edit/client-edit.service';
-import { CoreTouchspinModule } from '@core/components/core-touchspin/core-touchspin.module';
-
 
 const routes = [
   {
@@ -32,24 +28,15 @@ const routes = [
   },
   {
     path: 'client-list',
-    component: ClientListComponent,
-    data: { animation: 'ClientListComponent' }
+    component: ClientListComponent
   },
   {
     path: 'client-view/:id',
-    component: ClientViewComponent,
-    resolve: {
-      data: ClientViewService,
-    },
-    data: { path: 'view/:id', animation: 'ClientViewComponent' }
+    component: ClientViewComponent
   },
   {
     path: 'client-edit/:id',
-    component: ClientEditComponent,
-    resolve: {
-      ues: ClientEditService
-    },
-    data: { animation: 'ClientEditComponent' }
+    component: ClientEditComponent
   },
   {
     path: 'client-view',
@@ -77,10 +64,8 @@ const routes = [
     NgxDatatableModule,
     CorePipesModule,
     CoreDirectivesModule,
-    CoreSidebarModule,
-    CoreTouchspinModule,
+    CoreSidebarModule
   ],
-  providers: [ ClientViewService, ClientEditService],
   exports: [
     ClientListComponent, 
     ClientSidebarComponent,
