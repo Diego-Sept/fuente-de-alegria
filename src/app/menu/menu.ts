@@ -63,14 +63,6 @@ export const menu: CoreMenu[] = [
         url: 'budgets'
       },
       {
-        id: 'stores',
-        title: 'Stores',
-        translate: 'MENU.TITLES.STORES',
-        type: 'item',
-        icon: 'check-square',
-        url: 'stores'
-      },
-      {
         id: 'paydesks',
         title: 'Paydesks',
         translate: 'MENU.TITLES.PAYDESK',
@@ -93,6 +85,39 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'calendar',
         url: 'calendar'
+      }
+    ]
+  },
+  {
+    id: 'stock_management',
+    type: 'section',
+    title: 'Stock Management',
+    translate: 'MENU.TITLES.STOCK_MANAGEMENT',
+    icon: 'package',
+    children: [
+      {
+        id: 'products',
+        title: 'Productos',
+        translate: 'MENU.TITLES.PRODUCTS',
+        type: 'item',
+        icon: 'check-square',
+        url: 'products'
+      },
+      {
+        id: 'stores',
+        title: 'Stores',
+        translate: 'MENU.TITLES.STORES',
+        type: 'item',
+        icon: 'check-square',
+        url: 'stores'
+      },
+      {
+        id: 'stock',
+        title: 'Stock',
+        translate: 'MENU.TITLES.STOCK',
+        type: 'item',
+        icon: 'check-square',
+        url: 'stock'
       }
     ]
   }
