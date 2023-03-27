@@ -31,6 +31,8 @@ export class ProductsComponent implements OnInit {
 	public searchByName = '';
 	public searchByDNI = '';
 
+	public productToEdit: number;
+
 	// Decorator
 	@ViewChild(DatatableComponent) table: DatatableComponent;
 
@@ -61,7 +63,7 @@ export class ProductsComponent implements OnInit {
 	 */
 	filterUpdate(event) {
 		// Reset ng-select on search
-		this.selectedName = this.selectedName[0];
+		//this.selectedName = this.selectedName[0];
 
 		const val = event.target.value.toLowerCase();
 
@@ -81,7 +83,8 @@ export class ProductsComponent implements OnInit {
 	 *
 	 * @param name
 	 */
-	toggleSidebar(name): void {
+	toggleSidebar(name: string, productId?: number): void {
+		this.productToEdit = productId;
 		this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 	}
 

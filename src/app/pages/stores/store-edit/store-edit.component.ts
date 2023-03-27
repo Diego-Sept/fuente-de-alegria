@@ -104,8 +104,7 @@ export class StoreEditComponent implements OnInit {
 	}
 
 	ngOnChanges(changes: SimpleChanges){
-		console.log(this.id);
-		if ( !!changes.id ){
+		if ( !!this.id ){
 			this.storeService.getStoreById(this.id).subscribe(store => {
 				this.StoreEditForm = {
 					name: store.name,

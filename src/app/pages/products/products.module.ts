@@ -13,6 +13,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { ContentHeaderModule } from 'app/layout/components/content-header/content-header.module';
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
+import { ProductsSidebarComponent } from './products-sidebar/products-sidebar.component';
 
 const routes = [
   {
@@ -23,7 +24,8 @@ const routes = [
 
 @NgModule({
   declarations: [
-    ProductsComponent
+    ProductsComponent,
+    ProductsSidebarComponent
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ const routes = [
     CoreTouchspinModule,
   ],
   exports: [
-    ProductsComponent
+    ProductsComponent,
+    ProductsSidebarComponent
   ]
 })
 export class ProductsModule { }

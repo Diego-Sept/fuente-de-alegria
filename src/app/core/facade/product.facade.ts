@@ -26,7 +26,8 @@ export class ProductFacade {
             ).subscribe(
                 // Success
                 response => {
-                    this.productState.setProducts(response)
+                    this.productState.setProducts(response);
+                    resolve(response);
                 },
                 // Error
                 (e) => {

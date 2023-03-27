@@ -92,8 +92,6 @@ export class StoresComponent implements OnInit {
 	 * @param event
 	 */
 	filterUpdate(event) {
-		// Reset ng-select on search
-		this.selectedName = this.selectedName[0];
 
 		const val = event.target.value.toLowerCase();
 
