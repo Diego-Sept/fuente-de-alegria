@@ -1,0 +1,29 @@
+<div class="slideout-content">
+    <!-- Modal to add new store starts-->
+    <div class="modalsd modal-slide-in sdfade new-saloons-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-saloons modal-content pt-0" [formGroup]="ReactiveSaloonDetailsForm" (ngSubmit)="ReactiveSaloonFormOnSubmit()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('saloons-sidebar')">
+          ×
+        </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel"> Nuevo Tipo de Evento </h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <div class="form-group">
+                        <label for="Saloons">Nombre</label>
+                        <input type="text" id="Saloons" [(ngModel)]="SaloonForm.name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': ReactiveSaloonFormSubmitted && ReactiveSaloonForm.name.errors }" />
+                        <div *ngIf="ReactiveSaloonFormSubmitted && ReactiveSaloonForm.name.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveProductForm.name.errors.required">Nombre requerido</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect> Añadir </button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('saloons-sidebar')" rippleEffect> Cancelar </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new client Ends-->
+</div>

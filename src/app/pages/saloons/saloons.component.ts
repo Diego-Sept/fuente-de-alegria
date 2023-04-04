@@ -3,7 +3,7 @@ import { Router } from '@angular/router';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { CoreConfigService } from '@core/services/config.service';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-import { EventTypeFacade } from 'app/core/facade/eventType.facade';
+import { SaloonFacade } from 'app/core/facade/saloons.facade';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 import Swal from 'sweetalert2';
@@ -11,12 +11,12 @@ import Swal from 'sweetalert2';
 
 
 @Component({
-  selector: 'app-event-types',
-  templateUrl: './event-types.component.html',
-  styleUrls: ['./event-types.component.scss'],
+  selector: 'app-saloons',
+  templateUrl: './saloons.component.html',
+  styleUrls: ['./saloons.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class EventTypesComponent implements OnInit {
+export class SaloonsComponent implements OnInit {
 
   // Public
 	public sidebarToggleRef = false;
@@ -45,7 +45,7 @@ export class EventTypesComponent implements OnInit {
 		private _coreSidebarService: CoreSidebarService,
 		private _coreConfigService: CoreConfigService,
 		private _router: Router,
-    	private _eventTypeFacade: EventTypeFacade
+    	private _saloonFacade: SaloonFacade
 	) {
 		this._unsubscribeAll = new Subject();
 	}
@@ -57,7 +57,7 @@ export class EventTypesComponent implements OnInit {
 	 */
 	ngOnInit(): void {
 		// Subscribe config change
-		this._eventTypeFacade.loadEventTypes();
+		this._saloonFacade.loadSaloon();
 		this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
 			//! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
 			if (config.layout.animation === 'zoomIn') {
@@ -136,9 +136,9 @@ export class EventTypesComponent implements OnInit {
 
   //GET
 	suscribeToData(){
-		this._eventTypeFacade.getEventTypes().pipe(takeUntil(this._unsubscribeAll)).subscribe(eventType => {
-			if (!!eventType){
-				this.rows = JSON.parse(JSON.stringify(eventType));
+		this._saloonFacade.getSaloon().pipe(takeUntil(this._unsubscribeAll)).subscribe(saloons => {
+			if (!!saloons){
+				this.rows = JSON.parse(JSON.stringify(saloons));
 				this.tempData = this.rows;
 			} else {
 				this.rows = [];
@@ -148,7 +148,7 @@ export class EventTypesComponent implements OnInit {
 	}
 
   //DELETE STORE
-  deleteEventType(id: number) {
+  deleteSaloon(id: number) {
 		const swalWithBootstrapButtons = Swal.mixin({
 			customClass: {
 				confirmButton: 'btn btn-success',
@@ -176,12 +176,12 @@ export class EventTypesComponent implements OnInit {
 	 *
 	 */
 	delete(id: number) {
-		this._eventTypeFacade.deleteEventType(id).subscribe(resp => {
+		this._saloonFacade.deleteSaloon(id).subscribe(resp => {
 			Swal.fire({
 				title: 'El tipo de evento se eliminó con éxito!!!',
 				icon: 'success'
 			}).then(_ => {
-				  this._router.navigate([`/event-types`]);
+				  this._router.navigate([`/saloon`]);
 			})
 		});
 	}

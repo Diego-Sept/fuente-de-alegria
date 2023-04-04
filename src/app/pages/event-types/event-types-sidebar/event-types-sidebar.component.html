@@ -1,26 +1,26 @@
 <div class="slideout-content">
     <!-- Modal to add new store starts-->
-    <div class="modalsd modal-slide-in sdfade new-store-modal" id="modals-slide-in">
+    <div class="modalsd modal-slide-in sdfade new-eventType-modal" id="modals-slide-in">
         <div class="modal-dialog">
-            <form class="add-new-store modal-content pt-0" [formGroup]="ReactiveProductDetailsForm" (ngSubmit)="ReactiveProductFormOnSubmit()">
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar(toggleIfIsUpdating())">
+            <form class="add-new-eventType modal-content pt-0" [formGroup]="ReactiveEventTypeDetailsForm" (ngSubmit)="ReactiveEventTypeFormOnSubmit()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar('eventType-sidebar')">
           ×
         </button>
                 <div class="modal-header mb-1">
-                    <h5 class="modal-title" id="exampleModalLabel">{{ (!!this.productId) ? 'Editar producto' : 'Nuevo producto' }}</h5>
+                    <h5 class="modal-title" id="exampleModalLabel"> Nuevo Tipo de Evento </h5>
                 </div>
                 <div class="modal-body flex-grow-1">
 
                     <div class="form-group">
-                        <label for="ProductName">Nombre</label>
-                        <input type="text" id="ProductName" [(ngModel)]="ProductForm.name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': ReactiveProductFormSubmitted && ReactiveProductForm.name.errors }" />
-                        <div *ngIf="ReactiveProductFormSubmitted && ReactiveProductForm.name.errors" class="invalid-feedback">
+                        <label for="EventType">Nombre</label>
+                        <input type="text" id="EventType" [(ngModel)]="EventTypeForm.name" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': ReactiveEventTypeFormSubmitted && ReactiveEventTypeForm.name.errors }" />
+                        <div *ngIf="ReactiveEventTypeFormSubmitted && ReactiveEventTypeForm.name.errors" class="invalid-feedback">
                             <div *ngIf="ReactiveProductForm.name.errors.required">Nombre requerido</div>
                         </div>
                     </div>
 
-                    <button type="submit" class="btn btn-primary mr-1" rippleEffect> {{ (!!this.productId) ? 'Editar' : 'Añadir' }} </button>
-                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar(toggleIfIsUpdating())" rippleEffect> Cancelar </button>
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect> Añadir </button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar('eventType-sidebar')" rippleEffect> Cancelar </button>
                 </div>
             </form>
         </div>

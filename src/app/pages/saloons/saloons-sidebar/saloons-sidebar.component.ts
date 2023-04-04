@@ -2,25 +2,25 @@ import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
 import { UntypedFormGroup, UntypedFormBuilder, FormGroup, Validators, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SaloonFacade } from 'app/core/facade/saloons.facade';
 import Swal from 'sweetalert2';
-import { CreateEventTypeDTO } from '../interfaces/eventTypes.interface';
-import { EventTypeFacade } from '../../../core/facade/eventType.facade';
+import { CreateSaloonDTO } from '../interfaces/saloons.interface';
 
 @Component({
-	selector: 'app-eventTypes-sidebar',
-	templateUrl: './event-types-sidebar.component.html'
+	selector: 'app-saloons-sidebar',
+	templateUrl: './saloons-sidebar.component.html'
 })
-export class EventTypesSidebarComponent implements OnInit {
+export class SaloonsSideBarComponent implements OnInit {
 
 
-	public ReactiveEventTypeDetailsForm: FormGroup;
-	public ReactiveEventTypeFormSubmitted = false;
+	public ReactiveSaloonDetailsForm: FormGroup;
+	public ReactiveSaloonFormSubmitted = false;
 	public mergedPwdShow = false;
 
     @Input() productId: number;
 
 	// Reactive User Details form data
-	public EventTypeForm = {
+	public SaloonForm = {
 		name: '',
 	};
 
@@ -34,27 +34,26 @@ export class EventTypesSidebarComponent implements OnInit {
 		private _coreSidebarService: CoreSidebarService,
 		private modalService: NgbModal,
 		private formBuilder: UntypedFormBuilder,
-		private eventTypeFacade: EventTypeFacade,
+		private saloonsFacade: SaloonFacade,
 	) { }
 
 	// getter for easy access to form fields
-	get ReactiveEventTypeForm() {
-		return this.ReactiveEventTypeDetailsForm.controls;
+	get ReactiveSaloonForm() {
+		return this.ReactiveSaloonDetailsForm.controls;
 	}
 
-	ReactiveEventTypeFormOnSubmit() {
-		this.ReactiveEventTypeFormSubmitted = true;
+	ReactiveSaloonFormOnSubmit() {
+		this.ReactiveSaloonFormSubmitted = true;
 		// stop here if form is invalid
-		if (this.ReactiveEventTypeDetailsForm.invalid) {
-			return console.log(this.EventTypeForm);
+		if (this.ReactiveSaloonDetailsForm.invalid) {
+			return console.log(this.SaloonForm);
 		}
-		let eventTypeData: CreateEventTypeDTO = {
-			name: this.EventTypeForm.name,
+		let saloonData: CreateSaloonDTO = {
+			name: this.SaloonForm.name,
 		};
 
-    	
-		//Add EventType
-		this.eventTypeFacade.addEventType(eventTypeData).subscribe(_ => {
+		//Add Saloon
+		this.saloonsFacade.addSaloon(saloonData).subscribe(_ => {
 			Swal.fire({
 				text: 'El producto se creó exitosamente',
 				icon: 'success'
@@ -62,8 +61,7 @@ export class EventTypesSidebarComponent implements OnInit {
 			this.initForm();
 		})
 
-		this.toggleSidebar('eventType-sidebar');
-        
+		this.toggleSidebar('saloons-sidebar');
         
 	}
 	/**
@@ -84,8 +82,8 @@ export class EventTypesSidebarComponent implements OnInit {
 
 	initForm(){
 		// Reactive form initialization
-		this.ReactiveEventTypeFormSubmitted = false;
-		this.ReactiveEventTypeDetailsForm = this.formBuilder.group({
+		this.ReactiveSaloonFormSubmitted = false;
+		this.ReactiveSaloonDetailsForm = this.formBuilder.group({
 			name: ['', Validators.required],
 		});
 	}

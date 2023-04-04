@@ -1,7 +1,7 @@
 <div class="content-wrapper container-xxl p-0">
     <div class="content-body">
         <!-- Store List -->
-        <h2 class="card-header">Tipos de Eventos
+        <h2 class="card-header">Salones
             <button type="button" class="btn btn-primary float-right" (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseExample4" rippleEffect>
           Filtros
           <span class="btn-label">
@@ -46,9 +46,9 @@
                         </div>
                         <div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
                             <div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
-                                <button class="btn btn-primary ml-1" (click)="toggleSidebar('eventType-sidebar')" rippleEffect> 
+                                <button class="btn btn-primary ml-1" (click)="toggleSidebar('saloons-sidebar')" rippleEffect> 
                                           <i data-feather="plus" class="mr-0 mr-sm-1"></i
-                                            ><span class="d-none d-sm-inline-block">Añadir Tipo de Evento</span>
+                                            ><span class="d-none d-sm-inline-block">Añadir Salon</span>
                           </button>
                             </div>
                         </div>
@@ -61,7 +61,7 @@
                         </ngx-datatable-column>
                         <ngx-datatable-column name="Actions" prop="Actions" [width]="40" [sortable]="false">
                             <ng-template ngx-datatable-cell-template let-row="row">
-                                <div (click)="deleteEventType(row.id)">
+                                <div (click)="deleteSaloon(row.id)">
                                     <i data-feather="trash" class="text-primary cursor-pointer"></i>
                                 </div>
                             </ng-template>
@@ -73,7 +73,7 @@
         </div>
         <!-- New Store Sidebar -->
 
-        <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="eventType-sidebar" overlayClass="modal-backdrop">
-            <app-eventTypes-sidebar></app-eventTypes-sidebar>
+        <core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="saloons-sidebar" overlayClass="modal-backdrop">
+            <app-saloons-sidebar></app-saloons-sidebar>
         </core-sidebar>
         <!--/ New Store Sidebar -->

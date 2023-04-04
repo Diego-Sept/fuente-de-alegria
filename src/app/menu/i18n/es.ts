@@ -18,6 +18,7 @@ export const locale = {
           STOCK: 'Stock',
           EVENTS_MANAGEMENT: 'Gestión de eventos',
           EVENT_TYPES: 'Tipos de eventos',
+          SALOONS: 'Salones',
           BUDGETS: 'Presupuestos',
           CALENDAR: 'Calendario',
         }

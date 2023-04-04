@@ -113,6 +113,14 @@ export const menu: CoreMenu[] = [
     icon: 'package',
     children: [
       {
+        id: 'saloons',
+        title: 'Saloons',
+        translate: 'MENU.TITLES.SALOONS',
+        type: 'item',
+        icon: 'file-text',
+        url: 'saloons'
+      },
+      {
         id: 'event-types',
         title: 'Event types',
         translate: 'MENU.TITLES.EVENT_TYPES',
