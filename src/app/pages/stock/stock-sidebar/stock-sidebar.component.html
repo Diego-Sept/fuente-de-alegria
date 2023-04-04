@@ -1,0 +1,48 @@
+<div class="slideout-content">
+    <!-- Modal to add new store starts-->
+    <div class="modalsd modal-slide-in sdfade new-store-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-store modal-content pt-0" [formGroup]="ReactiveStockDetailsForm" (ngSubmit)="ReactiveStockFormOnSubmit()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar(toggleIfIsUpdating())">
+          ×
+        </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ (!!this.stockId) ? 'Editar stock' : 'Nuevo stock' }}</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <div class="form-group">
+                        <label for="StockProduct">Producto</label>
+                        <select id="StockProduct" formControlName="product" class="form-control"
+                            [ngClass]="{ 'is-invalid': ReactiveStockFormSubmitted && ReactiveStockForm.product.errors }"
+                            [(ngModel)]="this.productSelected" placeholder="Seleccione producto">
+                            <option *ngFor="let product of this.products" value="{{product.id}}">{{ product.name }}</option>
+                        </select>
+                        <div *ngIf="ReactiveStockFormSubmitted && ReactiveStockForm.product.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveStockForm.product.errors.required">Producto requerido</div>
+                        </div>
+                        <label for="StockStore">Inventario</label>
+                        <select id="StockStore" formControlName="store" class="form-control"
+                            [ngClass]="{ 'is-invalid': ReactiveStockFormSubmitted && ReactiveStockForm.store.errors }"
+                            [(ngModel)]="this.storeSelected" placeholder="Seleccione inventario">
+                            <option *ngFor="let store of this.stores" value="{{store.id}}">{{ store.name }}</option>
+                        </select>
+                        <div *ngIf="ReactiveStockFormSubmitted && ReactiveStockForm.store.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveStockForm.store.errors.required">Inventario requerido</div>
+                        </div>
+                        <label for="StockQuantity">Cantidad</label>
+                        <input type="number" min="0" id="StockQuantity" [(ngModel)]="StockForm.quantity" formControlName="quantity" 
+                            class="form-control" [ngClass]="{ 'is-invalid': ReactiveStockFormSubmitted && ReactiveStockForm.quantity.errors }" />
+                        <div *ngIf="ReactiveStockFormSubmitted && ReactiveStockForm.quantity.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveStockForm.quantity.errors.required">Nombre requerido</div>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect> {{ (!!this.stockId) ? 'Editar' : 'Añadir' }} </button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar(toggleIfIsUpdating())" rippleEffect> Cancelar </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new client Ends-->
+</div>

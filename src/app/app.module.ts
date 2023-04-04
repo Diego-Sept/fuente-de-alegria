@@ -30,6 +30,7 @@ import { AnimatedCustomContextMenuComponent } from './main/extensions/context-me
 import { BasicCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/basic-custom-context-menu/basic-custom-context-menu.component';
 import { SubMenuCustomContextMenuComponent } from './main/extensions/context-menu/custom-context-menu/sub-menu-custom-context-menu/sub-menu-custom-context-menu.component';
 import { MiscellaneousModule } from './pages/miscellaneous/miscellaneous.module';
+import { EventTypesComponent } from './pages/event-types/event-types.component';
 
 const appRoutes: Routes = [
   {
@@ -50,11 +51,6 @@ const appRoutes: Routes = [
   {
     path: 'notifications',
     loadChildren: () => import('./pages/notifications/notifications.module').then(m => m.NotificationsModule),
-    canActivate: [AuthGuard]
-  },
-  {
-    path: 'budgets',
-    loadChildren: () => import('./pages/budgets/budgets.module').then(m => m.BudgetsModule),
     canActivate: [AuthGuard]
   },
   {
@@ -80,6 +76,16 @@ const appRoutes: Routes = [
   {
     path: 'schedules',
     loadChildren: () => import('./pages/schedules/schedules.module').then(m => m.SchedulesModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'event-types',
+    loadChildren: () => import('./pages/event-types/event-types.module').then(m => m.EventTypesModule),
+    canActivate: [AuthGuard]
+  },
+  {
+    path: 'budgets',
+    loadChildren: () => import('./pages/budgets/budgets.module').then(m => m.BudgetsModule),
     canActivate: [AuthGuard]
   },
   {

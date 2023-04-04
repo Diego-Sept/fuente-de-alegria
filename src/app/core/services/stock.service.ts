@@ -1,24 +1,24 @@
 import { HttpClient, HttpHeaders, HttpParams, HttpResponse } from "@angular/common/http";
 import { Injectable } from "@angular/core";
-import { CreateProductDTO, Product } from "app/pages/products/interfaces/products.interface";
 import { environment } from "environments/environment";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { RestUtilitiesService } from "./rest-utilities.service";
+import { CreateStockDto, Stock } from "app/pages/stock/interfaces/stock.interface";
 
 @Injectable({
     providedIn: 'root'
 })
-export class ProductService {
+export class StockService {
 
     constructor(private http: HttpClient, private restUtilitiesService: RestUtilitiesService) { }
 
-    getProducts(qps?): Observable<Product[]> {
+    getStockList(qps): Observable<Stock[]> {
 
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         const queryParams: HttpParams = qps ? this.restUtilitiesService.createAndAppendQps(this.restUtilitiesService.formatQPs(qps)) : null;
         return this.http
-            .get<any>(`${environment.apiUrl}/products`, {
+            .get<any>(`${environment.apiUrl}/stock`, {
                 headers: queryHeaders,
                 observe: 'response',
                 params: queryParams,
@@ -30,10 +30,10 @@ export class ProductService {
             );
     }
 
-    getProductById(id): Observable<Product> {
+    getStockById(id): Observable<Stock> {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-            .get<any>(`${environment.apiUrl}/products/${id}`, {
+            .get<any>(`${environment.apiUrl}/stock/${id}`, {
                 headers: queryHeaders,
                 observe: 'response',
             })
@@ -44,10 +44,10 @@ export class ProductService {
             );
     }
 
-    postProduct(product: CreateProductDTO): Observable<Product> {
+    postStock(stock: CreateStockDto): Observable<Stock> {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-            .post<any>(`${environment.apiUrl}/products`, JSON.stringify(product), {
+            .post<any>(`${environment.apiUrl}/stock`, JSON.stringify(stock), {
                 headers: queryHeaders,
                 observe: 'response',
             })
@@ -58,10 +58,10 @@ export class ProductService {
             );
     }
 
-    deleteProduct(id: number) {
+    deleteStock(id: number) {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-            .delete<any>(`${environment.apiUrl}/products/${id}`, {
+            .delete<any>(`${environment.apiUrl}/stock/${id}`, {
                 headers: queryHeaders,
                 observe: 'response',
             })
@@ -72,12 +72,12 @@ export class ProductService {
             );
     }
 
-    patchProduct(id: number, productDto: CreateProductDTO) {
+    patchStock(id: number, stockDto: CreateStockDto) {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
             .patch<any>(
-                `${environment.apiUrl}/products/${id}`,
-                JSON.stringify(productDto),
+                `${environment.apiUrl}/stock/${id}`,
+                JSON.stringify(stockDto),
                 {
                     headers: queryHeaders,
                     observe: 'response',

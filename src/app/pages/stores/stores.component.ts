@@ -16,12 +16,13 @@ import Swal from 'sweetalert2';
 @Component({
   selector: 'app-stores',
   templateUrl: './stores.component.html',
-  styleUrls: ['./stores.component.scss']
+  styleUrls: ['./stores.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class StoresComponent implements OnInit {
   //Public
   	public isCollapsed = true;
-  	public rows;
+  	public rows = [];
   	public selectedOption = 10;
   	public ColumnMode = ColumnMode;
   	public temp = [];
@@ -46,7 +47,6 @@ export class StoresComponent implements OnInit {
 		private _coreSidebarService: CoreSidebarService,
 		private _coreConfigService: CoreConfigService,
 		private _router: Router,
-		private _storeService: StoresService,
     	private _storeFacade: StoreFacade
 	) {
 		this._unsubscribeAll = new Subject();
@@ -140,8 +140,13 @@ export class StoresComponent implements OnInit {
   //GET
 	suscribeToData(){
 		this._storeFacade.getStores().pipe(takeUntil(this._unsubscribeAll)).subscribe(stores => {
-			this.rows = JSON.parse(JSON.stringify(stores));
-			this.tempData = this.rows;
+			if (!!stores){
+				this.rows = JSON.parse(JSON.stringify(stores));
+				this.tempData = this.rows;
+			} else {
+				this.rows = [];
+				this.tempData = [];
+			}
 		})
 	}
 

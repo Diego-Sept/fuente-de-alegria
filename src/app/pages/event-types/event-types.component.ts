@@ -1,26 +1,23 @@
-import { Component, OnInit, ViewChild, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { Router } from '@angular/router';
+import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
+import { CoreConfigService } from '@core/services/config.service';
 import { ColumnMode, DatatableComponent } from '@swimlane/ngx-datatable';
-
+import { StockFacade } from 'app/core/facade/stock.facade';
+import { StockService } from 'app/core/services/stock.service';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
-
-import { CoreConfigService } from '@core/services/config.service';
-import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
-
-import { Router } from '@angular/router';
-import { User } from 'app/auth/models';
-import { Contact } from '../interface/client.interface';
 import Swal from 'sweetalert2';
-import { ClientFacade } from '../../../core/facade/client.facade';
+import { User } from '../clients/interface/client.interface';
 
 @Component({
-	selector: 'app-client-list',
-	templateUrl: './client-list.component.html',
-	styleUrls: ['./client-list.component.scss'],
-	encapsulation: ViewEncapsulation.None
+  selector: 'app-event-types',
+  templateUrl: './event-types.component.html',
+  styleUrls: ['./event-types.component.scss']
 })
-export class ClientListComponent implements OnInit {
-	// Public
+export class EventTypesComponent implements OnInit {
+
+  // Public
 	public sidebarToggleRef = false;
 	public isCollapsed5 = true;
 	public rows;
@@ -28,12 +25,12 @@ export class ClientListComponent implements OnInit {
 	public selectedOption = 10;
 	public ColumnMode = ColumnMode;
 	public temp = [];
-	public previousNameFilter = '';
-	public previousDNIFilter = '';
+	public previousProductFilter = '';
+	public previousStoreFilter = '';
 	public selectedName = [];
 	public selectedDNI = [];
-	public searchByName = '';
-	public searchByDNI = '';
+	public searchByProduct = '';
+	public searchByStore = '';
 
 	// Decorator
 	@ViewChild(DatatableComponent) table: DatatableComponent;
@@ -41,6 +38,8 @@ export class ClientListComponent implements OnInit {
 	// Private
 	private tempData = [];
 	private _unsubscribeAll: Subject<any>;
+
+	stockToEdit = null;
 
 	/**
 	 * Constructor
@@ -53,7 +52,8 @@ export class ClientListComponent implements OnInit {
 		private _coreSidebarService: CoreSidebarService,
 		private _coreConfigService: CoreConfigService,
 		private _router: Router,
-		private clientFacade: ClientFacade
+		private stockFacade: StockFacade,
+		private stockService: StockService
 	) {
 		this._unsubscribeAll = new Subject();
 	}
@@ -72,8 +72,11 @@ export class ClientListComponent implements OnInit {
 		const val = event.target.value.toLowerCase();
 
 		// Filter Our Data
-		const temp = this.tempData.filter(function (d) {
-			return d.fullName.toLowerCase().indexOf(val) !== -1 || !val;
+		const temp = this.tempData.filter(d => {
+			const isPartialProductMatch = d.product.name.toLowerCase().indexOf(val) !== -1 || !val;
+			const isPartialStoreMatch = d.store.name.toLowerCase().indexOf(val) !== -1 || !val;
+			return isPartialProductMatch || isPartialStoreMatch;
+			/* return d.fullName.toLowerCase().indexOf(val) !== -1 || !val; */
 		});
 
 		// Update The Rows
@@ -87,7 +90,8 @@ export class ClientListComponent implements OnInit {
 	 *
 	 * @param name
 	 */
-	toggleSidebar(name): void {
+	toggleSidebar(name, id?: number): void {
+		this.stockToEdit = id;
 		this._coreSidebarService.getSidebarRegistry(name).toggleOpen();
 	}
 
@@ -96,11 +100,16 @@ export class ClientListComponent implements OnInit {
 	 *
 	 * @param event
 	 */
-	filterByUsername(event) {
-		const filter = event ? event.value : '';
-		this.previousNameFilter = filter;
-		this.temp = this.filterRows(this.previousDNIFilter, filter);
+	filterByProduct(event) {
+		const filter = event ? event.target.value.toLowerCase() : '';
+		this.previousProductFilter = filter;
+		this.temp = this.tempData.filter(row => {
+			const isPartialProductMatch = row.product.name.toLowerCase().indexOf(filter) !== -1 || !filter;
+			return isPartialProductMatch;
+		});
 		this.rows = this.temp;
+		// Whenever The Filter Changes, Always Go Back To The First Page
+		this.table.offset = 0;
 	}
 
 	/**
@@ -108,37 +117,19 @@ export class ClientListComponent implements OnInit {
 	 *
 	 * @param event
 	 */
-	filterByDNI(event) {
-		const filter = event ? event.value : '';
-		this.previousDNIFilter = filter;
-		this.temp = this.filterRows(this.previousNameFilter, filter);
-		this.rows = this.temp;
-	}
-
-	/**
-	 * Filter Rows
-	 * 
-	 * @param userIdFilter
-	 * @param usernameFilter
-	 * 
-	 */
-	filterRows(nameFilter, dniFilter): any[] {
-		// Reset search on select change
-		this.searchByName = '';
-		this.searchByDNI = '';
-
-
-		nameFilter = nameFilter.toLowerCase();
-		dniFilter = dniFilter.toLowerCase();
-
-		return this.tempData.filter(row => {
-			const isPartialNameMatch = (row.name.toLowerCase().indexOf(nameFilter) !== -1 || row.surname.toLowerCase().indexOf(nameFilter) !== -1) || !nameFilter;
-			const isPartialDNIMatch = row.dni.toLowerCase().indexOf(dniFilter) !== -1 || !dniFilter;
-			return isPartialNameMatch || isPartialDNIMatch;
+	filterByStore(event) {
+		const filter = event ? event.target.value.toLowerCase() : '';
+		this.previousStoreFilter = filter;
+		this.temp = this.tempData.filter(row => {
+			const isPartialStoreMatch = row.store.name.toLowerCase().indexOf(filter) !== -1 || !filter;
+			return isPartialStoreMatch;
 		});
+		this.rows = this.temp;
+		// Whenever The Filter Changes, Always Go Back To The First Page
+		this.table.offset = 0;
 	}
 
-	deleteClient(id: number) {
+	deleteStock(id: number) {
 		const swalWithBootstrapButtons = Swal.mixin({
 			customClass: {
 				confirmButton: 'btn btn-success',
@@ -148,7 +139,7 @@ export class ClientListComponent implements OnInit {
 		})
 
 		swalWithBootstrapButtons.fire({
-			title: '¿Desea eliminar el cliente seleccionado?',
+			title: '¿Desea eliminar el stock seleccionado?',
 			icon: 'warning',
 			showCancelButton: true,
 			confirmButtonText: 'Continuar',
@@ -166,12 +157,12 @@ export class ClientListComponent implements OnInit {
 	 *
 	 */
 	delete(id: number) {
-		this.clientFacade.deleteClient(id).subscribe(resp => {
+		this.stockFacade.deleteStock(id).subscribe(resp => {
 			Swal.fire({
-				title: 'El cliente se eliminó con éxito!!!',
+				title: 'El stock se eliminó con éxito!!!',
 				icon: 'success'
 			}).then(_ => {
-				  this._router.navigate([`/clients`]);
+				this._router.navigate([`/stock`]);
 			})
 		});
 	}
@@ -183,7 +174,7 @@ export class ClientListComponent implements OnInit {
 	 */
 	ngOnInit(): void {
 		// Subscribe config change
-		this.clientFacade.loadClients();
+		this.stockFacade.loadStockList();
 		this._coreConfigService.config.pipe(takeUntil(this._unsubscribeAll)).subscribe(config => {
 			//! If we have zoomIn route Transition then load datatable after 450ms(Transition will finish in 400ms)
 			if (config.layout.animation === 'zoomIn') {
@@ -197,9 +188,9 @@ export class ClientListComponent implements OnInit {
 
 	}
 
-	suscribeToData(){
-		this.clientFacade.getClients().pipe(takeUntil(this._unsubscribeAll)).subscribe(clients => {
-			this.rows = JSON.parse(JSON.stringify(clients));
+	suscribeToData() {
+		this.stockFacade.getStockList().pipe(takeUntil(this._unsubscribeAll)).subscribe(stockList => {
+			this.rows = JSON.parse(JSON.stringify(stockList));
 			this.tempData = this.rows;
 		})
 	}
@@ -213,7 +204,4 @@ export class ClientListComponent implements OnInit {
 		this._unsubscribeAll.complete();
 	}
 
-	getMainContact(contacts: Contact[]) {
-		return contacts.find(contact => !!contact.mainContact);
-	}
 }

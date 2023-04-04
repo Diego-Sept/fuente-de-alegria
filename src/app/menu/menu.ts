@@ -55,14 +55,6 @@ export const menu: CoreMenu[] = [
         url: 'myData'
       },
       {
-        id: 'budgets',
-        title: 'Budgets',
-        translate: 'MENU.TITLES.BUDGETS',
-        type: 'item',
-        icon: 'file-text',
-        url: 'budgets'
-      },
-      {
         id: 'paydesks',
         title: 'Paydesks',
         translate: 'MENU.TITLES.PAYDESK',
@@ -77,14 +69,6 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'grid',
         url: 'schedules'
-      },
-      {
-        id: 'calendar',
-        title: 'Calendar',
-        translate: 'MENU.TITLES.CALENDAR',
-        type: 'item',
-        icon: 'calendar',
-        url: 'calendar'
       }
     ]
   },
@@ -118,6 +102,39 @@ export const menu: CoreMenu[] = [
         type: 'item',
         icon: 'check-square',
         url: 'stock'
+      }
+    ]
+  },
+  {
+    id: 'events_management',
+    type: 'section',
+    title: 'Events Management',
+    translate: 'MENU.TITLES.EVENTS_MANAGEMENT',
+    icon: 'package',
+    children: [
+      {
+        id: 'event-types',
+        title: 'Event types',
+        translate: 'MENU.TITLES.EVENT_TYPES',
+        type: 'item',
+        icon: 'file-text',
+        url: 'event-types'
+      },
+      {
+        id: 'budgets',
+        title: 'Budgets',
+        translate: 'MENU.TITLES.BUDGETS',
+        type: 'item',
+        icon: 'file-text',
+        url: 'budgets'
+      },
+      {
+        id: 'calendar',
+        title: 'Calendar',
+        translate: 'MENU.TITLES.CALENDAR',
+        type: 'item',
+        icon: 'calendar',
+        url: 'calendar'
       }
     ]
   }

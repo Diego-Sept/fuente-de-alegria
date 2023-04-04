@@ -17,7 +17,7 @@ export class StoresService {
    */
   constructor(private http: HttpClient, private restUtilitiesService: RestUtilitiesService) { }
 
-  getStores(qps): Observable<Store[]> {
+  getStores(qps?): Observable<Store[]> {
 
     const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
     const queryParams: HttpParams = qps ? this.restUtilitiesService.createAndAppendQps(this.restUtilitiesService.formatQPs(qps)) : null;

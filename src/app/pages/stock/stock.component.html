@@ -1,1 +1,119 @@
-<p>stock works!</p>
+<div class="content-wrapper container-xxl p-0">
+	<div class="content-body">
+		<!-- User List -->
+		<h2 class="card-header">Stock
+			<button type="button" class="btn btn-primary float-right" (click)="isCollapsed5 = !isCollapsed5"
+				[attr.aria-expanded]="!isCollapsed5" aria-controls="collapseExample4" rippleEffect>
+				Filtros
+				<span class="btn-label">
+					<i class="fa fa-chevron-down"></i>
+				</span>
+			</button>
+		</h2>
+
+		<!-- users filter start -->
+		<div class="card">
+			<div [ngbCollapse]="isCollapsed5">
+				<div class="card-body">
+					<div class="users-list-filter">
+						<br>
+						<form>
+							<div class="row">
+								<!-- Client Name Filter -->
+								<div class="col-12 col-md-4">
+									<label>
+										<h4> Producto </h4>
+									</label>
+									<input [(ngModel)]="searchByProduct" name="searchByProduct" type="searchByProduct"
+										class="form-control ml-25" (keyup)="filterByProduct($event)"
+										(search)="filterByProduct($event)" />
+								</div>
+								<!-- DNI Filter -->
+								<div class="col-12 col-md-4">
+									<label>
+										<h4> Inventario </h4>
+									</label>
+									<input [(ngModel)]="searchByStore" name="searchByStore" type="searchByStore"
+										class="form-control ml-25" (keyup)="filterByStore($event)"
+										(search)="filterByStore($event)" />
+								</div>
+							</div>
+						</form>
+					</div>
+				</div>
+			</div>
+			<!-- users filter end -->
+
+			<!-- client show x & add client start -->
+			<section class="users-list-wrapper">
+				<div class="card">
+					<div class="row">
+						<div class="col-md-6 col-12">
+							<div class="d-flex justify-content-between align-items-center m-1">
+								<label class="d-flex align-items-center">Mostrar
+									<select class="form-control mx-25" [(ngModel)]="selectedOption">
+										<option value="10">10</option>
+										<option value="25">25</option>
+										<option value="50">50</option>
+										<option value="100">100</option>
+									</select>
+									registros</label>
+							</div>
+						</div>
+						<div class="col-md-6 col-12 d-flex justify-content-start justify-content-md-end">
+							<div class="d-flex align-items-center justify-content-end pr-1 pb-1 pb-md-0">
+								<button class="btn btn-primary ml-1" (click)="toggleSidebar('stock-sidebar')"
+									rippleEffect>
+									<i data-feather="plus" class="mr-0 mr-sm-1"></i><span
+										class="d-none d-sm-inline-block">Añadir stock</span>
+								</button>
+							</div>
+						</div>
+					</div>
+					<ngx-datatable [rows]="rows" [rowHeight]="50" limit="10" class="bootstrap core-bootstrap"
+						[columnMode]="ColumnMode.force" [headerHeight]="50" [footerHeight]="50" [scrollbarH]="true">
+						<ngx-datatable-column name="Producto" prop="product" [width]="200">
+							<ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+								<span class="text-font-2"> {{ row.product?.name }} </span>
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column name="Inventario" prop="store" [width]="200">
+							<ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+								<span class="text-font-2"> {{ row.store?.name }}</span>
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column name="Cantidad" prop="quantity" [width]="200">
+							<ng-template let-row="row" let-name="value" ngx-datatable-cell-template>
+								<span class="text-font-2"> {{ row.quantity }}</span>
+							</ng-template>
+						</ngx-datatable-column>
+						<ngx-datatable-column name="Actions" [width]="40" [sortable]="false">
+							<ng-template ngx-datatable-cell-template let-row="row">
+								<div class="d-flex flex-row">
+									<div (click)="toggleSidebar('stock-edit-sidebar', row.id)">
+										<i data-feather="edit" class="text-primary cursor-pointer"></i>
+									</div>
+									<div (click)="deleteStock(row.id)">
+										<i data-feather="trash" class="text-primary cursor-pointer"></i>
+									</div>
+								</div>
+							</ng-template>
+						</ngx-datatable-column>
+					</ngx-datatable>
+				</div>
+				<!--/ User List -->
+			</section>
+		</div>
+		<!-- New User Sidebar -->
+
+		<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="stock-sidebar"
+			overlayClass="modal-backdrop">
+			<app-stock-sidebar></app-stock-sidebar>
+		</core-sidebar>
+		<core-sidebar class="modal modal-slide-in sidebar-todo-modal fade" name="stock-edit-sidebar"
+			overlayClass="modal-backdrop">
+			<app-stock-sidebar [stockId]="this.stockToEdit"></app-stock-sidebar>
+		</core-sidebar>
+
+	</div>
+</div>

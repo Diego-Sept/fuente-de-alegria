@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, ViewEncapsulation } from '@angular/core';
 import { Router } from '@angular/router';
 import { CoreSidebarService } from '@core/components/core-sidebar/core-sidebar.service';
 import { CoreConfigService } from '@core/services/config.service';
@@ -12,7 +12,8 @@ import { User } from '../clients/interface/client.interface';
 @Component({
   selector: 'app-products',
   templateUrl: './products.component.html',
-  styleUrls: ['./products.component.scss']
+  styleUrls: ['./products.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
 export class ProductsComponent implements OnInit {
 
@@ -63,7 +64,6 @@ export class ProductsComponent implements OnInit {
 	 */
 	filterUpdate(event) {
 		// Reset ng-select on search
-		//this.selectedName = this.selectedName[0];
 
 		const val = event.target.value.toLowerCase();
 
