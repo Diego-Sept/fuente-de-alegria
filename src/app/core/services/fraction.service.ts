@@ -4,21 +4,21 @@ import { environment } from "environments/environment";
 import { Observable } from "rxjs";
 import { map } from "rxjs/operators";
 import { RestUtilitiesService } from "./rest-utilities.service";
-import { Client, ClientDto } from '../../pages/clients/interface/client.interface';
+import { CreateFractionDto, Fraction } from "app/pages/fraction/interface/fraction.interface";
 
 @Injectable({
     providedIn: 'root'
 })
-export class ClientService {
+export class FractionService {
 
     constructor(private http: HttpClient, private restUtilitiesService: RestUtilitiesService) { }
 
-    getClients(qps?): Observable<Client[]> {
+    getFractions(qps): Observable<Fraction[]> {
 
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         const queryParams: HttpParams = qps ? this.restUtilitiesService.createAndAppendQps(this.restUtilitiesService.formatQPs(qps)) : null;
         return this.http
-            .get<any>(`${environment.apiUrl}/clients`, {
+            .get<any>(`${environment.apiUrl}/fractions`, {
                 headers: queryHeaders,
                 observe: 'response',
                 params: queryParams,
@@ -30,10 +30,10 @@ export class ClientService {
             );
     }
 
-    getClientById(id): Observable<Client> {
+    getFractionById(id): Observable<Fraction> {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-            .get<any>(`${environment.apiUrl}/clients/${id}`, {
+            .get<any>(`${environment.apiUrl}/fractions/${id}`, {
                 headers: queryHeaders,
                 observe: 'response',
             })
@@ -44,10 +44,10 @@ export class ClientService {
             );
     }
 
-    postClient(client: ClientDto): Observable<Client> {
+    postFraction(fraction: CreateFractionDto): Observable<Fraction> {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-            .post<any>(`${environment.apiUrl}/clients`, JSON.stringify(client), {
+            .post<any>(`${environment.apiUrl}/fractions`, JSON.stringify(fraction), {
                 headers: queryHeaders,
                 observe: 'response',
             })
@@ -58,10 +58,10 @@ export class ClientService {
             );
     }
 
-    deleteClient(id: number) {
+    deleteFraction(id: number) {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
-            .delete<any>(`${environment.apiUrl}/clients/${id}`, {
+            .delete<any>(`${environment.apiUrl}/fractions/${id}`, {
                 headers: queryHeaders,
                 observe: 'response',
             })
@@ -72,12 +72,12 @@ export class ClientService {
             );
     }
 
-    patchClient(id: number, clientDto: ClientDto) {
+    patchFraction(id: number, fractionDto: CreateFractionDto) {
         const queryHeaders = new HttpHeaders().append('Content-Type', 'application/json');
         return this.http
             .patch<any>(
-                `${environment.apiUrl}/clients/${id}`,
-                JSON.stringify(clientDto),
+                `${environment.apiUrl}/fractions/${id}`,
+                JSON.stringify(fractionDto),
                 {
                     headers: queryHeaders,
                     observe: 'response',

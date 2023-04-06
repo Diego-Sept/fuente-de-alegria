@@ -47,6 +47,14 @@ export const menu: CoreMenu[] = [
         url: 'clients'
       },
       {
+        id: 'fractions',
+        title: 'Grupo de Clientes',
+        translate: 'MENU.TITLES.FRACTIONS',
+        type: 'item',
+        icon: 'user',
+        url: 'fractions'
+      },
+      {
         id: 'myData',
         title: 'MyData',
         translate: 'MENU.TITLES.MYDATA',

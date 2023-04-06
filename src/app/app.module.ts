@@ -89,6 +89,11 @@ const appRoutes: Routes = [
     canActivate: [AuthGuard]
   },
   {
+    path: 'fractions',
+    loadChildren: () => import('./pages/fraction/fractions.module').then(m => m.FractionsModule),
+    canActivate: [AuthGuard]
+  },
+  {
     path: 'budgets',
     loadChildren: () => import('./pages/budgets/budgets.module').then(m => m.BudgetsModule),
     canActivate: [AuthGuard]
