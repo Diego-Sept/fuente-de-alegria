@@ -17,6 +17,7 @@ import { ClientService } from 'app/core/services/client.service';
 export class FractionsSidebarComponent implements OnInit {
 
 	public clients: Client[];
+	public fullname;
 	public clientsSelected;
 	public ReactiveFractionDetailsForm: FormGroup;
 	public ReactiveFractionFormSubmitted = false;
@@ -115,11 +116,25 @@ export class FractionsSidebarComponent implements OnInit {
 	 */
 
 	ngOnInit(): void {
-		this.initForm();
-		this.clientService.getClients().toPromise().then(clients => {
-			this.clients = clients;
-		})
 		
+		this.clientService.getClients().toPromise().then(clients => {
+			this.clients = clients.map(client => {
+				return {
+					"id": client.id,
+					"name": client.name,
+					"surname": client.surname,
+					"identificationNumber": client.identificationNumber,
+					"contacts": client.contacts,
+					"guestsQuantity": client.guestsQuantity,
+					"user": client.user,
+					"address": client.address,
+					"fullname": client.name + ' ' + client.surname
+				}
+			})
+
+		})
+
+		this.initForm();
 	}
 
     ngOnChanges(changes: SimpleChanges){

@@ -51,7 +51,7 @@ export const menu: CoreMenu[] = [
         title: 'Grupo de Clientes',
         translate: 'MENU.TITLES.FRACTIONS',
         type: 'item',
-        icon: 'user',
+        icon: 'users',
         url: 'fractions'
       },
       {
@@ -59,7 +59,7 @@ export const menu: CoreMenu[] = [
         title: 'MyData',
         translate: 'MENU.TITLES.MYDATA',
         type: 'item',
-        icon: 'database',
+        icon: 'file-text',
         url: 'myData'
       },
       {
@@ -92,7 +92,7 @@ export const menu: CoreMenu[] = [
         title: 'Productos',
         translate: 'MENU.TITLES.PRODUCTS',
         type: 'item',
-        icon: 'check-square',
+        icon: 'package',
         url: 'products'
       },
       {
@@ -108,7 +108,7 @@ export const menu: CoreMenu[] = [
         title: 'Stock',
         translate: 'MENU.TITLES.STOCK',
         type: 'item',
-        icon: 'check-square',
+        icon: 'layers',
         url: 'stock'
       }
     ]
@@ -125,7 +125,7 @@ export const menu: CoreMenu[] = [
         title: 'Saloons',
         translate: 'MENU.TITLES.SALOONS',
         type: 'item',
-        icon: 'file-text',
+        icon: 'home',
         url: 'saloons'
       },
       {
@@ -133,7 +133,7 @@ export const menu: CoreMenu[] = [
         title: 'Event types',
         translate: 'MENU.TITLES.EVENT_TYPES',
         type: 'item',
-        icon: 'file-text',
+        icon: 'clipboard',
         url: 'event-types'
       },
       {

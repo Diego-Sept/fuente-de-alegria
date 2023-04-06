@@ -21,21 +21,13 @@
 
                     <div class="form-group">
                         <label for="FractionClients">Clientes</label>
-                        <ng-select id="FractionClients" [items]="clients" [multiple]="true" [closeOnSelect]="false" [searchable]="false" bindLabel="name" placeholder="Seleccionar clientes" [(ngModel)]="this.clientsSelected" formControlName="clients">
+                        <ng-select id="FractionClients" [items]="clients" [multiple]="true" [closeOnSelect]="false" [searchable]="false" bindLabel="fullname" placeholder="Seleccionar clientes" [(ngModel)]="this.clientsSelected" formControlName="clients">
                             <ng-template ng-label-tmp let-item="item" let-clear="clear">
-                                <span class="ng-value-label"> {{ item.name }}</span>
+                                <span class="ng-value-label"> {{ item.name + ' ' + item.surname }}</span>
                                 <span class="ng-value-icon right" (click)="clear(item)" aria-hidden="true">×</span>
                             </ng-template>
                         </ng-select>
 
-
-                        <!-- <label for="FractionClients">Clientes</label>
-                        <select id="FractionClients" formControlName="clients" class="form-control" [ngClass]="{ 'is-invalid': ReactiveFractionFormSubmitted && ReactiveFractionForm.clients.errors }" [(ngModel)]="this.clientsSelected" placeholder="Seleccione clientes" multiple>
-                            <option *ngFor="let client of this.clients" value="{{clients}}">{{ client.name + "  " + client.surname}}</option>
-                    </select>
-                        <div *ngIf="ReactiveFractionFormSubmitted && ReactiveFractionForm.clients.errors" class="invalid-feedback">
-                            <div *ngIf="ReactiveFractionForm.clients.errors.required">Cliente requerido</div>
-                        </div> -->
                     </div>
                     <button type="submit" class="btn btn-primary mr-1" rippleEffect> {{ (!!this.fractionId) ? 'Editar' : 'Añadir' }} </button>
                     <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar(toggleIfIsUpdating())" rippleEffect> Cancelar </button>

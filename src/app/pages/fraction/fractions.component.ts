@@ -150,7 +150,7 @@ export class FractionsComponent implements OnInit {
 	delete(id: number) {
 		this.fractionFacade.deleteFraction(id).subscribe(resp => {
 			Swal.fire({
-				title: 'El fractiono se eliminó con éxito!!!',
+				title: 'El Grupo de Clientes se eliminó con éxito!!!',
 				icon: 'success'
 			}).then(_ => {
 				  this._router.navigate([`/fractions`]);

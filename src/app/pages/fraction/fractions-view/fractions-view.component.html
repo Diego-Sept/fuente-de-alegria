@@ -1,0 +1,51 @@
+<div class="content-wrapper container-xxl p-0">
+    <div class="content-body">
+        <!-- page clients view start -->
+        <section class="app-fractions-view">
+            <!-- client Card & Plan Starts -->
+            <div class="card">
+                <div class="card-body">
+                    <form>
+                        <div class="row">
+                            <!-- client Card starts-->
+                            <div class="col-xl-12 col-lg-8 col-md-7">
+                                <div class="card client-card">
+                                    <div class="card-body">
+                                        <div class="col-xl-6 col-lg-12 mt-2 mt-xl-0">
+                                            <!-- fullname -->
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <h4> Datos del cliente: </h4>
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Nombre del grupo</span>
+                                                    </div>
+                                                    <p class="card-text mb-0">{{ data.name }}</p>
+                                                </div>
+                                            </div>
+                                            <!-- DNI -->
+                                            <div class="d-flex flex-wrap my-50">
+                                                <div class="form-group">
+                                                    <div class="client-info-title">
+                                                        <span class="card-text client-info-title font-weight-bold mb-0">Clientes</span>
+                                                    </div>
+                                                    <p class="card-text mb-0" *ngFor="let client of data.clients">{{ client.name + ' ' + client.surname }}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <!-- Buttons -->
+                                    <div class="col-12 d-flex flex-sm-row flex-column mt-2 justify-content-end">
+                                        <button class="btn btn-outline-primary ml-1" (click)="redirectToFractions('fractions')" rippleEffect>
+                                            Salir
+                                           </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </section>
+    </div>
+</div>
+<!-- /client Card Ends-->

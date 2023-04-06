@@ -14,17 +14,27 @@ import { ContentHeaderModule } from 'app/layout/components/content-header/conten
 import { Ng2FlatpickrModule } from 'ng2-flatpickr';
 import { FractionsComponent } from './fractions.component';
 import { FractionsSidebarComponent } from './fractions-sidebar/fractions-sidebar.component';
+import { FractionsViewComponent } from './fractions-view/fractions-view.component';
 
 const routes = [
   {
     path: '',
     component: FractionsComponent
   },
+  {
+    path: 'fractions-view/:id',
+    component: FractionsViewComponent
+  },
+  {
+    path: 'fractions-view',
+    redirectTo: 'fractions-view/:id'
+  },
 ];
 
 @NgModule({
   declarations: [
     FractionsComponent,
+    FractionsViewComponent,
     FractionsSidebarComponent
   ],
   imports: [
@@ -46,6 +56,7 @@ const routes = [
   ],
   exports: [
     FractionsComponent,
+    FractionsViewComponent,
     FractionsSidebarComponent
   ]
 })
