@@ -73,7 +73,7 @@ export class FractionsSidebarComponent implements OnInit {
         } else {
             this.fractionFacade.addFraction(fractionData).subscribe(_ => {
                 Swal.fire({
-                    text: 'El grrupo de clientes se creó exitosamente',
+                    text: 'El grupo de clientes se creó exitosamente',
                     icon: 'success'
                 })
                 this.initForm();
@@ -103,6 +103,7 @@ export class FractionsSidebarComponent implements OnInit {
 		this.ReactiveFractionFormSubmitted = false;
 		this.ReactiveFractionDetailsForm = this.formBuilder.group({
 			name: ['', Validators.required],
+			clients: ['', Validators.required]
 		});
 	}
 
@@ -114,10 +115,11 @@ export class FractionsSidebarComponent implements OnInit {
 	 */
 
 	ngOnInit(): void {
+		this.initForm();
 		this.clientService.getClients().toPromise().then(clients => {
 			this.clients = clients;
 		})
-		this.initForm();
+		
 	}
 
     ngOnChanges(changes: SimpleChanges){
