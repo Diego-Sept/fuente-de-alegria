@@ -1,0 +1,88 @@
+<div class="slideout-content">
+    <!-- Modal to add new store starts-->
+    <div class="modalsd modal-slide-in sdfade new-store-modal" id="modals-slide-in">
+        <div class="modal-dialog">
+            <form class="add-new-store modal-content pt-0" [formGroup]="ReactiveBudgetDetailsForm" (ngSubmit)="ReactiveBudgetFormOnSubmit()">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="toggleSidebar(toggleIfIsUpdating())">
+          ×
+        </button>
+                <div class="modal-header mb-1">
+                    <h5 class="modal-title" id="exampleModalLabel">{{ (!!this.budgetId) ? 'Editar Presupuesto' : 'Nuevo Presupuesto' }}</h5>
+                </div>
+                <div class="modal-body flex-grow-1">
+
+                    <div class="form-group">
+                        <!-- Title -->
+                        <label for="BudgetTitle">Nombre</label>
+                        <input type="text" id="BudgetTitle" [(ngModel)]="BudgetForm.title" formControlName="title" 
+                            class="form-control" [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted && ReactiveBudgetForm.title.errors }" />
+                        <div *ngIf="ReactiveBudgetFormSubmitted && ReactiveBudgetForm.title.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveBudgetForm.title.errors.required">Nombre requerido</div>
+                        </div>
+                        <!-- Clients -->
+                        <label for="BudgetClients">Clientes</label>
+                        <select id="BudgetClients" formControlName="clients" class="form-control"
+                            [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted && ReactiveBudgetForm.client.errors }"
+                            [(ngModel)]="this.clientsSelected" placeholder="Seleccione Clientes">
+                            <option *ngFor="let client of this.clients" value="{{client.id}}">{{ client.name }}</option>
+                        </select>
+                        <div *ngIf="ReactiveBudgetFormSubmitted && ReactiveBudgetForm.client.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveBudgetForm.product.client.required">Al menos 1 cliente es requerido</div>
+                        </div>
+                        <!-- Saloons -->
+                        <label for="BudgetSaloon">Salon</label>
+                        <select id="BudgetSaloon" formControlName="saloon" class="form-control"
+                            [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted && ReactiveBudgetForm.saloon.errors }"
+                            [(ngModel)]="BudgetForm.saloon" placeholder="Seleccione Salon">
+                            <option *ngFor="let saloon of this.saloon" value="{{saloon.id}}">{{ saloon.name }}</option>
+                        </select>
+                        <div *ngIf="ReactiveBudgetFormSubmitted && ReactiveBudgetForm.saloon.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveBudgetForm.product.saloon.required">Se requiere elegir un salon</div>
+                        </div>
+                        <!-- Event Type -->
+                        <label for="BudgetEventType">Tipo de Evento</label>
+                        <select id="BudgetEventType" formControlName="eventType" class="form-control"
+                            [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted && ReactiveBudgetForm.eventType.errors }"
+                            [(ngModel)]="BudgetForm.eventType" placeholder="Seleccione Salon">
+                            <option *ngFor="let eventType of this.eventType" value="{{eventType.id}}">{{ eventType.name }}</option>
+                        </select>
+                        <div *ngIf="ReactiveBudgetFormSubmitted && ReactiveBudgetForm.eventType.errors" class="invalid-feedback">
+                            <div *ngIf="ReactiveBudgetForm.product.eventType.required">Se requiere elegir un evento</div>
+                        </div>
+                         <!-- Start Date -->
+                         <label for="BudgetEventType">Fecha de Inicio</label>
+                         <ng2-flatpickr [config]="startDateOptions" name="startDate" formControlName="startDate" placeholder="Elegir una fecha" #startDatePicker></ng2-flatpickr>
+                         <!-- End Date -->
+                         <label for="BudgetEventType">Fecha de Inicio</label>
+                         <ng2-flatpickr [config]="endDateOptions" name="endDate" formControlName="endDate" placeholder="Elegir una fecha" #endDatePicker></ng2-flatpickr>
+                         <!-- Amount -->
+                         <label for="BudgetAmount">Monto</label>
+                         <input type="number" id="BudgetAmount" [(ngModel)]="BudgetForm.amount" formControlName="amount" 
+                             class="form-control" [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted && ReactiveBudgetForm.amount.errors }" />
+                         <div *ngIf="ReactiveBudgetFormSubmitted && ReactiveBudgetForm.amount.errors" class="invalid-feedback">
+                             <div *ngIf="ReactiveBudgetForm.amount.errors.required">Se requiere ingresar un monto</div>
+                         </div>
+                         <!-- State -->
+                         <!--  <label for="BudgetState">Estado</label>
+                          <select id="BudgetState" formControlName="state" class="form-control"
+                            [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted && ReactiveBudgetForm.state.errors }"
+                            [(ngModel)]="BudgetForm.state" placeholder="Seleccione Salon">
+                            <option *ngFor="let state of this.states" value="{{state.id}}">{{ state.name }}</option>
+                        </select>
+                          <div *ngIf="ReactiveBudgetFormSubmitted && ReactiveBudgetForm.amount.errors" class="invalid-feedback">
+                              <div *ngIf="ReactiveBudgetForm.amount.errors.required">Se requiere ingresar un monto</div>
+                          </div> -->
+                         <!-- Obervations -->
+                        <label for="BudgetObservations">Observaciones</label>
+                        <textarea name="observation" id="BudgetObservations" [(ngModel)]="BudgetForm.observations" formControlName="observations" 
+                            class="form-control" [ngClass]="{ 'is-invalid': ReactiveBudgetFormSubmitted }"></textarea>
+                    </div>
+
+                    <button type="submit" class="btn btn-primary mr-1" rippleEffect> {{ (!!this.budgetId) ? 'Editar' : 'Añadir' }} </button>
+                    <button type="reset" class="btn btn-outline-secondary" (click)="toggleSidebar(toggleIfIsUpdating())" rippleEffect> Cancelar </button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <!-- Modal to add new client Ends-->
+</div>
